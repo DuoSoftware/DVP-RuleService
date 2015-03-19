@@ -63,7 +63,7 @@ var AddOutboundRule = function(ruleInfo, callback)
                                             {
                                                 if(err)
                                                 {
-                                                    callback(err, -1, undefined);
+                                                    callback(err, -1, false);
                                                 }
                                                 else if(num)
                                                 {
@@ -127,7 +127,7 @@ var AddOutboundRule = function(ruleInfo, callback)
                                         {
                                             if (err)
                                             {
-                                                callback(err, -1, undefined);
+                                                callback(err, -1, false);
                                             }
                                             else if (num)
                                             {
@@ -313,8 +313,7 @@ var AddInboundRule = function(ruleInfo, callback)
                             }
                         }
                         catch (ex) {
-                            console.log(ex.toString());
-                            callback(undefined, undefined);
+                                callback(ex, undefined);
                         }
 
                     })
@@ -342,3 +341,7 @@ var AddInboundRule = function(ruleInfo, callback)
 
 
 };
+
+
+module.exports.AddOutboundRule = AddOutboundRule;
+module.exports.AddInboundRule = AddInboundRule;
