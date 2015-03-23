@@ -12,6 +12,242 @@ server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
 
+
+server.get('/DVP/API/:version/CallRule/GetCallRules/:companyId/:tenantId', function(req, res, next)
+{
+    try
+    {
+        var companyId = req.params.companyId;
+        var tenantId = req.params.tenantId;
+
+        ruleBackendHandler.GetCallRulesForCompany(companyId, tenantId, function (err, result)
+        {
+            if (err)
+            {
+                var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, result);
+                res.end(jsonString);
+            }
+            else
+            {
+                var jsonString = messageFormatter.FormatMessage(err, "Get call rules success", true, result);
+                res.end(jsonString);
+            }
+        });
+
+        return next();
+    }
+    catch(ex)
+    {
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, undefined);
+        res.end(jsonString);
+    }
+
+    return next();
+
+});
+
+server.get('/DVP/API/:version/CallRule/GetCallRule/:id/:companyId/:tenantId', function(req, res, next)
+{
+    try
+    {
+        var id = req.params.id;
+        var companyId = req.params.companyId;
+        var tenantId = req.params.tenantId;
+
+        ruleBackendHandler.GetCallRuleById(id, companyId, tenantId, function (err, result)
+        {
+            if (err)
+            {
+                var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, result);
+                res.end(jsonString);
+            }
+            else
+            {
+                var jsonString = messageFormatter.FormatMessage(err, "Get call rule success", true, result);
+                res.end(jsonString);
+            }
+        });
+
+        return next();
+    }
+    catch(ex)
+    {
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, undefined);
+        res.end(jsonString);
+    }
+
+    return next();
+
+});
+
+server.post('/DVP/API/:version/CallRule/SetTrunkNumber/:id/:trunkNumber/:companyId/:tenantId', function(req, res, next)
+{
+    try
+    {
+        var id = req.params.id;
+        var trunkNumber = req.params.trunkNumber;
+        var companyId = req.params.companyId;
+        var tenantId = req.params.tenantId;
+
+        if(id)
+        {
+            ruleBackendHandler.SetOutboundRuleTrunkNumber(id, trunkNumber, companyId, tenantId, function(err, result){
+
+                if(err)
+                {
+                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, -1);
+                    res.end(jsonString);
+                }
+                else
+                {
+                    var jsonString = messageFormatter.FormatMessage(err, "Call rule activity set successfully", result, -1);
+                    res.end(jsonString);
+                }
+            })
+        }
+        else
+        {
+            throw new Error("Empty id");
+        }
+        return next();
+    }
+    catch(ex)
+    {
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, -1);
+        res.end(jsonString);
+    }
+
+    return next();
+
+});
+
+server.post('/DVP/API/:version/CallRule/SetCallRuleRegEx/:id/:DNISRegExMethod/:ANIRegExMethod/:DNIS/:ANI/:companyId/:tenantId', function(req, res, next)
+{
+    try
+    {
+        var id = req.params.id;
+        var DNISRegExMethod = req.params.DNISRegExMethod;
+        var ANIRegExMethod = req.params.ANIRegExMethod;
+        var DNIS = req.params.DNIS;
+        var ANI = req.params.ANI;
+        var companyId = req.params.companyId;
+        var tenantId = req.params.tenantId;
+
+        if(id)
+        {
+            ruleBackendHandler.SetCallOutboundRuleRegEx(id, trunkNumber, companyId, tenantId, function(err, result){
+
+                if(err)
+                {
+                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, -1);
+                    res.end(jsonString);
+                }
+                else
+                {
+                    var jsonString = messageFormatter.FormatMessage(err, "Call rule activity set successfully", result, -1);
+                    res.end(jsonString);
+                }
+            })
+        }
+        else
+        {
+            throw new Error("Empty id");
+        }
+        return next();
+    }
+    catch(ex)
+    {
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, -1);
+        res.end(jsonString);
+    }
+
+    return next();
+
+});
+
+server.post('/DVP/API/:version/CallRule/SetCallRuleAvailability/:id/:enabled/:companyId/:tenantId', function(req, res, next)
+{
+    try
+    {
+        var id = req.params.id;
+        var enabled = req.params.enabled;
+        var companyId = req.params.companyId;
+        var tenantId = req.params.tenantId;
+
+        if(id)
+        {
+            ruleBackendHandler.SetCallRuleAvailability(id, enabled, companyId, tenantId, function(err, result){
+
+                if(err)
+                {
+                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, -1);
+                    res.end(jsonString);
+                }
+                else
+                {
+                    var jsonString = messageFormatter.FormatMessage(err, "Call rule activity set successfully", result, -1);
+                    res.end(jsonString);
+                }
+            })
+        }
+        else
+        {
+            throw new Error("Empty id");
+        }
+        return next();
+    }
+    catch(ex)
+    {
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, -1);
+        res.end(jsonString);
+    }
+
+    return next();
+
+});
+
+server.post('/DVP/API/:version/CallRule/SetCallRulePriority/:id/:priority/:companyId/:tenantId', function(req, res, next)
+{
+    try
+    {
+        var id = req.params.id;
+        var priority = req.params.priority;
+        var companyId = req.params.companyId;
+        var tenantId = req.params.tenantId;
+
+        if(id)
+        {
+            ruleBackendHandler.SetCallRuleAvailability(id, priority, companyId, tenantId, function(err, result){
+
+                if(err)
+                {
+                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, -1);
+                    res.end(jsonString);
+                }
+                else
+                {
+                    var jsonString = messageFormatter.FormatMessage(err, "Call rule priority set successfully", result, -1);
+                    res.end(jsonString);
+                }
+            })
+        }
+        else
+        {
+            throw new Error("Empty id");
+        }
+        return next();
+    }
+    catch(ex)
+    {
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, -1);
+        res.end(jsonString);
+    }
+
+    return next();
+
+});
+
+
 server.post('/DVP/API/:version/CallRule/AddOutboundRule', function(req, res, next)
 {
     try
@@ -29,7 +265,7 @@ server.post('/DVP/API/:version/CallRule/AddOutboundRule', function(req, res, nex
                 }
                 else
                 {
-                    var jsonString = messageFormatter.FormatMessage(err, "Trunk Added Successfully", result, recordId);
+                    var jsonString = messageFormatter.FormatMessage(err, "Outbound Rule Added Successfully", result, recordId);
                     res.end(jsonString);
                 }
             })
@@ -67,7 +303,7 @@ server.post('/DVP/API/:version/CallRule/AddInboundRule', function(req, res, next
                 }
                 else
                 {
-                    var jsonString = messageFormatter.FormatMessage(err, "Trunk Added Successfully", result, recordId);
+                    var jsonString = messageFormatter.FormatMessage(err, "Inbound Rule Added Successfully", result, recordId);
                     res.end(jsonString);
                 }
             })
@@ -75,6 +311,48 @@ server.post('/DVP/API/:version/CallRule/AddInboundRule', function(req, res, next
         else
         {
             throw new Error("Empty Body");
+        }
+        return next();
+    }
+    catch(ex)
+    {
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, -1);
+        res.end(jsonString);
+    }
+
+    return next();
+
+});
+
+server.post('/DVP/API/:version/CallRule/DeleteRule/:id/:companyId/:tenantId', function(req, res, next)
+{
+    try
+    {
+        var id = req.params.id;
+        var companyId = req.params.companyId;
+        var tenantId = req.params.tenantId;
+
+        intId = parseInt(id);
+
+        if(intId != NaN)
+        {
+            ruleBackendHandler.DeleteCallRule(id, companyId, tenantId, function(err, recordId, result){
+
+                if(err)
+                {
+                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, recordId);
+                    res.end(jsonString);
+                }
+                else
+                {
+                    var jsonString = messageFormatter.FormatMessage(err, "Rule Deleted Successfully", result, recordId);
+                    res.end(jsonString);
+                }
+            })
+        }
+        else
+        {
+            throw new Error("Rule Id need to be an integer");
         }
         return next();
     }

@@ -24,6 +24,101 @@ var GetPhoneNumber = function(phoneNumber, companyId, tenantId, callback)
     }
 };
 
+var GetCallRulesForCompany = function(companyId, tenantId, callback)
+{
+    try
+    {
+        dbModel.CallRule.findAll({where: [{CompanyId: companyId},{TenantId: tenantId}]})
+            .complete(function (err, callRules)
+            {
+                if(err)
+                {
+                    callback(err, undefined);
+                }
+                else
+                {
+                    callback(undefined, callRules);
+                }
+            });
+    }
+    catch(ex)
+    {
+        callback(ex, undefined);
+    }
+};
+
+var GetCallRuleById = function(ruleId, companyId, tenantId, callback)
+{
+    try
+    {
+        dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId},{TenantId: tenantId}]})
+            .complete(function (err, callRule)
+            {
+                if(err)
+                {
+                    callback(err, undefined);
+                }
+                else
+                {
+                    callback(undefined, callRule);
+                }
+            });
+    }
+    catch(ex)
+    {
+        callback(ex, undefined);
+    }
+};
+
+var SetOutboundRuleTrunkNumber = function(ruleId, companyId, tenantId, trunkNum, callback)
+{
+    try
+    {
+        dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId},{TenantId: tenantId}]})
+            .complete(function (err, callRule)
+            {
+                if(err)
+                {
+                    callback(err, false);
+                }
+                else
+                {
+                    GetPhoneNumber(trunkNum, companyId, tenantId, function(err, num)
+                    {
+                        if(err)
+                        {
+                            callback(err, false);
+                        }
+                        else if(num)
+                        {
+                            callRule.updateAttributes({TrunkId: num.TrunkId, TrunkNumber: trunkNum}).complete(function (err)
+                            {
+                                if(err)
+                                {
+                                    callback(err, false);
+                                }
+                                else
+                                {
+                                    callback(undefined, true);
+                                }
+
+                            });
+                        }
+                        else
+                        {
+                            callback(new Error('Trunk number is not valid for the company'), false);
+                        }
+                    })
+                }
+            });
+    }
+    catch(ex)
+    {
+        callback(ex, undefined);
+    }
+
+}
+
 var AddOutboundRule = function(ruleInfo, callback)
 {
     try
@@ -75,8 +170,9 @@ var AddOutboundRule = function(ruleInfo, callback)
                                                         CompanyId: ruleInfo.CompanyId,
                                                         TenantId: ruleInfo.TenantId,
                                                         DNISRegEx: regExHandler.GenerateRegEx(ruleInfo.DNIS, ruleInfo.RegExPattern),
-                                                        ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.RegExPattern),
+                                                        ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.ANIRegExPattern),
                                                         RegExPattern: ruleInfo.RegExPattern,
+                                                        ANIRegExPattern: ruleInfo.ANIRegExPattern,
                                                         DNIS: ruleInfo.DNIS,
                                                         ANI: ruleInfo.ANI,
                                                         Priority: ruleInfo.Priority,
@@ -140,8 +236,9 @@ var AddOutboundRule = function(ruleInfo, callback)
                                                     CompanyId: ruleInfo.CompanyId,
                                                     TenantId: ruleInfo.TenantId,
                                                     DNISRegEx: regExHandler.GenerateRegEx(ruleInfo.DNIS, ruleInfo.RegExPattern),
-                                                    ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.RegExPattern),
+                                                    ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.ANIRegExPattern),
                                                     RegExPattern: ruleInfo.RegExPattern,
+                                                    ANIRegExPattern: ruleInfo.ANIRegExPattern,
                                                     DNIS: ruleInfo.DNIS,
                                                     ANI: ruleInfo.ANI,
                                                     Priority: ruleInfo.Priority,
@@ -244,8 +341,9 @@ var AddInboundRule = function(ruleInfo, callback)
                                         CompanyId: ruleInfo.CompanyId,
                                         TenantId: ruleInfo.TenantId,
                                         DNISRegEx: regExHandler.GenerateRegEx(ruleInfo.DNIS, ruleInfo.RegExPattern),
-                                        ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.RegExPattern),
+                                        ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.ANIRegExPattern),
                                         RegExPattern: ruleInfo.RegExPattern,
+                                        ANIRegExPattern: ruleInfo.ANIRegExPattern,
                                         DNIS: ruleInfo.DNIS,
                                         ANI: ruleInfo.ANI,
                                         Priority: ruleInfo.Priority,
@@ -281,8 +379,9 @@ var AddInboundRule = function(ruleInfo, callback)
                                     CompanyId: ruleInfo.CompanyId,
                                     TenantId: ruleInfo.TenantId,
                                     DNISRegEx: regExHandler.GenerateRegEx(ruleInfo.DNIS, ruleInfo.RegExPattern),
-                                    ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.RegExPattern),
+                                    ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.ANIRegExPattern),
                                     RegExPattern: ruleInfo.RegExPattern,
+                                    ANIRegExPattern: ruleInfo.ANIRegExPattern,
                                     DNIS: ruleInfo.DNIS,
                                     ANI: ruleInfo.ANI,
                                     Priority: ruleInfo.Priority,
@@ -342,6 +441,187 @@ var AddInboundRule = function(ruleInfo, callback)
 
 };
 
+var SetCallRuleAvailability = function(ruleId, enable, companyId, tenantId, callback)
+{
+    try
+    {
+        dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId}]}).complete(function (err, ruleRec)
+        {
+
+            if(err)
+            {
+                callback(err, false);
+            }
+            else if(ruleRec)
+            {
+                //update attrib
+                ruleRec.updateAttributes({Enable: enable}).complete(function (err)
+                {
+                    if(err)
+                    {
+                        callback(err, false);
+                    }
+                    else
+                    {
+                        callback(undefined, true);
+                    }
+
+                });
+            }
+            else
+            {
+                callback(new Error("Unable to find call rule for company"), false);
+            }
+
+        });
+    }
+    catch(ex)
+    {
+        callback(ex, false);
+    }
+};
+
+var SetCallOutboundRuleRegEx = function(ruleId, DNISRegExMethod, ANIRegExMethod, DNIS, ANI, companyId, tenantId, callback)
+{
+    try
+    {
+        dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId}]}).complete(function (err, ruleRec)
+        {
+            if(err)
+            {
+                callback(err, false);
+            }
+            else if(ruleRec)
+            {
+                //update attrib
+                if(ruleRec.ObjType == "Outbound")
+                {
+                    rule.updateAttributes(
+                        {
+                            DNISRegEx: regExHandler.GenerateRegEx(DNIS, DNISRegExMethod),
+                            ANIRegEx: regExHandler.GenerateRegEx(ANI, ANIRegExMethod),
+                            RegExPattern: DNISRegExMethod,
+                            ANIRegExPattern: ANIRegExMethod,
+                            DNIS: DNIS,
+                            ANI: ANI
+                        }).complete(function (err) {
+                            if (err) {
+                                callback(err, false);
+                            }
+                            else {
+                                callback(undefined, true);
+                            }
+
+                        });
+                }
+                else
+                {
+                    callback(new Error("Call rule provided to update is not an outbound rule"), false);
+                }
+
+
+            }
+            else
+            {
+                callback(new Error("Unable to find call rule for company"), false);
+            }
+
+        });
+    }
+    catch(ex)
+    {
+        callback(ex, false);
+    }
+};
+
+var SetCallRulePriority = function(ruleId, priority, companyId, tenantId, callback)
+{
+    try
+    {
+        dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId}]}).complete(function (err, ruleRec)
+        {
+
+            if(err)
+            {
+                callback(err, false);
+            }
+            else if(ruleRec)
+            {
+                //update attrib
+                ruleRec.updateAttributes({Priority: priority}).complete(function (err)
+                {
+                    if(err)
+                    {
+                        callback(err, false);
+                    }
+                    else
+                    {
+                        callback(undefined, true);
+                    }
+
+                });
+            }
+            else
+            {
+                callback(new Error("Unable to find call rule for company"), false);
+            }
+
+        });
+    }
+    catch(ex)
+    {
+        callback(ex, false);
+    }
+};
+
+var DeleteCallRule = function(ruleId, companyId, tenantId, callback)
+{
+    try
+    {
+        dbModel.CallRule.find({where: [{id: ruleId}]}).complete(function (err, ruleRec)
+        {
+            if (!err && ruleRec)
+            {
+                if(ruleRec.CompanyId == companyId)
+                {
+                    ruleRec.destroy().complete(function (err, result)
+                    {
+                        if(!err)
+                        {
+                            callback(undefined, true);
+                        }
+                        else
+                        {
+                            callback(err, false);
+                        }
+                    });
+                }
+                else
+                {
+                    callback(new Error('Rule belongs to a different company'))
+                }
+
+            }
+            else
+            {
+                callback(undefined, false);
+            }
+
+        })
+    }
+    catch(ex)
+    {
+        callback(ex, false);
+    }
+
+}
 
 module.exports.AddOutboundRule = AddOutboundRule;
 module.exports.AddInboundRule = AddInboundRule;
+module.exports.DeleteCallRule = DeleteCallRule;
+module.exports.SetCallRuleAvailability = SetCallRuleAvailability;
+module.exports.SetCallRulePriority = SetCallRulePriority;
+module.exports.GetCallRulesForCompany = GetCallRulesForCompany;
+module.exports.GetCallRuleById = GetCallRuleById;
+module.exports.SetOutboundRuleTrunkNumber = SetOutboundRuleTrunkNumber;
+module.exports.SetCallOutboundRuleRegEx = SetCallOutboundRuleRegEx;

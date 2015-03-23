@@ -167,8 +167,8 @@ function GetValuesOfId(obj,callback)
                 if(obj.CompanyId==obj.CompanyId)
                 {
                     console.log("Record Found");
-                    var Jresults = JSON.stringify(TransObject);
-                    callback(undefined, Jresults);
+
+                    callback(undefined, TransObject);
 
                 }
                 else
@@ -207,15 +207,9 @@ function GetAllByCompany(obj,callback)
             else if (TransObject && !err) {
                 // console.log("................................... Given Cloud Already in DB  ................................ ");
 
-
                     console.log("Record Found");
-                    var Jresults = JSON.stringify(TransObject);
-                    callback(undefined, Jresults);
 
-
-
-
-
+                    callback(undefined, TransObject);
 
             }
             else {
