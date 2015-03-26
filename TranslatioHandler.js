@@ -3,6 +3,8 @@
  */
 
 var DbConn = require('./DVP-DBModels');
+var messageFormatter = require('./DVP-Common/CommonMessageGenerator/ClientMessageJsonFormatter.js');
+
 
 
 
@@ -20,19 +22,22 @@ function TranslateHandler(obj,Tstring)
             var Rep=Replace(Radd,obj.Replace);
 
             console.log("Final Result :"+Rep);
-            return Rep;
+            var jsonString = messageFormatter.FormatMessage(null, "NEW Translate", true, Rep);
+            return jsonString;
 
         }
         else
         {
             console.log("Empty recieved to translate : ");
-            return Tstring;
+            var jsonString = messageFormatter.FormatMessage(null, "Empty returns", false, Tstring);
+            return jsonString;
         }
 
     }
     catch(ex)
     {
-
+        var jsonString = messageFormatter.FormatMessage(ex, "TH failed", false, res);
+        res.end(jsonString);
     }
 
 
