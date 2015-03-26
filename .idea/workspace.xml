@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b406db03-4908-4858-a22a-57ef849d250e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CallRuleBackendOperations.js" afterPath="$PROJECT_DIR$/CallRuleBackendOperations.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TranslationBackendOperations.js" afterPath="$PROJECT_DIR$/TranslationBackendOperations.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DVP-DBModels/LoadBalancer.js" afterPath="$PROJECT_DIR$/DVP-DBModels/LoadBalancer.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -32,17 +32,20 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="364" max-vertical-offset="1581">
-              <caret line="137" column="55" selection-start-line="137" selection-start-column="55" selection-end-line="137" selection-end-column="55" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="748" max-vertical-offset="986">
+              <caret line="406" column="3" selection-start-line="406" selection-start-column="3" selection-end-line="406" selection-end-column="3" />
               <folding>
                 <element signature="e#586#1376#0" expanded="false" />
                 <element signature="e#1483#2301#0" expanded="false" />
                 <element signature="e#2425#3463#0" expanded="false" />
+                <element signature="e#3620#4790#0" expanded="false" />
                 <element signature="e#4919#5942#0" expanded="false" />
-                <element signature="e#6068#7094#0" expanded="false" />
-                <element signature="e#7182#8069#0" expanded="false" />
-                <element signature="e#8155#9040#0" expanded="false" />
-                <element signature="e#9147#10184#0" expanded="false" />
+                <element signature="e#6068#7090#0" expanded="false" />
+                <element signature="e#7218#8244#0" expanded="false" />
+                <element signature="e#8372#9397#0" expanded="false" />
+                <element signature="e#9484#10371#0" expanded="false" />
+                <element signature="e#10796#11681#0" expanded="false" />
+                <element signature="e#11788#12825#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -61,7 +64,7 @@
       <file leaf-file-name="ClientMessageJsonFormatter.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DVP-Common/CommonMessageGenerator/ClientMessageJsonFormatter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="493">
+            <state vertical-scroll-proportion="0.0" vertical-offset="107" max-vertical-offset="493">
               <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
               <folding />
             </state>
@@ -71,30 +74,58 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DVP-DBModels/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="1411">
-              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-              <folding>
-                <marker date="1427087961826" expanded="true" signature="472:816" placeholder="[...]" />
-                <marker date="1427087961826" expanded="true" signature="2521:2523" placeholder="{...}" />
-              </folding>
+            <state vertical-scroll-proportion="0.0" vertical-offset="833" max-vertical-offset="1445">
+              <caret line="40" column="59" selection-start-line="40" selection-start-column="59" selection-end-line="40" selection-end-column="59" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CallRuleBackendOperations.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Cloud.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DVP-DBModels/Cloud.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="510">
+              <caret line="12" column="22" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoadBalancer.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/DVP-DBModels/LoadBalancer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="380">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CloudEndUser.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DVP-DBModels/CloudEndUser.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CallRuleBackendOperations.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CallRuleBackendOperations.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.6852174" vertical-offset="1703" max-vertical-offset="3893">
-              <caret line="518" column="98" selection-start-line="518" selection-start-column="98" selection-end-line="518" selection-end-column="98" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3333" max-vertical-offset="4539">
+              <caret line="714" column="63" selection-start-line="714" selection-start-column="63" selection-end-line="714" selection-end-column="63" />
               <folding>
                 <element signature="e#165#627#0" expanded="false" />
                 <element signature="e#699#1163#0" expanded="false" />
                 <element signature="e#1236#1708#0" expanded="false" />
                 <element signature="e#1802#3277#0" expanded="false" />
                 <element signature="e#3330#13222#0" expanded="false" />
-                <element signature="e#19312#20189#0" expanded="false" />
-                <element signature="e#21939#22820#0" expanded="false" />
-                <element signature="e#22892#23842#0" expanded="false" />
+                <element signature="e#19608#20485#0" expanded="false" />
+                <element signature="e#20611#22148#0" expanded="false" />
+                <element signature="e#22235#23116#0" expanded="false" />
+                <element signature="e#23188#24138#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -103,7 +134,7 @@
       <file leaf-file-name="CallRule.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DVP-DBModels/CallRule.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
+            <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="510">
               <caret line="4" column="58" selection-start-line="4" selection-start-column="50" selection-end-line="4" selection-end-column="58" />
               <folding />
             </state>
@@ -120,11 +151,12 @@
       <list>
         <option value="$PROJECT_DIR$/RegExHandler.js" />
         <option value="$PROJECT_DIR$/DVP-DBModels/CallRule.js" />
-        <option value="$PROJECT_DIR$/DVP-DBModels/index.js" />
         <option value="$PROJECT_DIR$/TranslationBackendOperations.js" />
         <option value="$PROJECT_DIR$/DVP-Common/SipNetworkProfileApi/SipNetworkProfileBackendHandler.js" />
-        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/DVP-DBModels/index.js" />
         <option value="$PROJECT_DIR$/CallRuleBackendOperations.js" />
+        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/DVP-DBModels/LoadBalancer.js" />
       </list>
     </option>
   </component>
@@ -179,34 +211,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DVP-RuleService" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DVP-RuleService" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DVP-DBModels" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DVP-RuleService" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DVP-RuleService" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DVP-Common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -217,6 +221,7 @@
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="FullScreen" value="false" />
   </component>
   <component name="RunManager" selected="Node.js.app.js">
     <configuration default="false" name="DBCreatorApi.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="DBCreatorApi.js" working-dir="$PROJECT_DIR$/DVP-DBModels">
@@ -231,14 +236,10 @@
       <ConfigurationWrapper RunnerId="debuggableProgram" />
       <method />
     </configuration>
-    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
-      <method />
-    </configuration>
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <method />
     </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
-      <envs />
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <method />
     </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
@@ -246,6 +247,10 @@
       <setting name="settingsFile" value="" />
       <setting name="serverType" value="INTERNAL" />
       <setting name="preferredDebugBrowser" value="Chrome" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
@@ -280,6 +285,9 @@
     </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="b406db03-4908-4858-a22a-57ef849d250e" name="Default" comment="" />
@@ -290,17 +298,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="1" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899022" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33876222" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24981412" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39739415" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899022" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2527881" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899022" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -308,9 +314,11 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899022" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39739415" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899022" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -333,17 +341,13 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>309</line>
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>254</line>
+          <line>335</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>292</line>
+          <line>374</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -378,85 +382,334 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>352</line>
+          <line>354</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>366</line>
+          <line>368</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>372</line>
+          <line>374</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>395</line>
+          <line>399</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>398</line>
+          <line>402</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>401</line>
+          <line>405</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>407</line>
+          <line>411</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>300</line>
+          <line>382</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>305</line>
+          <line>387</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>330</line>
+          <line>412</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>331</line>
+          <line>413</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>332</line>
+          <line>414</line>
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>338</line>
+          <line>420</line>
           <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>342</line>
+          <line>424</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>347</line>
+          <line>429</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/app.js</url>
+          <line>16</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="25" />
+      <option name="time" value="27" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/DVP-DBModels/CloudEndUser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CallRuleBackendOperations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3333" max-vertical-offset="4539">
+          <caret line="714" column="63" selection-start-line="714" selection-start-column="63" selection-end-line="714" selection-end-column="63" />
+          <folding>
+            <element signature="e#165#627#0" expanded="false" />
+            <element signature="e#699#1163#0" expanded="false" />
+            <element signature="e#1236#1708#0" expanded="false" />
+            <element signature="e#1802#3277#0" expanded="false" />
+            <element signature="e#3330#13222#0" expanded="false" />
+            <element signature="e#19608#20485#0" expanded="false" />
+            <element signature="e#20611#22148#0" expanded="false" />
+            <element signature="e#22235#23116#0" expanded="false" />
+            <element signature="e#23188#24138#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DVP-DBModels/CallRule.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="510">
+          <caret line="4" column="58" selection-start-line="4" selection-start-column="50" selection-end-line="4" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2057">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#586#1376#0" expanded="false" />
+            <element signature="e#1483#2301#0" expanded="false" />
+            <element signature="e#2425#3463#0" expanded="false" />
+            <element signature="e#3620#4790#0" expanded="false" />
+            <element signature="e#4919#5942#0" expanded="false" />
+            <element signature="e#6068#7090#0" expanded="false" />
+            <element signature="e#7218#8244#0" expanded="false" />
+            <element signature="e#8372#9397#0" expanded="false" />
+            <element signature="e#9484#10371#0" expanded="false" />
+            <element signature="e#10796#11681#0" expanded="false" />
+            <element signature="e#11788#12825#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DVP-Common/SipNetworkProfileApi/SipNetworkProfileBackendHandler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="245" max-vertical-offset="3060">
+          <caret line="79" column="1" selection-start-line="79" selection-start-column="1" selection-end-line="79" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DVP-Common/CommonMessageGenerator/ClientMessageJsonFormatter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="493">
+          <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DVP-DBModels/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="680" max-vertical-offset="1445">
+          <caret line="40" column="59" selection-start-line="40" selection-start-column="59" selection-end-line="40" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CallRuleBackendOperations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3511" max-vertical-offset="3842">
+          <caret line="673" column="57" selection-start-line="673" selection-start-column="57" selection-end-line="673" selection-end-column="57" />
+          <folding>
+            <element signature="e#165#627#0" expanded="false" />
+            <element signature="e#699#1163#0" expanded="false" />
+            <element signature="e#1236#1708#0" expanded="false" />
+            <element signature="e#1802#3277#0" expanded="false" />
+            <element signature="e#3330#13222#0" expanded="false" />
+            <element signature="e#19608#20485#0" expanded="false" />
+            <element signature="e#20611#22148#0" expanded="false" />
+            <element signature="e#22235#23116#0" expanded="false" />
+            <element signature="e#23188#24138#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DVP-DBModels/CallRule.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="510">
+          <caret line="4" column="58" selection-start-line="4" selection-start-column="50" selection-end-line="4" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3451">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#586#1376#0" expanded="false" />
+            <element signature="e#1483#2301#0" expanded="false" />
+            <element signature="e#2425#3463#0" expanded="false" />
+            <element signature="e#3620#4790#0" expanded="false" />
+            <element signature="e#4919#5942#0" expanded="false" />
+            <element signature="e#6068#7090#0" expanded="false" />
+            <element signature="e#7218#8244#0" expanded="false" />
+            <element signature="e#8372#9397#0" expanded="false" />
+            <element signature="e#9484#10371#0" expanded="false" />
+            <element signature="e#10796#11681#0" expanded="false" />
+            <element signature="e#11788#12825#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DVP-Common/SipNetworkProfileApi/SipNetworkProfileBackendHandler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="245" max-vertical-offset="3060">
+          <caret line="79" column="1" selection-start-line="79" selection-start-column="1" selection-end-line="79" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DVP-Common/CommonMessageGenerator/ClientMessageJsonFormatter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="493">
+          <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DVP-DBModels/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="772" max-vertical-offset="1445">
+          <caret line="64" column="49" selection-start-line="64" selection-start-column="49" selection-end-line="64" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CallRuleBackendOperations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3511" max-vertical-offset="3842">
+          <caret line="673" column="57" selection-start-line="673" selection-start-column="57" selection-end-line="673" selection-end-column="57" />
+          <folding>
+            <element signature="e#165#627#0" expanded="false" />
+            <element signature="e#699#1163#0" expanded="false" />
+            <element signature="e#1236#1708#0" expanded="false" />
+            <element signature="e#1802#3277#0" expanded="false" />
+            <element signature="e#3330#13222#0" expanded="false" />
+            <element signature="e#19608#20485#0" expanded="false" />
+            <element signature="e#20611#22148#0" expanded="false" />
+            <element signature="e#22235#23116#0" expanded="false" />
+            <element signature="e#23188#24138#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DVP-DBModels/CallRule.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="510">
+          <caret line="4" column="58" selection-start-line="4" selection-start-column="50" selection-end-line="4" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="364" max-vertical-offset="1581">
+          <caret line="137" column="55" selection-start-line="137" selection-start-column="55" selection-end-line="137" selection-end-column="55" />
+          <folding>
+            <element signature="e#586#1376#0" expanded="false" />
+            <element signature="e#1483#2301#0" expanded="false" />
+            <element signature="e#2425#3463#0" expanded="false" />
+            <element signature="e#3620#4790#0" expanded="false" />
+            <element signature="e#4919#5942#0" expanded="false" />
+            <element signature="e#6068#7090#0" expanded="false" />
+            <element signature="e#7218#8244#0" expanded="false" />
+            <element signature="e#8372#9397#0" expanded="false" />
+            <element signature="e#9484#10371#0" expanded="false" />
+            <element signature="e#10796#11681#0" expanded="false" />
+            <element signature="e#11788#12825#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DVP-Common/SipNetworkProfileApi/SipNetworkProfileBackendHandler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="245" max-vertical-offset="3060">
+          <caret line="79" column="1" selection-start-line="79" selection-start-column="1" selection-end-line="79" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DVP-Common/CommonMessageGenerator/ClientMessageJsonFormatter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="493">
+          <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DVP-DBModels/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="765" max-vertical-offset="1411">
+          <caret line="67" column="58" selection-start-line="67" selection-start-column="58" selection-end-line="67" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CallRuleBackendOperations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="462" max-vertical-offset="1479">
+          <caret line="632" column="50" selection-start-line="632" selection-start-column="42" selection-end-line="632" selection-end-column="50" />
+          <folding>
+            <element signature="e#165#627#0" expanded="false" />
+            <element signature="e#699#1163#0" expanded="false" />
+            <element signature="e#1236#1708#0" expanded="false" />
+            <element signature="e#1802#3277#0" expanded="false" />
+            <element signature="e#3330#13222#0" expanded="false" />
+            <element signature="e#19608#20485#0" expanded="false" />
+            <element signature="e#20611#22148#0" expanded="false" />
+            <element signature="e#22235#23116#0" expanded="false" />
+            <element signature="e#23188#24138#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DVP-DBModels/CallRule.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="510">
+          <caret line="4" column="58" selection-start-line="4" selection-start-column="50" selection-end-line="4" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4556">
@@ -465,11 +718,14 @@
             <element signature="e#586#1376#0" expanded="false" />
             <element signature="e#1483#2301#0" expanded="false" />
             <element signature="e#2425#3463#0" expanded="false" />
+            <element signature="e#3620#4790#0" expanded="false" />
             <element signature="e#4919#5942#0" expanded="false" />
-            <element signature="e#6068#7094#0" expanded="false" />
-            <element signature="e#7182#8069#0" expanded="false" />
-            <element signature="e#8155#9040#0" expanded="false" />
-            <element signature="e#9147#10184#0" expanded="false" />
+            <element signature="e#6068#7090#0" expanded="false" />
+            <element signature="e#7218#8244#0" expanded="false" />
+            <element signature="e#8372#9397#0" expanded="false" />
+            <element signature="e#9484#10371#0" expanded="false" />
+            <element signature="e#10796#11681#0" expanded="false" />
+            <element signature="e#11788#12825#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -494,10 +750,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="1309">
           <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding>
-            <marker date="1427087961826" expanded="true" signature="472:816" placeholder="[...]" />
-            <marker date="1427087961826" expanded="true" signature="2521:2523" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -511,9 +764,10 @@
             <element signature="e#1236#1708#0" expanded="false" />
             <element signature="e#1802#3277#0" expanded="false" />
             <element signature="e#3330#13222#0" expanded="false" />
-            <element signature="e#19312#20189#0" expanded="false" />
-            <element signature="e#21939#22820#0" expanded="false" />
-            <element signature="e#22892#23842#0" expanded="false" />
+            <element signature="e#19608#20485#0" expanded="false" />
+            <element signature="e#20611#22148#0" expanded="false" />
+            <element signature="e#22235#23116#0" expanded="false" />
+            <element signature="e#23188#24138#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -526,11 +780,14 @@
             <element signature="e#586#1376#0" expanded="false" />
             <element signature="e#1483#2301#0" expanded="false" />
             <element signature="e#2425#3463#0" expanded="false" />
+            <element signature="e#3620#4790#0" expanded="false" />
             <element signature="e#4919#5942#0" expanded="false" />
-            <element signature="e#6068#7094#0" expanded="false" />
-            <element signature="e#7182#8069#0" expanded="false" />
-            <element signature="e#8155#9040#0" expanded="false" />
-            <element signature="e#9147#10184#0" expanded="false" />
+            <element signature="e#6068#7090#0" expanded="false" />
+            <element signature="e#7218#8244#0" expanded="false" />
+            <element signature="e#8372#9397#0" expanded="false" />
+            <element signature="e#9484#10371#0" expanded="false" />
+            <element signature="e#10796#11681#0" expanded="false" />
+            <element signature="e#11788#12825#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -547,7 +804,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="332" max-vertical-offset="3961">
           <caret line="37" column="29" selection-start-line="37" selection-start-column="28" selection-end-line="37" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -555,10 +811,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="1309">
           <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding>
-            <marker date="1427087961826" expanded="true" signature="472:816" placeholder="[...]" />
-            <marker date="1427087961826" expanded="true" signature="2521:2523" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -572,9 +825,10 @@
             <element signature="e#1236#1708#0" expanded="false" />
             <element signature="e#1802#3277#0" expanded="false" />
             <element signature="e#3330#13222#0" expanded="false" />
-            <element signature="e#19312#20189#0" expanded="false" />
-            <element signature="e#21939#22820#0" expanded="false" />
-            <element signature="e#22892#23842#0" expanded="false" />
+            <element signature="e#19608#20485#0" expanded="false" />
+            <element signature="e#20611#22148#0" expanded="false" />
+            <element signature="e#22235#23116#0" expanded="false" />
+            <element signature="e#23188#24138#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -608,11 +862,14 @@
             <element signature="e#586#1376#0" expanded="false" />
             <element signature="e#1483#2301#0" expanded="false" />
             <element signature="e#2425#3463#0" expanded="false" />
+            <element signature="e#3620#4790#0" expanded="false" />
             <element signature="e#4919#5942#0" expanded="false" />
-            <element signature="e#6068#7094#0" expanded="false" />
-            <element signature="e#7182#8069#0" expanded="false" />
-            <element signature="e#8155#9040#0" expanded="false" />
-            <element signature="e#9147#10184#0" expanded="false" />
+            <element signature="e#6068#7090#0" expanded="false" />
+            <element signature="e#7218#8244#0" expanded="false" />
+            <element signature="e#8372#9397#0" expanded="false" />
+            <element signature="e#9484#10371#0" expanded="false" />
+            <element signature="e#10796#11681#0" expanded="false" />
+            <element signature="e#11788#12825#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -627,9 +884,10 @@
             <element signature="e#1236#1708#0" expanded="false" />
             <element signature="e#1802#3277#0" expanded="false" />
             <element signature="e#3330#13222#0" expanded="false" />
-            <element signature="e#19312#20189#0" expanded="false" />
-            <element signature="e#21939#22820#0" expanded="false" />
-            <element signature="e#22892#23842#0" expanded="false" />
+            <element signature="e#19608#20485#0" expanded="false" />
+            <element signature="e#20611#22148#0" expanded="false" />
+            <element signature="e#22235#23116#0" expanded="false" />
+            <element signature="e#23188#24138#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -662,36 +920,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DVP-DBModels/CloudEndUser.js">
+    <entry file="file://$PROJECT_DIR$/TranslationBackendOperations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.51652175" vertical-offset="332" max-vertical-offset="3961">
+          <caret line="37" column="29" selection-start-line="37" selection-start-column="28" selection-end-line="37" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="588">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TranslationBackendOperations.js">
+    <entry file="file://$PROJECT_DIR$/DVP-DBModels/CallRule.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.51652175" vertical-offset="332" max-vertical-offset="3961">
-          <caret line="37" column="29" selection-start-line="37" selection-start-column="28" selection-end-line="37" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DVP-DBModels/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="1411">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding>
-            <marker date="1427087961826" expanded="true" signature="472:816" placeholder="[...]" />
-            <marker date="1427087961826" expanded="true" signature="2521:2523" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DVP-Common/CommonMessageGenerator/ClientMessageJsonFormatter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493">
-          <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
+          <caret line="4" column="58" selection-start-line="4" selection-start-column="50" selection-end-line="4" selection-end-column="58" />
           <folding />
         </state>
       </provider>
@@ -704,45 +950,81 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
+    <entry file="file://$PROJECT_DIR$/DVP-Common/CommonMessageGenerator/ClientMessageJsonFormatter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="364" max-vertical-offset="1581">
-          <caret line="137" column="55" selection-start-line="137" selection-start-column="55" selection-end-line="137" selection-end-column="55" />
-          <folding>
-            <element signature="e#586#1376#0" expanded="false" />
-            <element signature="e#1483#2301#0" expanded="false" />
-            <element signature="e#2425#3463#0" expanded="false" />
-            <element signature="e#4919#5942#0" expanded="false" />
-            <element signature="e#6068#7094#0" expanded="false" />
-            <element signature="e#7182#8069#0" expanded="false" />
-            <element signature="e#8155#9040#0" expanded="false" />
-            <element signature="e#9147#10184#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DVP-DBModels/CallRule.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
-          <caret line="4" column="58" selection-start-line="4" selection-start-column="50" selection-end-line="4" selection-end-column="58" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493">
+          <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CallRuleBackendOperations.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.6852174" vertical-offset="1703" max-vertical-offset="3893">
-          <caret line="518" column="98" selection-start-line="518" selection-start-column="98" selection-end-line="518" selection-end-column="98" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="3333" max-vertical-offset="4539">
+          <caret line="714" column="63" selection-start-line="714" selection-start-column="63" selection-end-line="714" selection-end-column="63" />
           <folding>
             <element signature="e#165#627#0" expanded="false" />
             <element signature="e#699#1163#0" expanded="false" />
             <element signature="e#1236#1708#0" expanded="false" />
             <element signature="e#1802#3277#0" expanded="false" />
             <element signature="e#3330#13222#0" expanded="false" />
-            <element signature="e#19312#20189#0" expanded="false" />
-            <element signature="e#21939#22820#0" expanded="false" />
-            <element signature="e#22892#23842#0" expanded="false" />
+            <element signature="e#19608#20485#0" expanded="false" />
+            <element signature="e#20611#22148#0" expanded="false" />
+            <element signature="e#22235#23116#0" expanded="false" />
+            <element signature="e#23188#24138#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DVP-DBModels/CloudEndUser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="986">
+          <caret line="406" column="3" selection-start-line="406" selection-start-column="3" selection-end-line="406" selection-end-column="3" />
+          <folding>
+            <element signature="e#586#1376#0" expanded="false" />
+            <element signature="e#1483#2301#0" expanded="false" />
+            <element signature="e#2425#3463#0" expanded="false" />
+            <element signature="e#3620#4790#0" expanded="false" />
+            <element signature="e#4919#5942#0" expanded="false" />
+            <element signature="e#6068#7090#0" expanded="false" />
+            <element signature="e#7218#8244#0" expanded="false" />
+            <element signature="e#8372#9397#0" expanded="false" />
+            <element signature="e#9484#10371#0" expanded="false" />
+            <element signature="e#10796#11681#0" expanded="false" />
+            <element signature="e#11788#12825#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DVP-DBModels/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="731" max-vertical-offset="1445">
+          <caret line="40" column="59" selection-start-line="40" selection-start-column="59" selection-end-line="40" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DVP-DBModels/Cloud.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
+          <caret line="12" column="22" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DVP-DBModels/LoadBalancer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="380">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

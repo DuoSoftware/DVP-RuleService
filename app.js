@@ -217,7 +217,7 @@ server.post('/DVP/API/:version/CallRule/SetCallRulePriority/:id/:priority/:compa
 
         if(id)
         {
-            ruleBackendHandler.SetCallRuleAvailability(id, priority, companyId, tenantId, function(err, result){
+            ruleBackendHandler.SetCallRulePriority(id, priority, companyId, tenantId, function(err, result){
 
                 if(err)
                 {
@@ -247,6 +247,87 @@ server.post('/DVP/API/:version/CallRule/SetCallRulePriority/:id/:priority/:compa
 
 });
 
+server.post('/DVP/API/:version/CallRule/SetCallRuleSchedule/:id/:scheduleId/:companyId/:tenantId', function(req, res, next)
+{
+    try
+    {
+        var id = req.params.id;
+        var priority = req.params.scheduleId;
+        var companyId = req.params.companyId;
+        var tenantId = req.params.tenantId;
+
+        if(id)
+        {
+            ruleBackendHandler.SetCallRuleSchedule(id, scheduleId, companyId, tenantId, function(err, result){
+
+                if(err)
+                {
+                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, -1);
+                    res.end(jsonString);
+                }
+                else
+                {
+                    var jsonString = messageFormatter.FormatMessage(err, "Call rule schedule set successfully", result, -1);
+                    res.end(jsonString);
+                }
+            })
+        }
+        else
+        {
+            throw new Error("Empty id");
+        }
+        return next();
+    }
+    catch(ex)
+    {
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, -1);
+        res.end(jsonString);
+    }
+
+    return next();
+
+});
+
+server.post('/DVP/API/:version/CallRule/SetCallRuleTranslation/:id/:transId/:companyId/:tenantId', function(req, res, next)
+{
+    try
+    {
+        var id = req.params.id;
+        var transId = req.params.transId;
+        var companyId = req.params.companyId;
+        var tenantId = req.params.tenantId;
+
+        if(id)
+        {
+            ruleBackendHandler.SetCallRuleTranslation(id, transId, companyId, tenantId, function(err, result){
+
+                if(err)
+                {
+                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, -1);
+                    res.end(jsonString);
+                }
+                else
+                {
+                    var jsonString = messageFormatter.FormatMessage(err, "Call rule translation set successfully", result, -1);
+                    res.end(jsonString);
+                }
+            })
+        }
+        else
+        {
+            throw new Error("Empty id");
+        }
+        return next();
+    }
+    catch(ex)
+    {
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, -1);
+        res.end(jsonString);
+    }
+
+    return next();
+
+});
 
 server.post('/DVP/API/:version/CallRule/AddOutboundRule', function(req, res, next)
 {
@@ -286,6 +367,7 @@ server.post('/DVP/API/:version/CallRule/AddOutboundRule', function(req, res, nex
 
 });
 
+//{"CallRuleDescription": "ff", "ObjClass": "MM", "ObjType":"Inbound", "ObjCategory": "URL", "Enable":true, "CompanyId": 1, "TenantId": 3, "RegExPattern":"StartWith", "ANIRegExPattern": "StartWith", "DNIS": "123", "ANI":"", "Priority": 1, "TargetScript": "ppppp", "ScheduleId":2,                                        "ExtraData": "dfd"}
 server.post('/DVP/API/:version/CallRule/AddInboundRule', function(req, res, next)
 {
     try

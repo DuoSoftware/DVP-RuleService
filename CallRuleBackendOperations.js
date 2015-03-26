@@ -348,6 +348,8 @@ var AddInboundRule = function(ruleInfo, callback)
                                         ANI: ruleInfo.ANI,
                                         Priority: ruleInfo.Priority,
                                         TargetScript: ruleInfo.TargetScript,
+                                        ScheduleId: ruleInfo.ScheduleId,
+                                        TranslationId: ruleInfo.TranslationId,
                                         ExtraData: ruleInfo.ExtraData}).complete(function (err)
                                     {
                                         if(err)
@@ -386,6 +388,8 @@ var AddInboundRule = function(ruleInfo, callback)
                                     ANI: ruleInfo.ANI,
                                     Priority: ruleInfo.Priority,
                                     TargetScript: ruleInfo.TargetScript,
+                                    ScheduleId: ruleInfo.ScheduleId,
+                                    TranslationId: ruleInfo.TranslationId,
                                     ExtraData: ruleInfo.ExtraData
                                 });
 
@@ -614,7 +618,89 @@ var DeleteCallRule = function(ruleId, companyId, tenantId, callback)
         callback(ex, false);
     }
 
-}
+};
+
+var SetCallRuleSchedule = function(ruleId, scheduleId, companyId, tenantId, callback)
+{
+    try
+    {
+        dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId}]}).complete(function (err, ruleRec)
+        {
+
+            if(err)
+            {
+                callback(err, false);
+            }
+            else if(ruleRec)
+            {
+                //update attrib
+                ruleRec.updateAttributes({ScheduleId: scheduleId}).complete(function (err)
+                {
+                    if(err)
+                    {
+                        callback(err, false);
+                    }
+                    else
+                    {
+                        callback(undefined, true);
+                    }
+
+                });
+            }
+            else
+            {
+                callback(new Error("Unable to find call rule for company"), false);
+            }
+
+        });
+    }
+    catch(ex)
+    {
+        callback(ex, false);
+    }
+};
+
+var SetCallRuleTranslation = function(ruleId, transId, companyId, tenantId, callback)
+{
+    try
+    {
+        dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId}]}).complete(function (err, ruleRec)
+        {
+
+            if(err)
+            {
+                callback(err, false);
+            }
+            else if(ruleRec)
+            {
+                //update attrib
+                ruleRec.updateAttributes({TranslationId: transId}).complete(function (err)
+                {
+                    if(err)
+                    {
+                        callback(err, false);
+                    }
+                    else
+                    {
+                        callback(undefined, true);
+                    }
+
+                });
+            }
+            else
+            {
+                callback(new Error("Unable to find call rule for company"), false);
+            }
+
+        });
+    }
+    catch(ex)
+    {
+        callback(ex, false);
+    }
+};
+
+
 
 module.exports.AddOutboundRule = AddOutboundRule;
 module.exports.AddInboundRule = AddInboundRule;
@@ -625,3 +711,5 @@ module.exports.GetCallRulesForCompany = GetCallRulesForCompany;
 module.exports.GetCallRuleById = GetCallRuleById;
 module.exports.SetOutboundRuleTrunkNumber = SetOutboundRuleTrunkNumber;
 module.exports.SetCallOutboundRuleRegEx = SetCallOutboundRuleRegEx;
+module.exports.SetCallRuleSchedule = SetCallRuleSchedule;
+module.exports.SetCallRuleTranslation = SetCallRuleTranslation;
