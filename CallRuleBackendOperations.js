@@ -70,6 +70,79 @@ var GetCallRuleById = function(ruleId, companyId, tenantId, callback)
     }
 };
 
+var PickCallRuleInbound = function(aniNum, dnisNum, domain, companyId, tenantId, callback)
+{
+    try
+    {
+        dbModel.CallRule
+            .findAll({where :[{CompanyId: companyId},{TenantId: tenantId},{Enable: true}, {ObjType: ruleType}], order: 'Priority ASC'})
+            .complete(function (err, crList)
+            {
+                if(err)
+                {
+                    callback(err, undefined);
+                }
+                else
+                {
+                    var callRulePicked = undefined;
+
+                    try
+                    {
+                        var crCount = crList.length;
+
+                        for (i = 0; i < crCount; i++)
+                        {
+                            if(cr[i].DNISRegEx && cr[i].ANIRegEx)
+                            {
+                                var dnisRegExPattern = new RegExp(cr[i].DNISRegEx);
+                                var aniRegExPattern = new RegExp(cr[i].ANIRegEx);
+
+                                if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum))
+                                {
+                                    //pick call rule and break op
+                                    callRulePicked = cr[i];
+                                    break;
+                                }
+                            }
+                        }
+
+                        if(callRulePicked)
+                        {
+                            //get application, get schedule, get translations
+                            dbModel.CallRule
+                                .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Application, as: "Application"}], include: [{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}], include: [{model: dbModel.Translation, as: "Translation"}]})
+                                .complete(function (err, crInfo)
+                                {
+                                    callback(err, crInfo);
+
+                                });
+
+                        }
+                        else
+                        {
+                            callback(undefined, undefined);
+                        }
+
+
+
+                    }
+                    catch(ex)
+                    {
+                        callback(ex, undefined);
+
+                    }
+
+
+                }
+
+            })
+    }
+    catch(ex)
+    {
+        callback(ex, undefined);
+    }
+};
+
 var SetOutboundRuleTrunkNumber = function(ruleId, companyId, tenantId, trunkNum, callback)
 {
     try
@@ -713,3 +786,4 @@ module.exports.SetOutboundRuleTrunkNumber = SetOutboundRuleTrunkNumber;
 module.exports.SetCallOutboundRuleRegEx = SetCallOutboundRuleRegEx;
 module.exports.SetCallRuleSchedule = SetCallRuleSchedule;
 module.exports.SetCallRuleTranslation = SetCallRuleTranslation;
+module.exports.PickCallRuleInbound = PickCallRuleInbound;
