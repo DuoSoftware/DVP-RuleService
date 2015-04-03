@@ -92,15 +92,15 @@ var PickCallRuleInbound = function(aniNum, dnisNum, domain, companyId, tenantId,
 
                         for (i = 0; i < crCount; i++)
                         {
-                            if(cr[i].DNISRegEx && cr[i].ANIRegEx)
+                            if(crList[i].DNISRegEx && crList[i].ANIRegEx)
                             {
-                                var dnisRegExPattern = new RegExp(cr[i].DNISRegEx);
-                                var aniRegExPattern = new RegExp(cr[i].ANIRegEx);
+                                var dnisRegExPattern = new RegExp(crList[i].DNISRegEx);
+                                var aniRegExPattern = new RegExp(crList[i].ANIRegEx);
 
                                 if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum))
                                 {
                                     //pick call rule and break op
-                                    callRulePicked = cr[i];
+                                    callRulePicked = crList[i];
                                     break;
                                 }
                             }
