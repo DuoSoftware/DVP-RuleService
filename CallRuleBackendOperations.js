@@ -75,7 +75,7 @@ var PickCallRuleInbound = function(aniNum, dnisNum, domain, companyId, tenantId,
     try
     {
         dbModel.CallRule
-            .findAll({where :[{CompanyId: companyId},{TenantId: tenantId},{Enable: true}, {ObjType: ruleType}], order: 'Priority ASC'})
+            .findAll({where :[{CompanyId: companyId},{TenantId: tenantId},{Enable: true}, {ObjType: 'INBOUND'}], order: ['Priority']})
             .complete(function (err, crList)
             {
                 if(err)
