@@ -70,9 +70,11 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DVP-DBModels/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="833" max-vertical-offset="1445">
-              <caret line="40" column="59" selection-start-line="40" selection-start-column="59" selection-end-line="40" selection-end-column="59" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1649" max-vertical-offset="2244">
+              <caret line="88" column="59" selection-start-line="88" selection-start-column="59" selection-end-line="88" selection-end-column="59" />
+              <folding>
+                <marker date="1428071069867" expanded="true" signature="5268:5272" placeholder="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -110,19 +112,18 @@
       <file leaf-file-name="CallRuleBackendOperations.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CallRuleBackendOperations.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9088472" vertical-offset="1072" max-vertical-offset="5389">
-              <caret line="143" column="2" selection-start-line="143" selection-start-column="2" selection-end-line="143" selection-end-column="2" />
+            <state vertical-scroll-proportion="0.4530831" vertical-offset="2891" max-vertical-offset="7429">
+              <caret line="240" column="29" selection-start-line="240" selection-start-column="29" selection-end-line="240" selection-end-column="29" />
               <folding>
                 <element signature="e#165#627#0" expanded="false" />
                 <element signature="e#699#1163#0" expanded="false" />
                 <element signature="e#1236#1708#0" expanded="false" />
-                <element signature="e#4277#5752#0" expanded="false" />
-                <element signature="e#5805#15697#0" expanded="false" />
-                <element signature="e#22083#22960#0" expanded="false" />
-                <element signature="e#24710#25591#0" expanded="false" />
-                <element signature="e#25663#26613#0" expanded="false" />
-                <element signature="e#26702#27587#0" expanded="false" />
-                <element signature="e#27676#28561#0" expanded="false" />
+                <element signature="e#8313#18205#0" expanded="false" />
+                <element signature="e#24591#25468#0" expanded="false" />
+                <element signature="e#27218#28099#0" expanded="false" />
+                <element signature="e#28171#29121#0" expanded="false" />
+                <element signature="e#29210#30095#0" expanded="false" />
+                <element signature="e#30184#31069#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -317,15 +318,15 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2527881" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39739415" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899022" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33876222" sideWeight="0.50037175" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39739415" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899022" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
@@ -361,67 +362,67 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>385</line>
+          <line>458</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>389</line>
+          <line>462</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>391</line>
+          <line>464</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>399</line>
+          <line>472</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>405</line>
+          <line>478</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>408</line>
+          <line>481</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>427</line>
+          <line>500</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>441</line>
+          <line>514</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>447</line>
+          <line>520</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>472</line>
+          <line>545</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>475</line>
+          <line>548</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>478</line>
+          <line>551</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
-          <line>484</line>
+          <line>557</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -529,7 +530,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="680" max-vertical-offset="1445">
           <caret line="40" column="59" selection-start-line="40" selection-start-column="59" selection-end-line="40" selection-end-column="59" />
-          <folding />
+          <folding>
+            <marker date="1428071069867" expanded="true" signature="5268:5272" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -541,13 +544,12 @@
             <element signature="e#165#627#0" expanded="false" />
             <element signature="e#699#1163#0" expanded="false" />
             <element signature="e#1236#1708#0" expanded="false" />
-            <element signature="e#4277#5752#0" expanded="false" />
-            <element signature="e#5805#15697#0" expanded="false" />
-            <element signature="e#22083#22960#0" expanded="false" />
-            <element signature="e#24710#25591#0" expanded="false" />
-            <element signature="e#25663#26613#0" expanded="false" />
-            <element signature="e#26702#27587#0" expanded="false" />
-            <element signature="e#27676#28561#0" expanded="false" />
+            <element signature="e#8313#18205#0" expanded="false" />
+            <element signature="e#24591#25468#0" expanded="false" />
+            <element signature="e#27218#28099#0" expanded="false" />
+            <element signature="e#28171#29121#0" expanded="false" />
+            <element signature="e#29210#30095#0" expanded="false" />
+            <element signature="e#30184#31069#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -598,7 +600,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="772" max-vertical-offset="1445">
           <caret line="64" column="49" selection-start-line="64" selection-start-column="49" selection-end-line="64" selection-end-column="49" />
-          <folding />
+          <folding>
+            <marker date="1428071069867" expanded="true" signature="5268:5272" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -610,13 +614,12 @@
             <element signature="e#165#627#0" expanded="false" />
             <element signature="e#699#1163#0" expanded="false" />
             <element signature="e#1236#1708#0" expanded="false" />
-            <element signature="e#4277#5752#0" expanded="false" />
-            <element signature="e#5805#15697#0" expanded="false" />
-            <element signature="e#22083#22960#0" expanded="false" />
-            <element signature="e#24710#25591#0" expanded="false" />
-            <element signature="e#25663#26613#0" expanded="false" />
-            <element signature="e#26702#27587#0" expanded="false" />
-            <element signature="e#27676#28561#0" expanded="false" />
+            <element signature="e#8313#18205#0" expanded="false" />
+            <element signature="e#24591#25468#0" expanded="false" />
+            <element signature="e#27218#28099#0" expanded="false" />
+            <element signature="e#28171#29121#0" expanded="false" />
+            <element signature="e#29210#30095#0" expanded="false" />
+            <element signature="e#30184#31069#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -667,7 +670,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="765" max-vertical-offset="1411">
           <caret line="67" column="58" selection-start-line="67" selection-start-column="58" selection-end-line="67" selection-end-column="58" />
-          <folding />
+          <folding>
+            <marker date="1428071069867" expanded="true" signature="5268:5272" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -679,13 +684,12 @@
             <element signature="e#165#627#0" expanded="false" />
             <element signature="e#699#1163#0" expanded="false" />
             <element signature="e#1236#1708#0" expanded="false" />
-            <element signature="e#4277#5752#0" expanded="false" />
-            <element signature="e#5805#15697#0" expanded="false" />
-            <element signature="e#22083#22960#0" expanded="false" />
-            <element signature="e#24710#25591#0" expanded="false" />
-            <element signature="e#25663#26613#0" expanded="false" />
-            <element signature="e#26702#27587#0" expanded="false" />
-            <element signature="e#27676#28561#0" expanded="false" />
+            <element signature="e#8313#18205#0" expanded="false" />
+            <element signature="e#24591#25468#0" expanded="false" />
+            <element signature="e#27218#28099#0" expanded="false" />
+            <element signature="e#28171#29121#0" expanded="false" />
+            <element signature="e#29210#30095#0" expanded="false" />
+            <element signature="e#30184#31069#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -736,7 +740,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="1309">
           <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1428071069867" expanded="true" signature="5268:5272" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -748,13 +754,12 @@
             <element signature="e#165#627#0" expanded="false" />
             <element signature="e#699#1163#0" expanded="false" />
             <element signature="e#1236#1708#0" expanded="false" />
-            <element signature="e#4277#5752#0" expanded="false" />
-            <element signature="e#5805#15697#0" expanded="false" />
-            <element signature="e#22083#22960#0" expanded="false" />
-            <element signature="e#24710#25591#0" expanded="false" />
-            <element signature="e#25663#26613#0" expanded="false" />
-            <element signature="e#26702#27587#0" expanded="false" />
-            <element signature="e#27676#28561#0" expanded="false" />
+            <element signature="e#8313#18205#0" expanded="false" />
+            <element signature="e#24591#25468#0" expanded="false" />
+            <element signature="e#27218#28099#0" expanded="false" />
+            <element signature="e#28171#29121#0" expanded="false" />
+            <element signature="e#29210#30095#0" expanded="false" />
+            <element signature="e#30184#31069#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -797,7 +802,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="1309">
           <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1428071069867" expanded="true" signature="5268:5272" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -809,13 +816,12 @@
             <element signature="e#165#627#0" expanded="false" />
             <element signature="e#699#1163#0" expanded="false" />
             <element signature="e#1236#1708#0" expanded="false" />
-            <element signature="e#4277#5752#0" expanded="false" />
-            <element signature="e#5805#15697#0" expanded="false" />
-            <element signature="e#22083#22960#0" expanded="false" />
-            <element signature="e#24710#25591#0" expanded="false" />
-            <element signature="e#25663#26613#0" expanded="false" />
-            <element signature="e#26702#27587#0" expanded="false" />
-            <element signature="e#27676#28561#0" expanded="false" />
+            <element signature="e#8313#18205#0" expanded="false" />
+            <element signature="e#24591#25468#0" expanded="false" />
+            <element signature="e#27218#28099#0" expanded="false" />
+            <element signature="e#28171#29121#0" expanded="false" />
+            <element signature="e#29210#30095#0" expanded="false" />
+            <element signature="e#30184#31069#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -868,13 +874,12 @@
             <element signature="e#165#627#0" expanded="false" />
             <element signature="e#699#1163#0" expanded="false" />
             <element signature="e#1236#1708#0" expanded="false" />
-            <element signature="e#4277#5752#0" expanded="false" />
-            <element signature="e#5805#15697#0" expanded="false" />
-            <element signature="e#22083#22960#0" expanded="false" />
-            <element signature="e#24710#25591#0" expanded="false" />
-            <element signature="e#25663#26613#0" expanded="false" />
-            <element signature="e#26702#27587#0" expanded="false" />
-            <element signature="e#27676#28561#0" expanded="false" />
+            <element signature="e#8313#18205#0" expanded="false" />
+            <element signature="e#24591#25468#0" expanded="false" />
+            <element signature="e#27218#28099#0" expanded="false" />
+            <element signature="e#28171#29121#0" expanded="false" />
+            <element signature="e#29210#30095#0" expanded="false" />
+            <element signature="e#30184#31069#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -932,9 +937,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DVP-DBModels/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="731" max-vertical-offset="1445">
-          <caret line="40" column="59" selection-start-line="40" selection-start-column="59" selection-end-line="40" selection-end-column="59" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1649" max-vertical-offset="2244">
+          <caret line="88" column="59" selection-start-line="88" selection-start-column="59" selection-end-line="88" selection-end-column="59" />
+          <folding>
+            <marker date="1428071069867" expanded="true" signature="5268:5272" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -973,26 +980,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TranslationBackendOperations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3961">
-          <caret line="37" column="29" selection-start-line="37" selection-start-column="28" selection-end-line="37" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DVP-Common/SipNetworkProfileApi/SipNetworkProfileBackendHandler.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3060">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TranslationHandler.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="2397">
-          <caret line="8" column="50" selection-start-line="8" selection-start-column="50" selection-end-line="8" selection-end-column="50" />
           <folding />
         </state>
       </provider>
@@ -1005,21 +996,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/TranslationHandler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="2397">
+          <caret line="8" column="50" selection-start-line="8" selection-start-column="50" selection-end-line="8" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TranslationBackendOperations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3961">
+          <caret line="37" column="29" selection-start-line="37" selection-start-column="28" selection-end-line="37" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CallRuleBackendOperations.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9088472" vertical-offset="1072" max-vertical-offset="5389">
-          <caret line="143" column="2" selection-start-line="143" selection-start-column="2" selection-end-line="143" selection-end-column="2" />
+        <state vertical-scroll-proportion="0.4530831" vertical-offset="2891" max-vertical-offset="7429">
+          <caret line="240" column="29" selection-start-line="240" selection-start-column="29" selection-end-line="240" selection-end-column="29" />
           <folding>
             <element signature="e#165#627#0" expanded="false" />
             <element signature="e#699#1163#0" expanded="false" />
             <element signature="e#1236#1708#0" expanded="false" />
-            <element signature="e#4277#5752#0" expanded="false" />
-            <element signature="e#5805#15697#0" expanded="false" />
-            <element signature="e#22083#22960#0" expanded="false" />
-            <element signature="e#24710#25591#0" expanded="false" />
-            <element signature="e#25663#26613#0" expanded="false" />
-            <element signature="e#26702#27587#0" expanded="false" />
-            <element signature="e#27676#28561#0" expanded="false" />
+            <element signature="e#8313#18205#0" expanded="false" />
+            <element signature="e#24591#25468#0" expanded="false" />
+            <element signature="e#27218#28099#0" expanded="false" />
+            <element signature="e#28171#29121#0" expanded="false" />
+            <element signature="e#29210#30095#0" expanded="false" />
+            <element signature="e#30184#31069#0" expanded="false" />
           </folding>
         </state>
       </provider>
