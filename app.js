@@ -141,7 +141,7 @@ server.post('/DVP/API/:version/CallRule/SetCallRuleRegEx/:id/:DNISRegExMethod/:A
 
         if(id)
         {
-            ruleBackendHandler.SetCallOutboundRuleRegEx(id, trunkNumber, companyId, tenantId, function(err, result){
+            ruleBackendHandler.SetCallOutboundRuleRegEx(id, DNISRegExMethod, ANIRegExMethod, DNIS, ANI, companyId, tenantId, function(err, result){
 
                 if(err)
                 {
