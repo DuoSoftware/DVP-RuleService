@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b406db03-4908-4858-a22a-57ef849d250e" name="Default" comment="" />
+    <list default="true" id="b406db03-4908-4858-a22a-57ef849d250e" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
+    </list>
     <ignored path="DVP-RuleService.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,12 +26,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8296">
-              <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
-              <folding />
+            <state vertical-scroll-proportion="0.23160763" vertical-offset="0" max-vertical-offset="1428">
+              <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+              <folding>
+                <element signature="e#698#1488#0" expanded="false" />
+                <element signature="e#1606#2424#0" expanded="false" />
+                <element signature="e#2559#3597#0" expanded="false" />
+                <element signature="e#3765#4966#0" expanded="false" />
+                <element signature="e#5106#6129#0" expanded="false" />
+                <element signature="e#6266#7288#0" expanded="false" />
+                <element signature="e#7427#8453#0" expanded="false" />
+                <element signature="e#8592#9617#0" expanded="false" />
+                <element signature="e#9715#10602#0" expanded="false" />
+                <element signature="e#11038#11923#0" expanded="false" />
+                <element signature="e#12041#13078#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -39,16 +53,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-4.576923" vertical-offset="0" max-vertical-offset="612">
               <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="npm-debug.log" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/npm-debug.log">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1564">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -67,28 +71,18 @@
       <file leaf-file-name="default.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/default.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="340">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
               <caret line="14" column="2" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TranslationHandler.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TranslationHandler.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2397">
-              <caret line="0" column="22" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CallRuleBackendOperations.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CallRuleBackendOperations.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CallRuleBackendOperations.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2236842" vertical-offset="0" max-vertical-offset="2295">
-              <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2295">
+              <caret line="7" column="93" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="93" />
               <folding>
                 <element signature="e#697#1161#0" expanded="false" />
                 <element signature="e#1234#1706#0" expanded="false" />
@@ -144,10 +138,10 @@
         <option value="$PROJECT_DIR$/config/custom-environment-variables.js" />
         <option value="$PROJECT_DIR$/config/default.js" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/CallRuleBackendOperations.js" />
         <option value="$PROJECT_DIR$/TranslationBackendOperations.js" />
         <option value="$PROJECT_DIR$/TranslationHandler.js" />
+        <option value="$PROJECT_DIR$/CallRuleBackendOperations.js" />
+        <option value="$PROJECT_DIR$/app.js" />
       </list>
     </option>
   </component>
@@ -333,12 +327,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>345</line>
+          <line>342</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>384</line>
+          <line>381</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -408,47 +402,47 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>392</line>
+          <line>389</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>397</line>
+          <line>394</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>422</line>
+          <line>419</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>423</line>
+          <line>420</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>424</line>
+          <line>421</line>
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>430</line>
+          <line>427</line>
           <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>434</line>
+          <line>431</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>439</line>
+          <line>436</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
-          <line>26</line>
+          <line>23</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
@@ -504,7 +498,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3451">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#698#1488#0" expanded="false" />
+            <element signature="e#1606#2424#0" expanded="false" />
+            <element signature="e#2559#3597#0" expanded="false" />
+            <element signature="e#3765#4966#0" expanded="false" />
+            <element signature="e#5106#6129#0" expanded="false" />
+            <element signature="e#6266#7288#0" expanded="false" />
+            <element signature="e#7427#8453#0" expanded="false" />
+            <element signature="e#8592#9617#0" expanded="false" />
+            <element signature="e#9715#10602#0" expanded="false" />
+            <element signature="e#11038#11923#0" expanded="false" />
+            <element signature="e#12041#13078#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -563,7 +569,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="364" max-vertical-offset="1581">
           <caret line="137" column="55" selection-start-line="137" selection-start-column="55" selection-end-line="137" selection-end-column="55" />
-          <folding />
+          <folding>
+            <element signature="e#698#1488#0" expanded="false" />
+            <element signature="e#1606#2424#0" expanded="false" />
+            <element signature="e#2559#3597#0" expanded="false" />
+            <element signature="e#3765#4966#0" expanded="false" />
+            <element signature="e#5106#6129#0" expanded="false" />
+            <element signature="e#6266#7288#0" expanded="false" />
+            <element signature="e#7427#8453#0" expanded="false" />
+            <element signature="e#8592#9617#0" expanded="false" />
+            <element signature="e#9715#10602#0" expanded="false" />
+            <element signature="e#11038#11923#0" expanded="false" />
+            <element signature="e#12041#13078#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -622,7 +640,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4556">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#698#1488#0" expanded="false" />
+            <element signature="e#1606#2424#0" expanded="false" />
+            <element signature="e#2559#3597#0" expanded="false" />
+            <element signature="e#3765#4966#0" expanded="false" />
+            <element signature="e#5106#6129#0" expanded="false" />
+            <element signature="e#6266#7288#0" expanded="false" />
+            <element signature="e#7427#8453#0" expanded="false" />
+            <element signature="e#8592#9617#0" expanded="false" />
+            <element signature="e#9715#10602#0" expanded="false" />
+            <element signature="e#11038#11923#0" expanded="false" />
+            <element signature="e#12041#13078#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -674,7 +704,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2397">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#698#1488#0" expanded="false" />
+            <element signature="e#1606#2424#0" expanded="false" />
+            <element signature="e#2559#3597#0" expanded="false" />
+            <element signature="e#3765#4966#0" expanded="false" />
+            <element signature="e#5106#6129#0" expanded="false" />
+            <element signature="e#6266#7288#0" expanded="false" />
+            <element signature="e#7427#8453#0" expanded="false" />
+            <element signature="e#8592#9617#0" expanded="false" />
+            <element signature="e#9715#10602#0" expanded="false" />
+            <element signature="e#11038#11923#0" expanded="false" />
+            <element signature="e#12041#13078#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -746,7 +788,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#698#1488#0" expanded="false" />
+            <element signature="e#1606#2424#0" expanded="false" />
+            <element signature="e#2559#3597#0" expanded="false" />
+            <element signature="e#3765#4966#0" expanded="false" />
+            <element signature="e#5106#6129#0" expanded="false" />
+            <element signature="e#6266#7288#0" expanded="false" />
+            <element signature="e#7427#8453#0" expanded="false" />
+            <element signature="e#8592#9617#0" expanded="false" />
+            <element signature="e#9715#10602#0" expanded="false" />
+            <element signature="e#11038#11923#0" expanded="false" />
+            <element signature="e#12041#13078#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -843,14 +897,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/default.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
-          <caret line="14" column="2" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/custom-environment-variables.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="442">
@@ -867,30 +913,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8296">
-          <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TranslationHandler.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2397">
-          <caret line="0" column="22" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RegExHandler.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
-          <caret line="15" column="27" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.576923" vertical-offset="0" max-vertical-offset="612">
@@ -899,18 +921,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TranslationBackendOperations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3961">
-          <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CallRuleBackendOperations.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2236842" vertical-offset="0" max-vertical-offset="2295">
-          <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2295">
+          <caret line="7" column="93" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="93" />
           <folding>
             <element signature="e#697#1161#0" expanded="false" />
             <element signature="e#1234#1706#0" expanded="false" />
@@ -924,6 +938,58 @@
             <element signature="e#28169#29119#0" expanded="false" />
             <element signature="e#29208#30093#0" expanded="false" />
             <element signature="e#30182#31067#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RegExHandler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
+          <caret line="15" column="27" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TranslationBackendOperations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3961">
+          <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TranslationHandler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2397">
+          <caret line="0" column="22" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/default.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="340">
+          <caret line="14" column="2" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23160763" vertical-offset="0" max-vertical-offset="1428">
+          <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+          <folding>
+            <element signature="e#698#1488#0" expanded="false" />
+            <element signature="e#1606#2424#0" expanded="false" />
+            <element signature="e#2559#3597#0" expanded="false" />
+            <element signature="e#3765#4966#0" expanded="false" />
+            <element signature="e#5106#6129#0" expanded="false" />
+            <element signature="e#6266#7288#0" expanded="false" />
+            <element signature="e#7427#8453#0" expanded="false" />
+            <element signature="e#8592#9617#0" expanded="false" />
+            <element signature="e#9715#10602#0" expanded="false" />
+            <element signature="e#11038#11923#0" expanded="false" />
+            <element signature="e#12041#13078#0" expanded="false" />
           </folding>
         </state>
       </provider>
