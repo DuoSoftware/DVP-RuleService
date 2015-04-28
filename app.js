@@ -5,6 +5,10 @@ var logHandler = require('./DVP-Common/LogHandler/CommonLogHandler.js');
 var gwBackendHandler = require('./TrunkBackendHandler.js');
 var TH=require('./TranslatioHandler.js');
 
+var hostIp = config.Host.Ip;
+var hostPort = config.Host.Port;
+var hostVersion = config.Host.Version;
+
 
 var ruleBackendHandler = require('./CallRuleBackendOperations.js');
 
@@ -19,7 +23,7 @@ server.use(restify.queryParser());
 server.use(restify.bodyParser());
 
 
-server.get('/DVP/API/:version/CallRule/GetCallRules/:companyId/:tenantId', function(req, res, next)
+server.get('/DVP/API/' + hostVersion + '/CallRule/GetCallRules/:companyId/:tenantId', function(req, res, next)
 {
     try
     {
@@ -52,7 +56,7 @@ server.get('/DVP/API/:version/CallRule/GetCallRules/:companyId/:tenantId', funct
 
 });
 
-server.get('/DVP/API/:version/CallRule/GetCallRule/:id/:companyId/:tenantId', function(req, res, next)
+server.get('/DVP/API/' + hostVersion + '/CallRule/GetCallRule/:id/:companyId/:tenantId', function(req, res, next)
 {
     try
     {
@@ -86,7 +90,7 @@ server.get('/DVP/API/:version/CallRule/GetCallRule/:id/:companyId/:tenantId', fu
 
 });
 
-server.post('/DVP/API/:version/CallRule/SetTrunkNumber/:id/:trunkNumber/:companyId/:tenantId', function(req, res, next)
+server.post('/DVP/API/' + hostVersion + '/CallRule/SetTrunkNumber/:id/:trunkNumber/:companyId/:tenantId', function(req, res, next)
 {
     try
     {
@@ -127,7 +131,7 @@ server.post('/DVP/API/:version/CallRule/SetTrunkNumber/:id/:trunkNumber/:company
 
 });
 
-server.post('/DVP/API/:version/CallRule/SetCallRuleRegEx/:id/:DNISRegExMethod/:ANIRegExMethod/:DNIS/:ANI/:companyId/:tenantId', function(req, res, next)
+server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleRegEx/:id/:DNISRegExMethod/:ANIRegExMethod/:DNIS/:ANI/:companyId/:tenantId', function(req, res, next)
 {
     try
     {
@@ -171,7 +175,7 @@ server.post('/DVP/API/:version/CallRule/SetCallRuleRegEx/:id/:DNISRegExMethod/:A
 
 });
 
-server.post('/DVP/API/:version/CallRule/SetCallRuleAvailability/:id/:enabled/:companyId/:tenantId', function(req, res, next)
+server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleAvailability/:id/:enabled/:companyId/:tenantId', function(req, res, next)
 {
     try
     {
@@ -212,7 +216,7 @@ server.post('/DVP/API/:version/CallRule/SetCallRuleAvailability/:id/:enabled/:co
 
 });
 
-server.post('/DVP/API/:version/CallRule/SetCallRulePriority/:id/:priority/:companyId/:tenantId', function(req, res, next)
+server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRulePriority/:id/:priority/:companyId/:tenantId', function(req, res, next)
 {
     try
     {
@@ -253,7 +257,7 @@ server.post('/DVP/API/:version/CallRule/SetCallRulePriority/:id/:priority/:compa
 
 });
 
-server.post('/DVP/API/:version/CallRule/SetCallRuleSchedule/:id/:scheduleId/:companyId/:tenantId', function(req, res, next)
+server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleSchedule/:id/:scheduleId/:companyId/:tenantId', function(req, res, next)
 {
     try
     {
@@ -294,7 +298,7 @@ server.post('/DVP/API/:version/CallRule/SetCallRuleSchedule/:id/:scheduleId/:com
 
 });
 
-server.post('/DVP/API/:version/CallRule/SetCallRuleTranslation/:id/:transId/:companyId/:tenantId', function(req, res, next)
+server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleTranslation/:id/:transId/:companyId/:tenantId', function(req, res, next)
 {
     try
     {
@@ -335,7 +339,7 @@ server.post('/DVP/API/:version/CallRule/SetCallRuleTranslation/:id/:transId/:com
 
 });
 
-server.post('/DVP/API/:version/CallRule/AddOutboundRule', function(req, res, next)
+server.post('/DVP/API/' + hostVersion + '/CallRule/AddOutboundRule', function(req, res, next)
 {
     try
     {
@@ -374,7 +378,7 @@ server.post('/DVP/API/:version/CallRule/AddOutboundRule', function(req, res, nex
 });
 
 //{"CallRuleDescription": "ff", "ObjClass": "MM", "ObjType":"Inbound", "ObjCategory": "URL", "Enable":true, "CompanyId": 1, "TenantId": 3, "RegExPattern":"StartWith", "ANIRegExPattern": "StartWith", "DNIS": "123", "ANI":"", "Priority": 1, "TargetScript": "ppppp", "ScheduleId":2,                                        "ExtraData": "dfd"}
-server.post('/DVP/API/:version/CallRule/AddInboundRule', function(req, res, next)
+server.post('/DVP/API/' + hostVersion + '/CallRule/AddInboundRule', function(req, res, next)
 {
     try
     {
@@ -412,7 +416,7 @@ server.post('/DVP/API/:version/CallRule/AddInboundRule', function(req, res, next
 
 });
 
-server.post('/DVP/API/:version/CallRule/DeleteRule/:id/:companyId/:tenantId', function(req, res, next)
+server.post('/DVP/API/' + hostVersion + '/CallRule/DeleteRule/:id/:companyId/:tenantId', function(req, res, next)
 {
     try
     {
@@ -455,7 +459,7 @@ server.post('/DVP/API/:version/CallRule/DeleteRule/:id/:companyId/:tenantId', fu
 });
 
 
-server.listen(9093, 'localhost', function () {
+server.listen(hostPort, hostIp, function () {
     console.log('%s listening at %s', server.name, server.url);
 });
 /*
