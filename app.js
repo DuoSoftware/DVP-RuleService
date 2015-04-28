@@ -1,6 +1,7 @@
 var restify = require('restify');
 var messageFormatter = require('DVP-Common/CommonMessageGenerator/ClientMessageJsonFormatter.js');
 var logHandler = require('DVP-Common/LogHandler/CommonLogHandler.js');
+var config = require('config');
 
 var hostIp = config.Host.Ip;
 var hostPort = config.Host.Port;
