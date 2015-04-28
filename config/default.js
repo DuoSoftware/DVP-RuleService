@@ -8,7 +8,7 @@ module.exports = {
     "Database":"dvpdb"
   },
   "Host":{
-    "Ip":"127.0.0.1",
+    "Ip":"0.0.0.0",
     "Port":"9093",
     "Version":"1.0.0.0"
   }
