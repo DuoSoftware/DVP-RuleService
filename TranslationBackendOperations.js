@@ -1,7 +1,7 @@
 /**
  * Created by dinusha on 3/19/2015.
  */
-var DbConn = require('./DVP-DBModels');
+var DbConn = require('DVP-DBModels');
 
 function AddNewTranslation(obj,callback)
 {

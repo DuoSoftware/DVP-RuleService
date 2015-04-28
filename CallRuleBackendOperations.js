@@ -1,4 +1,4 @@
-var dbModel = require('./DVP-DBModels');
+var dbModel = require('DVP-DBModels');
 var regExHandler = require('./RegExHandler.js');
 
 var GetPhoneNumber = function(phoneNumber, companyId, tenantId, callback)

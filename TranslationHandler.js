@@ -1,4 +1,4 @@
-var DbConn = require('./DVP-DBModels');
+var DbConn = require('DVP-DBModels');
 
 function TranslateHandler(obj, Tstring)
 {
