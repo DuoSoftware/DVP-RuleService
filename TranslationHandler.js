@@ -1,4 +1,8 @@
+<<<<<<< HEAD:TranslationHandler.js
 var DbConn = require('./DVP-DBModels');
+=======
+var DbConn = require('DVP-DBModels');
+>>>>>>> origin/Development:TranslationHandler.js
 
 function TranslateHandler(obj, Tstring)
 {
