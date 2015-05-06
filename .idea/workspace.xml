@@ -11,7 +11,8 @@
 >>>>>>> origin/Development
 =======
     <list default="true" id="b406db03-4908-4858-a22a-57ef849d250e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CallRuleBackendOperations.js" afterPath="$PROJECT_DIR$/CallRuleBackendOperations.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
 >>>>>>> origin/Development
     <ignored path="DVP-RuleService.iws" />
@@ -36,9 +37,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -67,6 +69,10 @@
             <state vertical-scroll-proportion="0.41018766" vertical-offset="0" max-vertical-offset="1445">
               <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
 >>>>>>> origin/Development
+=======
+            <state vertical-scroll-proportion="0.0" vertical-offset="870" max-vertical-offset="1445">
+              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+>>>>>>> origin/Development
               <folding>
                 <element signature="e#730#1520#0" expanded="false" />
                 <element signature="e#1638#2456#0" expanded="false" />
@@ -85,15 +91,50 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DVP-DBModels/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1292" max-vertical-offset="2244">
+              <caret line="88" column="59" selection-start-line="88" selection-start-column="59" selection-end-line="88" selection-end-column="59" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/node_modules/DVP-DBModels/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2142" max-vertical-offset="2788">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
 <<<<<<< HEAD
             <state vertical-scroll-proportion="-8.5" vertical-offset="0" max-vertical-offset="612">
               <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
 =======
             <state vertical-scroll-proportion="-4.576923" vertical-offset="0" max-vertical-offset="612">
               <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="47" />
+>>>>>>> origin/Development
+=======
+            <state vertical-scroll-proportion="0.0" vertical-offset="27" max-vertical-offset="612">
+              <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TranslationHandler.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TranslationHandler.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="612" max-vertical-offset="2397">
+              <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
 >>>>>>> origin/Development
               <folding />
             </state>
@@ -121,8 +162,13 @@
       <file leaf-file-name="custom-environment-variables.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/custom-environment-variables.js">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="442">
               <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+>>>>>>> origin/Development
+=======
+            <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="442">
+              <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
 >>>>>>> origin/Development
               <folding />
             </state>
@@ -139,6 +185,7 @@
       <file leaf-file-name="default.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/default.js">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
               <caret line="14" column="2" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
 >>>>>>> origin/Development
@@ -161,11 +208,16 @@
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2397">
               <caret line="0" column="22" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
 >>>>>>> origin/Development
+=======
+            <state vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="340">
+              <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+>>>>>>> origin/Development
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <file leaf-file-name="TranslationHandler.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TranslationHandler.js">
@@ -178,23 +230,25 @@
 =======
       <file leaf-file-name="CallRuleBackendOperations.js" pinned="false" current-in-tab="false">
 >>>>>>> origin/Development
+=======
+      <file leaf-file-name="CallRuleBackendOperations.js" pinned="false" current-in-tab="true">
+>>>>>>> origin/Development
         <entry file="file://$PROJECT_DIR$/CallRuleBackendOperations.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2295">
-              <caret line="7" column="93" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="93" />
+            <state vertical-scroll-proportion="0.7432024" vertical-offset="468" max-vertical-offset="3264">
+              <caret line="152" column="13" selection-start-line="152" selection-start-column="13" selection-end-line="152" selection-end-column="13" />
               <folding>
                 <element signature="e#697#1161#0" expanded="false" />
                 <element signature="e#1234#1706#0" expanded="false" />
                 <element signature="e#1801#4194#0" expanded="false" />
-                <element signature="e#4288#6669#0" expanded="false" />
-                <element signature="e#6763#8258#0" expanded="false" />
-                <element signature="e#8311#18203#0" expanded="false" />
-                <element signature="e#18255#24500#0" expanded="false" />
-                <element signature="e#24589#25466#0" expanded="false" />
-                <element signature="e#27216#28097#0" expanded="false" />
-                <element signature="e#28169#29119#0" expanded="false" />
-                <element signature="e#29208#30093#0" expanded="false" />
-                <element signature="e#30182#31067#0" expanded="false" />
+                <element signature="e#6830#8325#0" expanded="false" />
+                <element signature="e#8378#18270#0" expanded="false" />
+                <element signature="e#18322#24567#0" expanded="false" />
+                <element signature="e#24656#25533#0" expanded="false" />
+                <element signature="e#25659#27196#0" expanded="false" />
+                <element signature="e#28236#29186#0" expanded="false" />
+                <element signature="e#29275#30160#0" expanded="false" />
+                <element signature="e#30249#31134#0" expanded="false" />
               </folding>
 >>>>>>> origin/Development
             </state>
@@ -211,7 +265,7 @@
       <file leaf-file-name="RegExHandler.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RegExHandler.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
+            <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="612">
               <caret line="15" column="27" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="27" />
 >>>>>>> origin/Development
               <folding />
@@ -244,8 +298,8 @@
       <file leaf-file-name="TranslationBackendOperations.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TranslationBackendOperations.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3961">
-              <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="3961">
+              <caret line="90" column="0" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
               <folding />
 >>>>>>> origin/Development
             </state>
@@ -295,15 +349,20 @@
         <option value="$PROJECT_DIR$/config/default.js" />
 =======
         <option value="$PROJECT_DIR$/config/custom-environment-variables.js" />
-        <option value="$PROJECT_DIR$/config/default.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/TranslationBackendOperations.js" />
         <option value="$PROJECT_DIR$/TranslationHandler.js" />
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> origin/Development
 =======
         <option value="$PROJECT_DIR$/CallRuleBackendOperations.js" />
         <option value="$PROJECT_DIR$/app.js" />
+>>>>>>> origin/Development
+=======
+        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/config/default.js" />
+        <option value="$PROJECT_DIR$/CallRuleBackendOperations.js" />
 >>>>>>> origin/Development
       </list>
     </option>
@@ -340,6 +399,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -368,13 +428,29 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+<<<<<<< HEAD
+=======
+              <option name="myItemId" value="node_modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DVP-RuleService" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DVP-RuleService" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+>>>>>>> origin/Development
               <option name="myItemId" value="config" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -398,10 +474,14 @@
       <ConfigurationWrapper RunnerId="debuggableProgram" />
       <method />
     </configuration>
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <method />
     </configuration>
-    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
@@ -409,10 +489,6 @@
       <setting name="settingsFile" value="" />
       <setting name="serverType" value="INTERNAL" />
       <setting name="preferredDebugBrowser" value="Chrome" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
@@ -469,18 +545,18 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17695168" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39739415" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32899022" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39739415" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899022" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33876222" sideWeight="0.50037175" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32899022" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32899022" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -622,8 +698,13 @@
           <line>24</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/CallRuleBackendOperations.js</url>
+          <line>687</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="27" />
+      <option name="time" value="28" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -639,9 +720,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="680" max-vertical-offset="1445">
           <caret line="40" column="59" selection-start-line="40" selection-start-column="59" selection-end-line="40" selection-end-column="59" />
+<<<<<<< HEAD
           <folding>
             <marker date="1428071069867" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
+=======
+>>>>>>> origin/Development
         </state>
       </provider>
     </entry>
@@ -668,6 +752,7 @@
             <element signature="e#697#1161#0" expanded="false" />
             <element signature="e#1234#1706#0" expanded="false" />
             <element signature="e#1801#4194#0" expanded="false" />
+<<<<<<< HEAD
             <element signature="e#4288#6669#0" expanded="false" />
             <element signature="e#6763#8258#0" expanded="false" />
             <element signature="e#8311#18203#0" expanded="false" />
@@ -677,6 +762,16 @@
             <element signature="e#28169#29119#0" expanded="false" />
             <element signature="e#29208#30093#0" expanded="false" />
             <element signature="e#30182#31067#0" expanded="false" />
+>>>>>>> origin/Development
+=======
+            <element signature="e#6830#8325#0" expanded="false" />
+            <element signature="e#8378#18270#0" expanded="false" />
+            <element signature="e#18322#24567#0" expanded="false" />
+            <element signature="e#24656#25533#0" expanded="false" />
+            <element signature="e#25659#27196#0" expanded="false" />
+            <element signature="e#28236#29186#0" expanded="false" />
+            <element signature="e#29275#30160#0" expanded="false" />
+            <element signature="e#30249#31134#0" expanded="false" />
 >>>>>>> origin/Development
           </folding>
         </state>
@@ -731,7 +826,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="245" max-vertical-offset="3060">
           <caret line="79" column="1" selection-start-line="79" selection-start-column="1" selection-end-line="79" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -746,9 +840,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="772" max-vertical-offset="1445">
           <caret line="64" column="49" selection-start-line="64" selection-start-column="49" selection-end-line="64" selection-end-column="49" />
+<<<<<<< HEAD
           <folding>
             <marker date="1428071069867" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
+=======
+>>>>>>> origin/Development
         </state>
       </provider>
     </entry>
@@ -775,6 +872,7 @@
             <element signature="e#697#1161#0" expanded="false" />
             <element signature="e#1234#1706#0" expanded="false" />
             <element signature="e#1801#4194#0" expanded="false" />
+<<<<<<< HEAD
             <element signature="e#4288#6669#0" expanded="false" />
             <element signature="e#6763#8258#0" expanded="false" />
             <element signature="e#8311#18203#0" expanded="false" />
@@ -784,6 +882,16 @@
             <element signature="e#28169#29119#0" expanded="false" />
             <element signature="e#29208#30093#0" expanded="false" />
             <element signature="e#30182#31067#0" expanded="false" />
+>>>>>>> origin/Development
+=======
+            <element signature="e#6830#8325#0" expanded="false" />
+            <element signature="e#8378#18270#0" expanded="false" />
+            <element signature="e#18322#24567#0" expanded="false" />
+            <element signature="e#24656#25533#0" expanded="false" />
+            <element signature="e#25659#27196#0" expanded="false" />
+            <element signature="e#28236#29186#0" expanded="false" />
+            <element signature="e#29275#30160#0" expanded="false" />
+            <element signature="e#30249#31134#0" expanded="false" />
 >>>>>>> origin/Development
           </folding>
         </state>
@@ -838,7 +946,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="245" max-vertical-offset="3060">
           <caret line="79" column="1" selection-start-line="79" selection-start-column="1" selection-end-line="79" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -853,9 +960,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="765" max-vertical-offset="1411">
           <caret line="67" column="58" selection-start-line="67" selection-start-column="58" selection-end-line="67" selection-end-column="58" />
+<<<<<<< HEAD
           <folding>
             <marker date="1428071069867" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
+=======
+>>>>>>> origin/Development
         </state>
       </provider>
     </entry>
@@ -882,6 +992,7 @@
             <element signature="e#697#1161#0" expanded="false" />
             <element signature="e#1234#1706#0" expanded="false" />
             <element signature="e#1801#4194#0" expanded="false" />
+<<<<<<< HEAD
             <element signature="e#4288#6669#0" expanded="false" />
             <element signature="e#6763#8258#0" expanded="false" />
             <element signature="e#8311#18203#0" expanded="false" />
@@ -891,6 +1002,16 @@
             <element signature="e#28169#29119#0" expanded="false" />
             <element signature="e#29208#30093#0" expanded="false" />
             <element signature="e#30182#31067#0" expanded="false" />
+>>>>>>> origin/Development
+=======
+            <element signature="e#6830#8325#0" expanded="false" />
+            <element signature="e#8378#18270#0" expanded="false" />
+            <element signature="e#18322#24567#0" expanded="false" />
+            <element signature="e#24656#25533#0" expanded="false" />
+            <element signature="e#25659#27196#0" expanded="false" />
+            <element signature="e#28236#29186#0" expanded="false" />
+            <element signature="e#29275#30160#0" expanded="false" />
+            <element signature="e#30249#31134#0" expanded="false" />
 >>>>>>> origin/Development
           </folding>
         </state>
@@ -945,7 +1066,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="245" max-vertical-offset="3060">
           <caret line="79" column="1" selection-start-line="79" selection-start-column="1" selection-end-line="79" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -960,9 +1080,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="1309">
           <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+<<<<<<< HEAD
           <folding>
             <marker date="1428071069867" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
+=======
+>>>>>>> origin/Development
         </state>
       </provider>
     </entry>
@@ -989,6 +1112,7 @@
             <element signature="e#697#1161#0" expanded="false" />
             <element signature="e#1234#1706#0" expanded="false" />
             <element signature="e#1801#4194#0" expanded="false" />
+<<<<<<< HEAD
             <element signature="e#4288#6669#0" expanded="false" />
             <element signature="e#6763#8258#0" expanded="false" />
             <element signature="e#8311#18203#0" expanded="false" />
@@ -998,6 +1122,16 @@
             <element signature="e#28169#29119#0" expanded="false" />
             <element signature="e#29208#30093#0" expanded="false" />
             <element signature="e#30182#31067#0" expanded="false" />
+>>>>>>> origin/Development
+=======
+            <element signature="e#6830#8325#0" expanded="false" />
+            <element signature="e#8378#18270#0" expanded="false" />
+            <element signature="e#18322#24567#0" expanded="false" />
+            <element signature="e#24656#25533#0" expanded="false" />
+            <element signature="e#25659#27196#0" expanded="false" />
+            <element signature="e#28236#29186#0" expanded="false" />
+            <element signature="e#29275#30160#0" expanded="false" />
+            <element signature="e#30249#31134#0" expanded="false" />
 >>>>>>> origin/Development
           </folding>
         </state>
@@ -1059,9 +1193,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="1309">
           <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+<<<<<<< HEAD
           <folding>
             <marker date="1428071069867" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
+=======
+>>>>>>> origin/Development
         </state>
       </provider>
     </entry>
@@ -1088,6 +1225,7 @@
             <element signature="e#697#1161#0" expanded="false" />
             <element signature="e#1234#1706#0" expanded="false" />
             <element signature="e#1801#4194#0" expanded="false" />
+<<<<<<< HEAD
             <element signature="e#4288#6669#0" expanded="false" />
             <element signature="e#6763#8258#0" expanded="false" />
             <element signature="e#8311#18203#0" expanded="false" />
@@ -1097,6 +1235,16 @@
             <element signature="e#28169#29119#0" expanded="false" />
             <element signature="e#29208#30093#0" expanded="false" />
             <element signature="e#30182#31067#0" expanded="false" />
+>>>>>>> origin/Development
+=======
+            <element signature="e#6830#8325#0" expanded="false" />
+            <element signature="e#8378#18270#0" expanded="false" />
+            <element signature="e#18322#24567#0" expanded="false" />
+            <element signature="e#24656#25533#0" expanded="false" />
+            <element signature="e#25659#27196#0" expanded="false" />
+            <element signature="e#28236#29186#0" expanded="false" />
+            <element signature="e#29275#30160#0" expanded="false" />
+            <element signature="e#30249#31134#0" expanded="false" />
 >>>>>>> origin/Development
           </folding>
         </state>
@@ -1184,6 +1332,7 @@
             <element signature="e#697#1161#0" expanded="false" />
             <element signature="e#1234#1706#0" expanded="false" />
             <element signature="e#1801#4194#0" expanded="false" />
+<<<<<<< HEAD
             <element signature="e#4288#6669#0" expanded="false" />
             <element signature="e#6763#8258#0" expanded="false" />
             <element signature="e#8311#18203#0" expanded="false" />
@@ -1193,6 +1342,16 @@
             <element signature="e#28169#29119#0" expanded="false" />
             <element signature="e#29208#30093#0" expanded="false" />
             <element signature="e#30182#31067#0" expanded="false" />
+>>>>>>> origin/Development
+=======
+            <element signature="e#6830#8325#0" expanded="false" />
+            <element signature="e#8378#18270#0" expanded="false" />
+            <element signature="e#18322#24567#0" expanded="false" />
+            <element signature="e#24656#25533#0" expanded="false" />
+            <element signature="e#25659#27196#0" expanded="false" />
+            <element signature="e#28236#29186#0" expanded="false" />
+            <element signature="e#29275#30160#0" expanded="false" />
+            <element signature="e#30249#31134#0" expanded="false" />
 >>>>>>> origin/Development
           </folding>
         </state>
@@ -1244,6 +1403,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/DVP-DBModels/index.js">
       <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
@@ -1256,6 +1416,8 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> origin/Development
     <entry file="file://$PROJECT_DIR$/DVP-DBModels/Cloud.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
@@ -1274,6 +1436,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3060">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="40" />
+<<<<<<< HEAD
           <folding />
 >>>>>>> origin/Development
         </state>
@@ -1296,23 +1459,37 @@
 =======
 >>>>>>> origin/Development
     <entry file="file://$PROJECT_DIR$/config/custom-environment-variables.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="442">
-          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
-          <folding />
+=======
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/npm-debug.log">
+>>>>>>> origin/Development
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1564">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RegExHandler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
+          <caret line="15" column="27" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
+    <entry file="file://$PROJECT_DIR$/config/custom-environment-variables.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="442">
+          <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/default.js">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         <state vertical-scroll-proportion="0.0" vertical-offset="1649" max-vertical-offset="2244">
@@ -1327,36 +1504,27 @@
         <state vertical-scroll-proportion="-4.576923" vertical-offset="0" max-vertical-offset="612">
           <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="47" />
 >>>>>>> origin/Development
+=======
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
+          <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+>>>>>>> origin/Development
           <folding />
 >>>>>>> origin/Development
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CallRuleBackendOperations.js">
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2295">
-          <caret line="7" column="93" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="93" />
-          <folding>
-            <element signature="e#697#1161#0" expanded="false" />
-            <element signature="e#1234#1706#0" expanded="false" />
-            <element signature="e#1801#4194#0" expanded="false" />
-            <element signature="e#4288#6669#0" expanded="false" />
-            <element signature="e#6763#8258#0" expanded="false" />
-            <element signature="e#8311#18203#0" expanded="false" />
-            <element signature="e#18255#24500#0" expanded="false" />
-            <element signature="e#24589#25466#0" expanded="false" />
-            <element signature="e#27216#28097#0" expanded="false" />
-            <element signature="e#28169#29119#0" expanded="false" />
-            <element signature="e#29208#30093#0" expanded="false" />
-            <element signature="e#30182#31067#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="27" max-vertical-offset="612">
+          <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RegExHandler.js">
+    <entry file="file://$PROJECT_DIR$/TranslationHandler.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
-          <caret line="15" column="27" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="27" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="612" max-vertical-offset="2397">
+          <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
           <folding />
         </state>
       </provider>
@@ -1384,6 +1552,7 @@
 =======
     <entry file="file://$PROJECT_DIR$/TranslationBackendOperations.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3961">
           <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
 >>>>>>> origin/Development
@@ -1397,10 +1566,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="2397">
           <caret line="8" column="50" selection-start-line="8" selection-start-column="50" selection-end-line="8" selection-end-column="50" />
+=======
+        <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="3961">
+          <caret line="90" column="0" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+>>>>>>> origin/Development
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/TranslationBackendOperations.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3961">
@@ -1417,20 +1591,27 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2397">
           <caret line="0" column="22" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
 >>>>>>> origin/Development
+=======
+    <entry file="file://$PROJECT_DIR$/DVP-DBModels/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1292" max-vertical-offset="2244">
+          <caret line="88" column="59" selection-start-line="88" selection-start-column="59" selection-end-line="88" selection-end-column="59" />
+>>>>>>> origin/Development
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/default.js">
+    <entry file="file://$PROJECT_DIR$/node_modules/DVP-DBModels/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
-          <caret line="14" column="2" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2142" max-vertical-offset="2788">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1512,6 +1693,10 @@
 =======
         <state vertical-scroll-proportion="0.41018766" vertical-offset="0" max-vertical-offset="1445">
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+=======
+        <state vertical-scroll-proportion="0.0" vertical-offset="870" max-vertical-offset="1445">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+>>>>>>> origin/Development
           <folding>
             <element signature="e#730#1520#0" expanded="false" />
             <element signature="e#1638#2456#0" expanded="false" />
@@ -1529,6 +1714,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/npm-debug.log">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1564">
@@ -1550,6 +1736,25 @@
         <state vertical-scroll-proportion="0.4473684" vertical-offset="0" max-vertical-offset="380">
           <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
           <folding />
+=======
+    <entry file="file://$PROJECT_DIR$/CallRuleBackendOperations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7432024" vertical-offset="468" max-vertical-offset="3264">
+          <caret line="152" column="13" selection-start-line="152" selection-start-column="13" selection-end-line="152" selection-end-column="13" />
+          <folding>
+            <element signature="e#697#1161#0" expanded="false" />
+            <element signature="e#1234#1706#0" expanded="false" />
+            <element signature="e#1801#4194#0" expanded="false" />
+            <element signature="e#6830#8325#0" expanded="false" />
+            <element signature="e#8378#18270#0" expanded="false" />
+            <element signature="e#18322#24567#0" expanded="false" />
+            <element signature="e#24656#25533#0" expanded="false" />
+            <element signature="e#25659#27196#0" expanded="false" />
+            <element signature="e#28236#29186#0" expanded="false" />
+            <element signature="e#29275#30160#0" expanded="false" />
+            <element signature="e#30249#31134#0" expanded="false" />
+          </folding>
+>>>>>>> origin/Development
         </state>
       </provider>
     </entry>

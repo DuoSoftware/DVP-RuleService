@@ -183,7 +183,7 @@ var PickCallRuleInbound = function(aniNum, dnisNum, domain, companyId, tenantId,
                         {
                             //get application, get schedule, get translations
                             dbModel.CallRule
-                                .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Application, as: "Application"},{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"}]})
+                                .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Application, as: "Application", include : [{model: dbModel.Application, as: "MasterApplication"}]},{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"}]})
                                 .complete(function (err, crInfo)
                                 {
                                     callback(err, crInfo);
