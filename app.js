@@ -20,7 +20,6 @@ server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
 
-
 server.get('/DVP/API/' + hostVersion + '/CallRule/GetCallRules/:companyId/:tenantId', function(req, res, next)
 {
     try
