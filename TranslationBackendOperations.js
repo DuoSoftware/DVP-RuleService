@@ -1,18 +1,66 @@
-/**
- * Created by dinusha on 3/19/2015.
- */
 var DbConn = require('DVP-DBModels');
+var logger = require('DVP-Common/LogHandler/CommonLogHandler.js').logger;
 
-function AddNewTranslation(obj,callback)
+function AddNewTranslation(transObj, callback)
 {
-    try {
-        DbConn.Translation.find({where: [{id: obj.id}]}).complete(function (err, TransObject) {
-            if (!err && TransObject==null) {
+    try
+    {
+        var trans = DbConn.Translation
+            .build(
+            {
+                TransName: transObj.TransName,
+                TransDescription: transObj.TransDescription,
+                Enabled: transObj.Enabled,
+                LAdd: transObj.LAdd,
+                LRemove: transObj.LRemove,
+                RAdd: transObj.RAdd,
+                RRemove: transObj.RRemove,
+                Replace: transObj.Replace,
+                CompanyId: transObj.CompanyId,
+                TenantId: transObj.TenantId,
+                ObjClass: transObj.ObjClass,
+                ObjType: transObj.ObjType,
+                ObjCategory: transObj.ObjCategory
+            }
+        );
+        trans.save().complete(function (err)
+        {
+            if (!err)
+            {
+                logger.info('[DVP-RuleService.AddNewTranslation] PGSQL Insert translation query success');
+                callback(undefined, trans.id, true);
+            }
+            else
+            {
+                logger.error('[DVP-RuleService.AddNewTranslation] PGSQL Insert translation query fail', err);
+                callback(err, -1, false);
+            }
 
-                var NewTransObject = DbConn.Translation
-                    .build(
+        });
+    }
+    catch(ex)
+    {
+        callback(ex, -1, false);
+    }
+}
+
+function UpdateTranslation(transId, obj, callback)
+{
+    try
+    {
+        DbConn.Translation.find({where: [{id: transId},{CompanyId: obj.CompanyId}]}).complete(function (err, transObj)
+        {
+            if (err)
+            {
+                logger.error('[DVP-RuleService.UpdateTranslation] PGSQL Get translation by id query failed', err);
+                callback(err, false);
+            }
+            else if (transObj)
+            {
+                //update
+                logger.info('[DVP-RuleService.UpdateTranslation] PGSQL Get translation by id query success');
+                transObj.updateAttributes(
                     {
-
                         TransName: obj.TransName,
                         TransDescription: obj.TransDescription,
                         Enabled: obj.Enabled,
@@ -21,172 +69,54 @@ function AddNewTranslation(obj,callback)
                         RAdd: obj.RAdd,
                         RRemove: obj.RRemove,
                         Replace: obj.Replace,
-                        CompanyId: obj.CompanyId,
-                        TenantId: obj.TenantId,
                         ObjClass: obj.ObjClass,
                         ObjType: obj.ObjType,
                         ObjCategory: obj.ObjCategory
-
-
                     }
-                )
-
-                Translation.save().complete(function (err) {
-                    if (!err) {
-
-
-                        var status = 1;
-
-
-                        console.log("..................... Saved Successfully ....................................");
-
-
-                        callback(undefined, NewTransObject.id);
-
-
-                    }
-                    else {
-                        console.log("..................... Error found in saving.................................... : " + err);
-                        callback(-1, undefined);
-
-                    }
-
-
-                });
-
-
-            }
-            else if (TransObject) {
-                console.log("................................... Given Cloud Already in DB  ................................ ");
-                callback(-1, undefined);
-
-            }
-            else {
-                console.log("Some error occured");
-                callback(-1, undefined);
-
-            }
-
-
-        });
-    }
-    catch(ex)
-    {
-        callback(ex, undefined);
-    }
-}
-
-function UpdateTransalationRecord(obj,callback)
-{
-    try {
-        DbConn.Translation.find({where: [{id: obj.id},{CompanyId:obj.CompanyId}]}).complete(function (err, TransObject) {
-            if (!err && TransObject==null) {
-                callback(-1, undefined);
-
-
-
-            }
-            else if (TransObject && !err) {
-                console.log("................................... Given Cloud Already in DB  ................................ ");
-
-                try{
-                    DbConn.Translation
-                        .update(
+                ).complete(function (err)
+                    {
+                        if (err)
                         {
-                            TransName: obj.TransName,
-                            TransDescription: obj.TransDescription,
-                            Enabled: obj.Enabled,
-                            LAdd: obj.LAdd,
-                            LRemove: obj.LRemove,
-                            RAdd: obj.RAdd,
-                            RRemove: obj.RRemove,
-                            Replace: obj.Replace,
-                            ObjClass: obj.ObjClass,
-                            ObjType: obj.ObjType,
-                            ObjCategory: obj.ObjCategory
-                            //  AddDate:obj.AddTime,
-                            // UpdateDate: obj.UpdateTime,
-                            // createdAt:new Date(2009,10,11),
-                            //updatedAt:new Date(2009,10,12)
-                        },
-                        {
-                            where: {
-                                id: obj.id
-                            }
+                            logger.error('[DVP-RuleService.UpdateTranslation] PGSQL Update translation with all attributes query failed', err);
+                            callback(err, false);
                         }
-                    ).then(function (results) {
+                        else
+                        {
+                            logger.info('[DVP-RuleService.UpdateTranslation] PGSQL Update translation with all attributes query success');
+                            callback(undefined, true);
+                        }
 
-                            console.log("Updated successfully!");
-                            callback(undefined, results);
-
-
-                        }).error(function (err) {
-
-                            console.log("Project update failed !");
-                            callback(err, -1);
-                            //handle error here
-
-                        });
-                }
-                catch(ex)
-                {
-                    callback(ex, -1);
-                }
-
-
-
-
+                    });
             }
-            else {
-                console.log("Some error occured");
-                callback(err, -1);
-
+            else
+            {
+                logger.info('[DVP-RuleService.UpdateTranslation] PGSQL Get translation by id query success');
+                callback(new Error('Translation not found with given id'), false);
             }
-
-
         });
     }
     catch(ex)
     {
-        callback(ex, undefined);
+        callback(ex, false);
     }
 }
 
-function GetValuesOfId(obj,callback)
+function GetTranslationById(transId, companyId, callback)
 {
-    try {
-        DbConn.Translation.find({where: [{id: obj.id}]}).complete(function (err, TransObject) {
-            if (!err && TransObject==null) {
-
-                callback(-1, undefined);
-
+    try
+    {
+        DbConn.Translation.find({where: [{id: transId},{CompanyId: companyId}]}).complete(function (err, transObj)
+        {
+            if (err)
+            {
+                logger.error('[DVP-RuleService.GetTranslationById] PGSQL Get translation by id query failed', err);
+                callback(err, undefined);
             }
-            else if (TransObject && !err) {
-               // console.log("................................... Given Cloud Already in DB  ................................ ");
-
-                if(obj.CompanyId==obj.CompanyId)
-                {
-                    console.log("Record Found");
-
-                    callback(undefined, TransObject);
-
-                }
-                else
-                {console.log("Illegal Access  ");
-                    callback(-1, undefined);
-                }
-
-
-
-
+            else
+            {
+                logger.info('[DVP-RuleService.GetTranslationById] PGSQL Get translation by id query success');
+                callback(undefined, transObj);
             }
-            else {
-                console.log("Some error occured");
-                callback(-1, undefined);
-
-            }
-
-
         });
     }
     catch(ex)
@@ -195,34 +125,32 @@ function GetValuesOfId(obj,callback)
     }
 }
 
-function GetAllByCompany(obj,callback)
+function GetAllTranslationsForCompany(companyId, callback)
 {
-    try {
-        DbConn.Translation.find({where: [{CompanyId: obj.CompanyId}]}).complete(function (err, TransObject) {
-            if (!err && TransObject==null) {
-
-                callback(-1, undefined);
-
+    var emptyArr = [];
+    try
+    {
+        DbConn.Translation.findAll({where: [{CompanyId: companyId}]}).complete(function (err, transList)
+        {
+            if (err)
+            {
+                logger.error('[DVP-RuleService.GetAllTranslationsForCompany] PGSQL Get translations for company query failed', err);
             }
-            else if (TransObject && !err) {
-                // console.log("................................... Given Cloud Already in DB  ................................ ");
-
-                    console.log("Record Found");
-
-                    callback(undefined, TransObject);
-
-            }
-            else {
-                console.log("Some error occured");
-                callback(-1, undefined);
-
+            else
+            {
+                logger.info('[DVP-RuleService.GetAllTranslationsForCompany] PGSQL Get translations for company query success');
             }
 
-
+            callback(err, transList);
         });
     }
     catch(ex)
     {
-        callback(ex, undefined);
+        callback(ex, emptyArr);
     }
 }
+
+module.exports.AddNewTranslation = AddNewTranslation;
+module.exports.UpdateTranslation = UpdateTranslation;
+module.exports.GetTranslationById = GetTranslationById;
+module.exports.GetAllTranslationsForCompany = GetAllTranslationsForCompany;
