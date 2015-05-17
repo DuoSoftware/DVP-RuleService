@@ -1,5 +1,4 @@
 var restify = require('restify');
-var format = require('stringformat');
 var uuid = require('node-uuid');
 var messageFormatter = require('DVP-Common/CommonMessageGenerator/ClientMessageJsonFormatter.js');
 var logger = require('DVP-Common/LogHandler/CommonLogHandler.js').logger;
@@ -122,13 +121,13 @@ server.post('/DVP/API/' + hostVersion + '/CallRule/AssignTrunkNumberToOutboundRu
                 if(err)
                 {
                     logger.error('[DVP-RuleService.AssignTrunkNumberToOutboundRule] - [%s] - Exception occurred on method SetOutboundRuleTrunkNumber', reqId, err);
-                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, -1);
+                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, undefined);
                     res.end(jsonString);
                 }
                 else
                 {
                     logger.debug('[DVP-RuleService.AssignTrunkNumberToOutboundRule] - [%s] - assign trunk number to outbound rule success - Returned : %s', reqId, result);
-                    var jsonString = messageFormatter.FormatMessage(err, "Trunk number added to outbound rule successfully", result, -1);
+                    var jsonString = messageFormatter.FormatMessage(err, "Trunk number added to outbound rule successfully", result, undefined);
                     res.end(jsonString);
                 }
             })
@@ -141,7 +140,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRule/AssignTrunkNumberToOutboundRu
     catch(ex)
     {
         logger.error(format('[DVP-RuleService.AssignTrunkNumberToOutboundRule] - [%s] - Exception occurred', reqId), ex);
-        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, -1);
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, undefined);
         res.end(jsonString);
     }
 
@@ -174,13 +173,13 @@ server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleRegEx/:id', functi
                 if(err)
                 {
                     logger.error(format('[DVP-RuleService.SetCallRuleRegEx] - [%s] - Exception occurred on method SetCallOutboundRuleRegEx', reqId), err);
-                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, -1);
+                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, undefined);
                     res.end(jsonString);
                 }
                 else
                 {
                     logger.debug(format('[DVP-RuleService.SetCallRuleRegEx] - [%s] - set call rule reg ex success - Returned : [%s]', reqId, result));
-                    var jsonString = messageFormatter.FormatMessage(err, "Call rule reg ex set successfully", result, -1);
+                    var jsonString = messageFormatter.FormatMessage(err, "Call rule reg ex set successfully", result, undefined);
                     res.end(jsonString);
                 }
             })
@@ -193,7 +192,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleRegEx/:id', functi
     catch(ex)
     {
         logger.error(format('[DVP-RuleService.SetCallRuleRegEx] - [%s] - Exception occurred', reqId), ex);
-        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, -1);
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, undefined);
         res.end(jsonString);
     }
 
@@ -223,13 +222,13 @@ server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleAvailability/:id',
                 if(err)
                 {
                     logger.error('[DVP-RuleService.SetCallRuleAvailability] - [%s] - Exception occurred on method SetCallRuleAvailability', reqId, err);
-                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, -1);
+                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, undefined);
                     res.end(jsonString);
                 }
                 else
                 {
                     logger.debug('[DVP-RuleService.SetCallRuleAvailability] - [%s] - set call rule availability success - Returned : %s', reqId, result);
-                    var jsonString = messageFormatter.FormatMessage(err, "Call rule availability set successfully", result, -1);
+                    var jsonString = messageFormatter.FormatMessage(err, "Call rule availability set successfully", result, undefined);
                     res.end(jsonString);
                 }
             })
@@ -242,7 +241,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleAvailability/:id',
     catch(ex)
     {
         logger.error('[DVP-RuleService.SetCallRuleAvailability] - [%s] - Exception occurred', reqId, ex);
-        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, -1);
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, undefined);
         res.end(jsonString);
     }
 
@@ -272,13 +271,13 @@ server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRulePriority/:id', fun
                 if(err)
                 {
                     logger.error('[DVP-RuleService.SetCallRulePriority] - [%s] - Exception occurred on method SetCallRulePriority', reqId, err);
-                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, -1);
+                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, undefined);
                     res.end(jsonString);
                 }
                 else
                 {
                     logger.debug('[DVP-RuleService.SetCallRulePriority] - [%s] - set call rule priority success - Returned : %s', reqId, result);
-                    var jsonString = messageFormatter.FormatMessage(err, "Call rule priority set successfully", result, -1);
+                    var jsonString = messageFormatter.FormatMessage(err, "Call rule priority set successfully", result, undefined);
                     res.end(jsonString);
                 }
             })
@@ -291,7 +290,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRulePriority/:id', fun
     catch(ex)
     {
         logger.error('[DVP-RuleService.SetCallRulePriority] - [%s] - Exception occurred', reqId, ex);
-        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, -1);
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, undefined);
         res.end(jsonString);
     }
 
@@ -320,13 +319,13 @@ server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleSchedule/:id', fun
                 if(err)
                 {
                     logger.error('[DVP-RuleService.SetCallRuleSchedule] - [%s] - Exception occurred on method SetCallRuleSchedule', reqId, err);
-                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, -1);
+                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, undefined);
                     res.end(jsonString);
                 }
                 else
                 {
                     logger.debug('[DVP-RuleService.SetCallRuleSchedule] - [%s] - set call rule schedule success - Returned : %s', reqId, result);
-                    var jsonString = messageFormatter.FormatMessage(err, "Call rule schedule set successfully", result, -1);
+                    var jsonString = messageFormatter.FormatMessage(err, "Call rule schedule set successfully", result, undefined);
                     res.end(jsonString);
                 }
             })
@@ -339,7 +338,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleSchedule/:id', fun
     catch(ex)
     {
         logger.error('[DVP-RuleService.SetCallRuleSchedule] - [%s] - Exception occurred', reqId, ex);
-        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, -1);
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, undefined);
         res.end(jsonString);
     }
 
@@ -368,13 +367,13 @@ server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleTranslation/:id', 
                 if(err)
                 {
                     logger.error('[DVP-RuleService.SetCallRuleTranslation] - [%s] - Exception occurred on method SetCallRuleTranslation', reqId, err);
-                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, -1);
+                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, undefined);
                     res.end(jsonString);
                 }
                 else
                 {
                     logger.debug('[DVP-RuleService.SetCallRuleTranslation] - [%s] - set call rule translation success - Returned : %s', reqId, result);
-                    var jsonString = messageFormatter.FormatMessage(err, "Call rule translation set successfully", result, -1);
+                    var jsonString = messageFormatter.FormatMessage(err, "Call rule translation set successfully", result, undefined);
                     res.end(jsonString);
                 }
             })
@@ -387,7 +386,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleTranslation/:id', 
     catch(ex)
     {
         logger.error('[DVP-RuleService.SetCallRuleTranslation] - [%s] - Exception occurred', reqId, ex);
-        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, -1);
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, undefined);
         res.end(jsonString);
     }
 
@@ -534,6 +533,7 @@ server.del('/DVP/API/' + hostVersion + '/CallRule/DeleteCallRule/:id', function(
 
 server.get('/DVP/API/' + hostVersion + '/Translation/TranslationsByCompany/:companyId/:tenantId', function(req, res, next)
 {
+    var emptyArr = [];
     var reqId = uuid.v1();
     try
     {
@@ -561,7 +561,7 @@ server.get('/DVP/API/' + hostVersion + '/Translation/TranslationsByCompany/:comp
     catch(ex)
     {
         logger.error('[DVP-RuleService.TranslationsByCompany] - [%s] - Exception occurred', reqId, ex);
-        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, undefined);
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, emptyArr);
         res.end(jsonString);
     }
 
@@ -635,7 +635,7 @@ server.post('/DVP/API/' + hostVersion + '/Translation/SaveTranslation', function
     catch(ex)
     {
         logger.error('[DVP-RuleService.SaveTranslation] - [%s] - Exception occurred', reqId, ex);
-        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, undefined);
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, -1);
         res.end(jsonString);
     }
 
@@ -658,13 +658,13 @@ server.post('/DVP/API/' + hostVersion + '/Translation/UpdateTranslation/:id', fu
             if (err)
             {
                 logger.error('[DVP-RuleService.UpdateTranslation] - [%s] - Exception occurred on method UpdateTranslation', reqId, err);
-                var jsonString = messageFormatter.FormatMessage(err, "ERROR", result, -1);
+                var jsonString = messageFormatter.FormatMessage(err, "ERROR", result, undefined);
                 res.end(jsonString);
             }
             else
             {
                 logger.debug('[DVP-RuleService.UpdateTranslation] - [%s] - Update translation success - Returned : [%s]' + reqId, result);
-                var jsonString = messageFormatter.FormatMessage(err, "Add new translation success", result, -1);
+                var jsonString = messageFormatter.FormatMessage(err, "Add new translation success", result, undefined);
                 res.end(jsonString);
             }
         });
