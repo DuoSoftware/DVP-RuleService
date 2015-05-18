@@ -1,22 +1,22 @@
 var GenerateRegEx = function(dataVal, regExMethod)
 {
     switch(regExMethod) {
-        case 'StartWith':
+        case 'STARTWITH':
         {
             return "^(" + dataVal + ")[^\\s]*";
         }
             break;
-        case 'ExactMatch':
+        case 'EXACTMATCH':
         {
             return "^" + dataVal + "$"
         }
             break;
-        case 'Any':
+        case 'ANY':
         {
             return "[^\\s]*";
         }
             break;
-        case 'Custom':
+        case 'CUSTOM':
         {
             return dataVal;
         }

@@ -168,11 +168,11 @@ server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleRegEx/:id', functi
 
         if(id)
         {
-            ruleBackendHandler.SetCallOutboundRuleRegEx(id, DNISRegExMethod, ANIRegExMethod, DNIS, ANI, companyId, tenantId, function(err, result){
+            ruleBackendHandler.SetCallRuleRegEx(id, DNISRegExMethod, ANIRegExMethod, DNIS, ANI, companyId, tenantId, function(err, result){
 
                 if(err)
                 {
-                    logger.error(format('[DVP-RuleService.SetCallRuleRegEx] - [%s] - Exception occurred on method SetCallOutboundRuleRegEx', reqId), err);
+                    logger.error(format('[DVP-RuleService.SetCallRuleRegEx] - [%s] - Exception occurred on method SetCallRuleRegEx', reqId), err);
                     var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, undefined);
                     res.end(jsonString);
                 }
@@ -451,6 +451,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRule/AddInboundRule', function(req
 
         if(ruleInfo)
         {
+
             ruleBackendHandler.AddInboundRule(ruleInfo, function(err, recordId, result){
 
                 if(err)

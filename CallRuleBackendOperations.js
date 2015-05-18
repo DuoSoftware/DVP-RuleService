@@ -77,7 +77,7 @@ var GetCallRuleById = function(ruleId, companyId, tenantId, callback)
     }
 };
 
-var PickCallRuleOutbound = function(aniNum, dnisNum, domain, companyId, tenantId, callback)
+var PickCallRuleOutbound = function(aniNum, dnisNum, domain, context, companyId, tenantId, callback)
 {
     try
     {
@@ -101,12 +101,13 @@ var PickCallRuleOutbound = function(aniNum, dnisNum, domain, companyId, tenantId
 
                         for (i = 0; i < crCount; i++)
                         {
-                            if(crList[i].DNISRegEx && crList[i].ANIRegEx)
+                            if(crList[i].DNISRegEx && crList[i].ANIRegEx && crList[i].ContextRegEx)
                             {
                                 var dnisRegExPattern = new RegExp(crList[i].DNISRegEx);
                                 var aniRegExPattern = new RegExp(crList[i].ANIRegEx);
+                                var contextRegEx = new RegExp(crList[i].ContextRegEx);
 
-                                if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum))
+                                if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context))
                                 {
                                     //pick call rule and break op
                                     callRulePicked = crList[i];
@@ -158,7 +159,7 @@ var PickCallRuleOutbound = function(aniNum, dnisNum, domain, companyId, tenantId
     }
 };
 
-var PickCallRuleInbound = function(aniNum, dnisNum, domain, companyId, tenantId, callback)
+var PickCallRuleInbound = function(aniNum, dnisNum, domain, context, companyId, tenantId, callback)
 {
     try
     {
@@ -182,12 +183,13 @@ var PickCallRuleInbound = function(aniNum, dnisNum, domain, companyId, tenantId,
 
                         for (i = 0; i < crCount; i++)
                         {
-                            if(crList[i].DNISRegEx && crList[i].ANIRegEx)
+                            if(crList[i].DNISRegEx && crList[i].ANIRegEx && crList[i].ContextRegEx)
                             {
                                 var dnisRegExPattern = new RegExp(crList[i].DNISRegEx);
                                 var aniRegExPattern = new RegExp(crList[i].ANIRegEx);
+                                var contextRegEx = new RegExp(crList[i].ContextRegEx);
 
-                                if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum))
+                                if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context))
                                 {
                                     //pick call rule and break op
                                     callRulePicked = crList[i];
@@ -310,6 +312,16 @@ var AddOutboundRule = function(ruleInfo, callback)
                     {
                         try
                         {
+                            if(!ruleInfo.Context || ruleInfo.Context.toUpperCase() === "ANY")
+                            {
+                                ruleInfo.ContextRegExPattern = "ANY";
+                                ruleInfo.Context = "ANY";
+                            }
+                            else
+                            {
+                                ruleInfo.ContextRegExPattern = "EXACTMATCH";
+                            }
+
                             if (err)
                             {
                                 logger.error('[DVP-RuleService.AddOutboundRule] PGSQL Get call rule by id query failed', err);
@@ -348,6 +360,7 @@ var AddOutboundRule = function(ruleInfo, callback)
                                                         TenantId: ruleInfo.TenantId,
                                                         DNISRegEx: regExHandler.GenerateRegEx(ruleInfo.DNIS, ruleInfo.RegExPattern),
                                                         ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.ANIRegExPattern),
+                                                        ContextRegEx: regExHandler.GenerateRegEx(ruleInfo.Context, ruleInfo.ContextRegExPattern),
                                                         RegExPattern: ruleInfo.RegExPattern,
                                                         ANIRegExPattern: ruleInfo.ANIRegExPattern,
                                                         DNIS: ruleInfo.DNIS,
@@ -423,6 +436,7 @@ var AddOutboundRule = function(ruleInfo, callback)
                                                     TenantId: ruleInfo.TenantId,
                                                     DNISRegEx: regExHandler.GenerateRegEx(ruleInfo.DNIS, ruleInfo.RegExPattern),
                                                     ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.ANIRegExPattern),
+                                                    ContextRegEx: regExHandler.GenerateRegEx(ruleInfo.Context, ruleInfo.ContextRegExPattern),
                                                     RegExPattern: ruleInfo.RegExPattern,
                                                     ANIRegExPattern: ruleInfo.ANIRegExPattern,
                                                     DNIS: ruleInfo.DNIS,
@@ -518,6 +532,16 @@ var AddInboundRule = function(ruleInfo, callback)
                     {
                         try
                         {
+                            if(!ruleInfo.Context || ruleInfo.Context.toUpperCase() === "ANY")
+                            {
+                                ruleInfo.ContextRegExPattern = "ANY";
+                                ruleInfo.Context = "ANY";
+                            }
+                            else
+                            {
+                                ruleInfo.ContextRegExPattern = "EXACTMATCH";
+                            }
+
                             if (err)
                             {
                                 logger.error('[DVP-RuleService.AddInboundRule] PGSQL Get call rule by id query failed', err);
@@ -540,6 +564,7 @@ var AddInboundRule = function(ruleInfo, callback)
                                         TenantId: ruleInfo.TenantId,
                                         DNISRegEx: regExHandler.GenerateRegEx(ruleInfo.DNIS, ruleInfo.RegExPattern),
                                         ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.ANIRegExPattern),
+                                        ContextRegEx: regExHandler.GenerateRegEx(ruleInfo.Context, ruleInfo.ContextRegExPattern),
                                         RegExPattern: ruleInfo.RegExPattern,
                                         ANIRegExPattern: ruleInfo.ANIRegExPattern,
                                         DNIS: ruleInfo.DNIS,
@@ -583,6 +608,7 @@ var AddInboundRule = function(ruleInfo, callback)
                                     TenantId: ruleInfo.TenantId,
                                     DNISRegEx: regExHandler.GenerateRegEx(ruleInfo.DNIS, ruleInfo.RegExPattern),
                                     ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.ANIRegExPattern),
+                                    ContextRegEx: regExHandler.GenerateRegEx(ruleInfo.Context, ruleInfo.ContextRegExPattern),
                                     RegExPattern: ruleInfo.RegExPattern,
                                     ANIRegExPattern: ruleInfo.ANIRegExPattern,
                                     DNIS: ruleInfo.DNIS,
@@ -690,7 +716,7 @@ var SetCallRuleAvailability = function(ruleId, enable, companyId, tenantId, call
     }
 };
 
-var SetCallOutboundRuleRegEx = function(ruleId, DNISRegExMethod, ANIRegExMethod, DNIS, ANI, companyId, tenantId, callback)
+var SetCallRuleRegEx = function(ruleId, DNISRegExMethod, ANIRegExMethod, DNIS, ANI, companyId, tenantId, callback)
 {
     try
     {
@@ -698,48 +724,38 @@ var SetCallOutboundRuleRegEx = function(ruleId, DNISRegExMethod, ANIRegExMethod,
         {
             if(err)
             {
-                logger.error('[DVP-RuleService.SetCallOutboundRuleRegEx] PGSQL Get call rule by id query failed', err);
+                logger.error('[DVP-RuleService.SetCallRuleRegEx] PGSQL Get call rule by id query failed', err);
                 callback(err, false);
             }
-            else if(ruleRec)
-            {
-                logger.info('[DVP-RuleService.SetCallOutboundRuleRegEx] PGSQL Get call rule by id query success');
+            else if(ruleRec) {
+                logger.info('[DVP-RuleService.SetCallRuleRegEx] PGSQL Get call rule by id query success');
                 //update attrib
-                if(ruleRec.ObjType == "Outbound")
-                {
-                    rule.updateAttributes(
-                        {
-                            DNISRegEx: regExHandler.GenerateRegEx(DNIS, DNISRegExMethod),
-                            ANIRegEx: regExHandler.GenerateRegEx(ANI, ANIRegExMethod),
-                            RegExPattern: DNISRegExMethod,
-                            ANIRegExPattern: ANIRegExMethod,
-                            DNIS: DNIS,
-                            ANI: ANI
-                        }).complete(function (err)
-                        {
-                            if (err)
-                            {
-                                logger.error('[DVP-RuleService.SetCallOutboundRuleRegEx] PGSQL Update call rule with regular expressions query failed', err);
-                                callback(err, false);
-                            }
-                            else
-                            {
-                                logger.info('[DVP-RuleService.SetCallOutboundRuleRegEx] PGSQL Update call rule with regular expressions query success');
-                                callback(undefined, true);
-                            }
 
-                        });
-                }
-                else
-                {
-                    callback(new Error("Call rule provided to update is not an outbound rule"), false);
-                }
+                rule.updateAttributes(
+                    {
+                        DNISRegEx: regExHandler.GenerateRegEx(DNIS, DNISRegExMethod),
+                        ANIRegEx: regExHandler.GenerateRegEx(ANI, ANIRegExMethod),
+                        RegExPattern: DNISRegExMethod,
+                        ANIRegExPattern: ANIRegExMethod,
+                        DNIS: DNIS,
+                        ANI: ANI
+                    }).complete(function (err) {
+                        if (err) {
+                            logger.error('[DVP-RuleService.SetCallRuleRegEx] PGSQL Update call rule with regular expressions query failed', err);
+                            callback(err, false);
+                        }
+                        else {
+                            logger.info('[DVP-RuleService.SetCallRuleRegEx] PGSQL Update call rule with regular expressions query success');
+                            callback(undefined, true);
+                        }
+
+                    });
 
 
             }
             else
             {
-                logger.info('[DVP-RuleService.SetCallOutboundRuleRegEx] PGSQL Get call rule by id query success');
+                logger.info('[DVP-RuleService.SetCallRuleRegEx] PGSQL Get call rule by id query success');
                 callback(new Error("Unable to find call rule for company"), false);
             }
 
@@ -942,7 +958,7 @@ module.exports.SetCallRulePriority = SetCallRulePriority;
 module.exports.GetCallRulesForCompany = GetCallRulesForCompany;
 module.exports.GetCallRuleById = GetCallRuleById;
 module.exports.SetOutboundRuleTrunkNumber = SetOutboundRuleTrunkNumber;
-module.exports.SetCallOutboundRuleRegEx = SetCallOutboundRuleRegEx;
+module.exports.SetCallRuleRegEx = SetCallRuleRegEx;
 module.exports.SetCallRuleSchedule = SetCallRuleSchedule;
 module.exports.SetCallRuleTranslation = SetCallRuleTranslation;
 module.exports.PickCallRuleInbound = PickCallRuleInbound;
