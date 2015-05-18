@@ -1,5 +1,6 @@
 var dbModel = require('DVP-DBModels');
 var regExHandler = require('./RegExHandler.js');
+var logger = require('DVP-Common/LogHandler/CommonLogHandler.js').logger;
 
 var GetPhoneNumber = function(phoneNumber, companyId, tenantId, callback)
 {
@@ -10,10 +11,12 @@ var GetPhoneNumber = function(phoneNumber, companyId, tenantId, callback)
             {
                 if(err)
                 {
+                    logger.error('[DVP-RuleService.GetPhoneNumber] PGSQL Get phone number for company query failed', err);
                     callback(err, undefined);
                 }
                 else
                 {
+                    logger.info('[DVP-RuleService.GetPhoneNumber] PGSQL Get phone number for company query success');
                     callback(undefined, trNum);
                 }
             });
@@ -33,10 +36,12 @@ var GetCallRulesForCompany = function(companyId, tenantId, callback)
             {
                 if(err)
                 {
+                    logger.error('[DVP-RuleService.GetCallRulesForCompany] PGSQL Get call rules query failed', err);
                     callback(err, undefined);
                 }
                 else
                 {
+                    logger.info('[DVP-RuleService.GetCallRulesForCompany] PGSQL Get call rules query success');
                     callback(undefined, callRules);
                 }
             });
@@ -56,10 +61,12 @@ var GetCallRuleById = function(ruleId, companyId, tenantId, callback)
             {
                 if(err)
                 {
+                    logger.error('[DVP-RuleService.GetCallRuleById] PGSQL Get call rule by id query failed', err);
                     callback(err, undefined);
                 }
                 else
                 {
+                    logger.info('[DVP-RuleService.GetCallRuleById] PGSQL Get call rule by id query success');
                     callback(undefined, callRule);
                 }
             });
@@ -70,7 +77,7 @@ var GetCallRuleById = function(ruleId, companyId, tenantId, callback)
     }
 };
 
-var PickCallRuleOutbound = function(aniNum, dnisNum, domain, companyId, tenantId, callback)
+var PickCallRuleOutbound = function(aniNum, dnisNum, domain, context, companyId, tenantId, callback)
 {
     try
     {
@@ -80,10 +87,12 @@ var PickCallRuleOutbound = function(aniNum, dnisNum, domain, companyId, tenantId
             {
                 if(err)
                 {
+                    logger.error('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get outbound rules query failed', err);
                     callback(err, undefined);
                 }
                 else
                 {
+                    logger.info('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get outbound rules query success');
                     var callRulePicked = undefined;
 
                     try
@@ -92,12 +101,13 @@ var PickCallRuleOutbound = function(aniNum, dnisNum, domain, companyId, tenantId
 
                         for (i = 0; i < crCount; i++)
                         {
-                            if(crList[i].DNISRegEx && crList[i].ANIRegEx)
+                            if(crList[i].DNISRegEx && crList[i].ANIRegEx && crList[i].ContextRegEx)
                             {
                                 var dnisRegExPattern = new RegExp(crList[i].DNISRegEx);
                                 var aniRegExPattern = new RegExp(crList[i].ANIRegEx);
+                                var contextRegEx = new RegExp(crList[i].ContextRegEx);
 
-                                if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum))
+                                if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context))
                                 {
                                     //pick call rule and break op
                                     callRulePicked = crList[i];
@@ -113,6 +123,14 @@ var PickCallRuleOutbound = function(aniNum, dnisNum, domain, companyId, tenantId
                                 .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"}, {model: dbModel.TrunkPhoneNumber, as: "TrunkPhoneNumber"}]})
                                 .complete(function (err, crInfo)
                                 {
+                                    if(err)
+                                    {
+                                        logger.error('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get schedules translations for outbound rule query failed', err);
+                                    }
+                                    else
+                                    {
+                                        logger.info('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get schedules translations for outbound rule query success');
+                                    }
                                     callback(err, crInfo);
 
                                 });
@@ -120,7 +138,7 @@ var PickCallRuleOutbound = function(aniNum, dnisNum, domain, companyId, tenantId
                         }
                         else
                         {
-                            callback(undefined, undefined);
+                            callback(new Error('No matching outbound rules found for reg ex'), undefined);
                         }
 
 
@@ -129,9 +147,7 @@ var PickCallRuleOutbound = function(aniNum, dnisNum, domain, companyId, tenantId
                     catch(ex)
                     {
                         callback(ex, undefined);
-
                     }
-
 
                 }
 
@@ -143,7 +159,7 @@ var PickCallRuleOutbound = function(aniNum, dnisNum, domain, companyId, tenantId
     }
 };
 
-var PickCallRuleInbound = function(aniNum, dnisNum, domain, companyId, tenantId, callback)
+var PickCallRuleInbound = function(aniNum, dnisNum, domain, context, companyId, tenantId, callback)
 {
     try
     {
@@ -153,10 +169,12 @@ var PickCallRuleInbound = function(aniNum, dnisNum, domain, companyId, tenantId,
             {
                 if(err)
                 {
+                    logger.error('[DVP-RuleService.PickCallRuleInbound] PGSQL Get inbound rules query failed', err);
                     callback(err, undefined);
                 }
                 else
                 {
+                    logger.info('[DVP-RuleService.PickCallRuleInbound] PGSQL Get inbound rules query success');
                     var callRulePicked = undefined;
 
                     try
@@ -165,12 +183,13 @@ var PickCallRuleInbound = function(aniNum, dnisNum, domain, companyId, tenantId,
 
                         for (i = 0; i < crCount; i++)
                         {
-                            if(crList[i].DNISRegEx && crList[i].ANIRegEx)
+                            if(crList[i].DNISRegEx && crList[i].ANIRegEx && crList[i].ContextRegEx)
                             {
                                 var dnisRegExPattern = new RegExp(crList[i].DNISRegEx);
                                 var aniRegExPattern = new RegExp(crList[i].ANIRegEx);
+                                var contextRegEx = new RegExp(crList[i].ContextRegEx);
 
-                                if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum))
+                                if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context))
                                 {
                                     //pick call rule and break op
                                     callRulePicked = crList[i];
@@ -186,6 +205,14 @@ var PickCallRuleInbound = function(aniNum, dnisNum, domain, companyId, tenantId,
                                 .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Application, as: "Application", include : [{model: dbModel.Application, as: "MasterApplication"}]},{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"}]})
                                 .complete(function (err, crInfo)
                                 {
+                                    if(err)
+                                    {
+                                        logger.error('[DVP-RuleService.PickCallRuleInbound] PGSQL Get schedules translations for inbound rule query failed', err);
+                                    }
+                                    else
+                                    {
+                                        logger.info('[DVP-RuleService.PickCallRuleInbound] PGSQL Get schedules translations for inbound rule query success');
+                                    }
                                     callback(err, crInfo);
 
                                 });
@@ -193,7 +220,7 @@ var PickCallRuleInbound = function(aniNum, dnisNum, domain, companyId, tenantId,
                         }
                         else
                         {
-                            callback(undefined, undefined);
+                            callback(new Error('No matching inbound rules found for reg ex'), undefined);
                         }
 
 
@@ -225,10 +252,12 @@ var SetOutboundRuleTrunkNumber = function(ruleId, companyId, tenantId, trunkNum,
             {
                 if(err)
                 {
+                    logger.error('[DVP-RuleService.SetOutboundRuleTrunkNumber] PGSQL Get call rule by id query failed', err);
                     callback(err, false);
                 }
                 else
                 {
+                    logger.info('[DVP-RuleService.SetOutboundRuleTrunkNumber] PGSQL Get call rule by id query success');
                     GetPhoneNumber(trunkNum, companyId, tenantId, function(err, num)
                     {
                         if(err)
@@ -241,10 +270,12 @@ var SetOutboundRuleTrunkNumber = function(ruleId, companyId, tenantId, trunkNum,
                             {
                                 if(err)
                                 {
+                                    logger.error('[DVP-RuleService.SetOutboundRuleTrunkNumber] PGSQL Update call rule with trunk number query failed', err);
                                     callback(err, false);
                                 }
                                 else
                                 {
+                                    logger.info('[DVP-RuleService.SetOutboundRuleTrunkNumber] PGSQL Update call rule with trunk number query success');
                                     callback(undefined, true);
                                 }
 
@@ -281,13 +312,25 @@ var AddOutboundRule = function(ruleInfo, callback)
                     {
                         try
                         {
+                            if(!ruleInfo.Context || ruleInfo.Context.toUpperCase() === "ANY")
+                            {
+                                ruleInfo.ContextRegExPattern = "ANY";
+                                ruleInfo.Context = "ANY";
+                            }
+                            else
+                            {
+                                ruleInfo.ContextRegExPattern = "EXACTMATCH";
+                            }
+
                             if (err)
                             {
+                                logger.error('[DVP-RuleService.AddOutboundRule] PGSQL Get call rule by id query failed', err);
                                 callback(err, -1, false);
                             }
                             else if (rule)
                             {
                                 //update call rule
+                                logger.info('[DVP-RuleService.AddOutboundRule] PGSQL Get call rule by id query success');
 
                                 if(rule.CompanyId == ruleInfo.CompanyId && rule.TenantId == ruleInfo.TenantId)
                                 {
@@ -317,6 +360,7 @@ var AddOutboundRule = function(ruleInfo, callback)
                                                         TenantId: ruleInfo.TenantId,
                                                         DNISRegEx: regExHandler.GenerateRegEx(ruleInfo.DNIS, ruleInfo.RegExPattern),
                                                         ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.ANIRegExPattern),
+                                                        ContextRegEx: regExHandler.GenerateRegEx(ruleInfo.Context, ruleInfo.ContextRegExPattern),
                                                         RegExPattern: ruleInfo.RegExPattern,
                                                         ANIRegExPattern: ruleInfo.ANIRegExPattern,
                                                         DNIS: ruleInfo.DNIS,
@@ -329,10 +373,12 @@ var AddOutboundRule = function(ruleInfo, callback)
                                                     {
                                                         if(err)
                                                         {
+                                                            logger.error('[DVP-RuleService.AddOutboundRule] PGSQL Update outbound call rule with all attributes query failed', err);
                                                             callback(err, -1, false);
                                                         }
                                                         else
                                                         {
+                                                            logger.info('[DVP-RuleService.AddOutboundRule] PGSQL Update outbound call rule with all attributes query success');
                                                             callback(undefined, rule.id, true);
                                                         }
 
@@ -349,6 +395,10 @@ var AddOutboundRule = function(ruleInfo, callback)
                                             callback(new Error('Trunk number not given'), -1, false);
                                         }
                                     }
+                                    else
+                                    {
+                                        callback(new Error('Value Gateway is only allowed of ObjCategory'), -1, false);
+                                    }
 
 
                                 }
@@ -358,9 +408,12 @@ var AddOutboundRule = function(ruleInfo, callback)
                                     callback(new Error('Rule belongs to a different company'), -1, false);
                                 }
                             }
-                            else {
+                            else
+                            {
+                                logger.info('[DVP-RuleService.AddOutboundRule] PGSQL Get call rule by id query success');
 
-                                if (ruleInfo.ObjCategory == "Gateway") {
+                                if (ruleInfo.ObjCategory == "Gateway")
+                                {
                                     //need to validate trunk number
 
                                     if (ruleInfo.TrunkNumber)
@@ -383,6 +436,7 @@ var AddOutboundRule = function(ruleInfo, callback)
                                                     TenantId: ruleInfo.TenantId,
                                                     DNISRegEx: regExHandler.GenerateRegEx(ruleInfo.DNIS, ruleInfo.RegExPattern),
                                                     ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.ANIRegExPattern),
+                                                    ContextRegEx: regExHandler.GenerateRegEx(ruleInfo.Context, ruleInfo.ContextRegExPattern),
                                                     RegExPattern: ruleInfo.RegExPattern,
                                                     ANIRegExPattern: ruleInfo.ANIRegExPattern,
                                                     DNIS: ruleInfo.DNIS,
@@ -396,12 +450,16 @@ var AddOutboundRule = function(ruleInfo, callback)
                                                     .save()
                                                     .complete(function (err)
                                                     {
-                                                        try {
+                                                        try
+                                                        {
                                                             if (err)
                                                             {
+                                                                logger.error('[DVP-RuleService.AddOutboundRule] PGSQL Insert outbound call rule with all attributes query failed', err);
                                                                 callback(err, -1, false);
                                                             }
-                                                            else {
+                                                            else
+                                                            {
+                                                                logger.info('[DVP-RuleService.AddOutboundRule] PGSQL Insert outbound call rule with all attributes query success');
                                                                 var ruleId = rule.id;
                                                                 callback(undefined, ruleId, true);
                                                             }
@@ -414,18 +472,27 @@ var AddOutboundRule = function(ruleInfo, callback)
                                                     })
 
                                             }
-                                            else {
+                                            else
+                                            {
                                                 callback(new Error('Trunk number is not valid for the company'), -1, false);
                                             }
                                         })
                                     }
+                                    else
+                                    {
+                                        callback(new Error('Trunk number not given'), -1, false);
+                                    }
+                                }
+                                else
+                                {
+                                    callback(new Error('Value Gateway is only allowed of ObjCategory'), -1, false);
                                 }
                                 //save call rule
                             }
                         }
-                        catch (ex) {
-                            console.log(ex.toString());
-                            callback(undefined, undefined);
+                        catch (ex)
+                        {
+                            callback(ex, undefined);
                         }
 
                     })
@@ -442,13 +509,10 @@ var AddOutboundRule = function(ruleInfo, callback)
             callback(new Error('Invalid rule type'), -1, false);
         }
 
-
-
-
     }
     catch(ex)
     {
-        console.log(ex.toString());
+        callback(ex, undefined);
     }
 }
 
@@ -468,13 +532,25 @@ var AddInboundRule = function(ruleInfo, callback)
                     {
                         try
                         {
+                            if(!ruleInfo.Context || ruleInfo.Context.toUpperCase() === "ANY")
+                            {
+                                ruleInfo.ContextRegExPattern = "ANY";
+                                ruleInfo.Context = "ANY";
+                            }
+                            else
+                            {
+                                ruleInfo.ContextRegExPattern = "EXACTMATCH";
+                            }
+
                             if (err)
                             {
+                                logger.error('[DVP-RuleService.AddInboundRule] PGSQL Get call rule by id query failed', err);
                                 callback(err, -1, false);
                             }
                             else if (rule)
                             {
                                 //update call rule
+                                logger.info('[DVP-RuleService.AddInboundRule] PGSQL Get call rule by id query success');
 
                                 if(rule.CompanyId == ruleInfo.CompanyId && rule.TenantId == ruleInfo.TenantId)
                                 {
@@ -488,6 +564,7 @@ var AddInboundRule = function(ruleInfo, callback)
                                         TenantId: ruleInfo.TenantId,
                                         DNISRegEx: regExHandler.GenerateRegEx(ruleInfo.DNIS, ruleInfo.RegExPattern),
                                         ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.ANIRegExPattern),
+                                        ContextRegEx: regExHandler.GenerateRegEx(ruleInfo.Context, ruleInfo.ContextRegExPattern),
                                         RegExPattern: ruleInfo.RegExPattern,
                                         ANIRegExPattern: ruleInfo.ANIRegExPattern,
                                         DNIS: ruleInfo.DNIS,
@@ -500,10 +577,12 @@ var AddInboundRule = function(ruleInfo, callback)
                                     {
                                         if(err)
                                         {
+                                            logger.error('[DVP-RuleService.AddInboundRule] PGSQL Update inbound call rule with all attributes query failed', err);
                                             callback(err, -1, false);
                                         }
                                         else
                                         {
+                                            logger.info('[DVP-RuleService.AddInboundRule] PGSQL Update inbound call rule with all attributes query success');
                                             callback(undefined, rule.id, true);
                                         }
 
@@ -517,6 +596,7 @@ var AddInboundRule = function(ruleInfo, callback)
                             }
                             else
                             {
+                                logger.info('[DVP-RuleService.AddInboundRule] PGSQL Get call rule by id query success');
                                 //save call rule
                                 var rule = dbModel.CallRule.build({
                                     CallRuleDescription: ruleInfo.CallRuleDescription,
@@ -528,6 +608,7 @@ var AddInboundRule = function(ruleInfo, callback)
                                     TenantId: ruleInfo.TenantId,
                                     DNISRegEx: regExHandler.GenerateRegEx(ruleInfo.DNIS, ruleInfo.RegExPattern),
                                     ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.ANIRegExPattern),
+                                    ContextRegEx: regExHandler.GenerateRegEx(ruleInfo.Context, ruleInfo.ContextRegExPattern),
                                     RegExPattern: ruleInfo.RegExPattern,
                                     ANIRegExPattern: ruleInfo.ANIRegExPattern,
                                     DNIS: ruleInfo.DNIS,
@@ -546,9 +627,12 @@ var AddInboundRule = function(ruleInfo, callback)
                                         try {
                                             if (err)
                                             {
+                                                logger.error('[DVP-RuleService.AddInboundRule] PGSQL Insert inbound call rule with all attributes query failed', err);
                                                 callback(err, -1, false);
                                             }
-                                            else {
+                                            else
+                                            {
+                                                logger.info('[DVP-RuleService.AddInboundRule] PGSQL Insert inbound call rule with all attributes query success');
                                                 var ruleId = rule.id;
                                                 callback(undefined, ruleId, true);
                                             }
@@ -561,8 +645,9 @@ var AddInboundRule = function(ruleInfo, callback)
                                     })
                             }
                         }
-                        catch (ex) {
-                                callback(ex, undefined);
+                        catch (ex)
+                        {
+                            callback(ex, undefined);
                         }
 
                     })
@@ -578,14 +663,10 @@ var AddInboundRule = function(ruleInfo, callback)
         {
             callback(new Error('Invalid rule type'), -1, false);
         }
-
-
-
-
     }
     catch(ex)
     {
-        console.log(ex.toString());
+        callback(ex, -1, false);
     }
 
 
@@ -597,22 +678,25 @@ var SetCallRuleAvailability = function(ruleId, enable, companyId, tenantId, call
     {
         dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId}]}).complete(function (err, ruleRec)
         {
-
             if(err)
             {
+                logger.error('[DVP-RuleService.AddInboundRule] PGSQL Get call rule by id query failed', err);
                 callback(err, false);
             }
             else if(ruleRec)
             {
                 //update attrib
+                logger.info('[DVP-RuleService.AddInboundRule] PGSQL Get call rule by id query success');
                 ruleRec.updateAttributes({Enable: enable}).complete(function (err)
                 {
                     if(err)
                     {
+                        logger.error('[DVP-RuleService.AddInboundRule] PGSQL Update call rule with availability query failed', err);
                         callback(err, false);
                     }
                     else
                     {
+                        logger.info('[DVP-RuleService.AddInboundRule] PGSQL Update call rule with availability query success');
                         callback(undefined, true);
                     }
 
@@ -620,6 +704,7 @@ var SetCallRuleAvailability = function(ruleId, enable, companyId, tenantId, call
             }
             else
             {
+                logger.info('[DVP-RuleService.AddInboundRule] PGSQL Get call rule by id query success');
                 callback(new Error("Unable to find call rule for company"), false);
             }
 
@@ -631,7 +716,7 @@ var SetCallRuleAvailability = function(ruleId, enable, companyId, tenantId, call
     }
 };
 
-var SetCallOutboundRuleRegEx = function(ruleId, DNISRegExMethod, ANIRegExMethod, DNIS, ANI, companyId, tenantId, callback)
+var SetCallRuleRegEx = function(ruleId, DNISRegExMethod, ANIRegExMethod, DNIS, ANI, companyId, tenantId, callback)
 {
     try
     {
@@ -639,40 +724,38 @@ var SetCallOutboundRuleRegEx = function(ruleId, DNISRegExMethod, ANIRegExMethod,
         {
             if(err)
             {
+                logger.error('[DVP-RuleService.SetCallRuleRegEx] PGSQL Get call rule by id query failed', err);
                 callback(err, false);
             }
-            else if(ruleRec)
-            {
+            else if(ruleRec) {
+                logger.info('[DVP-RuleService.SetCallRuleRegEx] PGSQL Get call rule by id query success');
                 //update attrib
-                if(ruleRec.ObjType == "Outbound")
-                {
-                    rule.updateAttributes(
-                        {
-                            DNISRegEx: regExHandler.GenerateRegEx(DNIS, DNISRegExMethod),
-                            ANIRegEx: regExHandler.GenerateRegEx(ANI, ANIRegExMethod),
-                            RegExPattern: DNISRegExMethod,
-                            ANIRegExPattern: ANIRegExMethod,
-                            DNIS: DNIS,
-                            ANI: ANI
-                        }).complete(function (err) {
-                            if (err) {
-                                callback(err, false);
-                            }
-                            else {
-                                callback(undefined, true);
-                            }
 
-                        });
-                }
-                else
-                {
-                    callback(new Error("Call rule provided to update is not an outbound rule"), false);
-                }
+                rule.updateAttributes(
+                    {
+                        DNISRegEx: regExHandler.GenerateRegEx(DNIS, DNISRegExMethod),
+                        ANIRegEx: regExHandler.GenerateRegEx(ANI, ANIRegExMethod),
+                        RegExPattern: DNISRegExMethod,
+                        ANIRegExPattern: ANIRegExMethod,
+                        DNIS: DNIS,
+                        ANI: ANI
+                    }).complete(function (err) {
+                        if (err) {
+                            logger.error('[DVP-RuleService.SetCallRuleRegEx] PGSQL Update call rule with regular expressions query failed', err);
+                            callback(err, false);
+                        }
+                        else {
+                            logger.info('[DVP-RuleService.SetCallRuleRegEx] PGSQL Update call rule with regular expressions query success');
+                            callback(undefined, true);
+                        }
+
+                    });
 
 
             }
             else
             {
+                logger.info('[DVP-RuleService.SetCallRuleRegEx] PGSQL Get call rule by id query success');
                 callback(new Error("Unable to find call rule for company"), false);
             }
 
@@ -693,19 +776,23 @@ var SetCallRulePriority = function(ruleId, priority, companyId, tenantId, callba
 
             if(err)
             {
+                logger.error('[DVP-RuleService.SetCallRulePriority] PGSQL Get call rule by id query failed', err);
                 callback(err, false);
             }
             else if(ruleRec)
             {
                 //update attrib
+                logger.info('[DVP-RuleService.SetCallRulePriority] PGSQL Get call rule by id query success');
                 ruleRec.updateAttributes({Priority: priority}).complete(function (err)
                 {
                     if(err)
                     {
+                        logger.error('[DVP-RuleService.SetCallRulePriority] PGSQL Update call rule with priority query failed', err);
                         callback(err, false);
                     }
                     else
                     {
+                        logger.info('[DVP-RuleService.SetCallRulePriority] PGSQL Update call rule with priority query success');
                         callback(undefined, true);
                     }
 
@@ -713,6 +800,7 @@ var SetCallRulePriority = function(ruleId, priority, companyId, tenantId, callba
             }
             else
             {
+                logger.info('[DVP-RuleService.SetCallRulePriority] PGSQL Get call rule by id query success');
                 callback(new Error("Unable to find call rule for company"), false);
             }
 
@@ -732,16 +820,19 @@ var DeleteCallRule = function(ruleId, companyId, tenantId, callback)
         {
             if (!err && ruleRec)
             {
+                logger.info('[DVP-RuleService.DeleteCallRule] PGSQL Get call rule by id query success');
                 if(ruleRec.CompanyId == companyId)
                 {
                     ruleRec.destroy().complete(function (err, result)
                     {
                         if(!err)
                         {
+                            logger.info('[DVP-RuleService.DeleteCallRule] PGSQL Delete call rule query success');
                             callback(undefined, true);
                         }
                         else
                         {
+                            logger.error('[DVP-RuleService.DeleteCallRule] PGSQL Delete call rule query failed', err);
                             callback(err, false);
                         }
                     });
@@ -754,6 +845,7 @@ var DeleteCallRule = function(ruleId, companyId, tenantId, callback)
             }
             else
             {
+                logger.error('[DVP-RuleService.DeleteCallRule] PGSQL Get call rule by id query failed', err);
                 callback(undefined, false);
             }
 
@@ -775,19 +867,23 @@ var SetCallRuleSchedule = function(ruleId, scheduleId, companyId, tenantId, call
 
             if(err)
             {
+                logger.error('[DVP-RuleService.SetCallRuleSchedule] PGSQL Get call rule by id query failed', err);
                 callback(err, false);
             }
             else if(ruleRec)
             {
+                logger.info('[DVP-RuleService.SetCallRuleSchedule] PGSQL Get call rule by id query success');
                 //update attrib
                 ruleRec.updateAttributes({ScheduleId: scheduleId}).complete(function (err)
                 {
                     if(err)
                     {
+                        logger.error('[DVP-RuleService.SetCallRuleSchedule] PGSQL Update call rule with schedule query fail', err);
                         callback(err, false);
                     }
                     else
                     {
+                        logger.info('[DVP-RuleService.SetCallRuleSchedule] PGSQL Update call rule with schedule query success');
                         callback(undefined, true);
                     }
 
@@ -795,6 +891,7 @@ var SetCallRuleSchedule = function(ruleId, scheduleId, companyId, tenantId, call
             }
             else
             {
+                logger.info('[DVP-RuleService.SetCallRuleSchedule] PGSQL Get call rule by id query success');
                 callback(new Error("Unable to find call rule for company"), false);
             }
 
@@ -815,19 +912,23 @@ var SetCallRuleTranslation = function(ruleId, transId, companyId, tenantId, call
 
             if(err)
             {
+                logger.error('[DVP-RuleService.SetCallRuleTranslation] PGSQL Get call rule by id query failed', err);
                 callback(err, false);
             }
             else if(ruleRec)
             {
                 //update attrib
+                logger.info('[DVP-RuleService.SetCallRuleTranslation] PGSQL Get call rule by id query success');
                 ruleRec.updateAttributes({TranslationId: transId}).complete(function (err)
                 {
                     if(err)
                     {
+                        logger.error('[DVP-RuleService.SetCallRuleTranslation] PGSQL Update call rule with translation query fail', err);
                         callback(err, false);
                     }
                     else
                     {
+                        logger.info('[DVP-RuleService.SetCallRuleTranslation] PGSQL Update call rule with translation query success');
                         callback(undefined, true);
                     }
 
@@ -835,6 +936,7 @@ var SetCallRuleTranslation = function(ruleId, transId, companyId, tenantId, call
             }
             else
             {
+                logger.info('[DVP-RuleService.SetCallRuleTranslation] PGSQL Get call rule by id query success');
                 callback(new Error("Unable to find call rule for company"), false);
             }
 
@@ -856,7 +958,7 @@ module.exports.SetCallRulePriority = SetCallRulePriority;
 module.exports.GetCallRulesForCompany = GetCallRulesForCompany;
 module.exports.GetCallRuleById = GetCallRuleById;
 module.exports.SetOutboundRuleTrunkNumber = SetOutboundRuleTrunkNumber;
-module.exports.SetCallOutboundRuleRegEx = SetCallOutboundRuleRegEx;
+module.exports.SetCallRuleRegEx = SetCallRuleRegEx;
 module.exports.SetCallRuleSchedule = SetCallRuleSchedule;
 module.exports.SetCallRuleTranslation = SetCallRuleTranslation;
 module.exports.PickCallRuleInbound = PickCallRuleInbound;
