@@ -27,6 +27,8 @@ var GetPhoneNumber = function(phoneNumber, companyId, tenantId, callback)
     }
 };
 
+
+
 var GetCallRulesForCompany = function(companyId, tenantId, callback)
 {
     try
@@ -77,7 +79,7 @@ var GetCallRuleById = function(ruleId, companyId, tenantId, callback)
     }
 };
 
-var PickCallRuleOutbound = function(aniNum, dnisNum, domain, context, companyId, tenantId, callback)
+var PickCallRuleOutbound = function(aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, callback)
 {
     try
     {
@@ -101,18 +103,37 @@ var PickCallRuleOutbound = function(aniNum, dnisNum, domain, context, companyId,
 
                         for (i = 0; i < crCount; i++)
                         {
-                            if(crList[i].DNISRegEx && crList[i].ANIRegEx && crList[i].ContextRegEx)
+                            if(crList[i].DNISRegEx && crList[i].ANIRegEx)
                             {
                                 var dnisRegExPattern = new RegExp(crList[i].DNISRegEx);
                                 var aniRegExPattern = new RegExp(crList[i].ANIRegEx);
-                                var contextRegEx = new RegExp(crList[i].ContextRegEx);
-
-                                if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context))
+                                var contextRegEx = undefined;
+                                if(matchContext)
                                 {
-                                    //pick call rule and break op
-                                    callRulePicked = crList[i];
-                                    break;
+                                    if(crList[i].ContextRegEx)
+                                    {
+                                        contextRegEx = new RegExp(crList[i].ContextRegEx);
+
+                                        if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context))
+                                        {
+                                            //pick call rule and break op
+                                            callRulePicked = crList[i];
+                                            break;
+                                        }
+                                    }
+
                                 }
+                                else
+                                {
+                                    if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum))
+                                    {
+                                        //pick call rule and break op
+                                        callRulePicked = crList[i];
+                                        break;
+                                    }
+                                }
+
+
                             }
                         }
 
