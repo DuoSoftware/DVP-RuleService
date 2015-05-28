@@ -1,5 +1,6 @@
 var dbModel = require('DVP-DBModels');
 var regExHandler = require('./RegExHandler.js');
+var transHandler = require('./TranslationHandler.js');
 var logger = require('DVP-Common/LogHandler/CommonLogHandler.js').logger;
 
 var GetPhoneNumber = function(phoneNumber, companyId, tenantId, callback)
@@ -79,6 +80,87 @@ var GetCallRuleById = function(ruleId, companyId, tenantId, callback)
     }
 };
 
+
+
+var PickCallRuleOutboundComplete = function(aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, callback)
+{
+    try
+    {
+        PickCallRuleOutbound(aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, function(err, callRule)
+        {
+            if(err)
+            {
+                callback(err, undefined);
+            }
+            else if(callRule)
+            {
+                dbModel.TrunkPhoneNumber.find({where: [{PhoneNumber: callRule.TrunkNumber}, {TenantId: tenantId}], include: [{model: dbModel.Trunk, include: [{model: dbModel.Translation, as: "Translation"}]}]})
+                    .complete(function (err, phnNumTrunkInfo)
+                    {
+                        if (err)
+                        {
+                            logger.error('[DVP-DynamicConfigurationGenerator.GetTrunkAndNumberInfo] PGSQL Get trunk and phone number query failed', err);
+                            callback(err, undefined);
+                        }
+                        else if(phnNumTrunkInfo)
+                        {
+                            if(phnNumTrunkInfo.Trunk)
+                            {
+                                var tempOrigination = callRule.TrunkNumber;
+                                var tempDestination = fm.DestinationNumber;
+
+                                if(callRule.Translation)
+                                {
+                                    //Translate ANI And DNIS
+                                    tempDestination = transHandler.TranslateHandler(callRule.Transaction, tempDestination);
+                                }
+                                if(callRule.ANITranslation)
+                                {
+                                    //Translate ANI And DNIS
+                                    tempOrigination = transHandler.TranslateHandler(callRule.ANITranslation, tempOrigination);
+                                }
+
+                                var outrule =
+                                {
+                                    DNIS : tempDestination,
+                                    ANI : tempOrigination,
+                                    GatwewayCode : phnNumTrunkInfo.Trunk.TrunkCode,
+                                    Domain : phnNumTrunkInfo.Trunk.Domain
+                                };
+
+                                callback(undefined, outrule);
+
+                            }
+                            else
+                            {
+                                callback(new Error('No trunk found'), undefined);
+                            }
+
+
+                        }
+                        else
+                        {
+                            callback(new Error('Phone number trunk info not found'), undefined);
+                        }
+
+                    });
+
+            }
+            else
+            {
+                callback(new Error('Call rule not found'), undefined);
+            }
+
+        });
+
+    }
+    catch(ex)
+    {
+        callback(ex, undefined);
+
+    }
+}
+
 var PickCallRuleOutbound = function(aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, callback)
 {
     try
@@ -141,7 +223,7 @@ var PickCallRuleOutbound = function(aniNum, dnisNum, domain, context, companyId,
                         {
                             //get application, get schedule, get translations
                             dbModel.CallRule
-                                .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"}, {model: dbModel.TrunkPhoneNumber, as: "TrunkPhoneNumber"}]})
+                                .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"},{model: dbModel.Translation, as: "ANITranslation"}, {model: dbModel.TrunkPhoneNumber, as: "TrunkPhoneNumber"}]})
                                 .complete(function (err, crInfo)
                                 {
                                     if(err)
@@ -984,3 +1066,4 @@ module.exports.SetCallRuleSchedule = SetCallRuleSchedule;
 module.exports.SetCallRuleTranslation = SetCallRuleTranslation;
 module.exports.PickCallRuleInbound = PickCallRuleInbound;
 module.exports.PickCallRuleOutbound = PickCallRuleOutbound;
+module.exports.PickCallRuleOutboundComplete = PickCallRuleOutboundComplete;
