@@ -12,7 +12,9 @@ module.exports = function(sequelize, DataTypes)
             TenantId: DataTypes.INTEGER,
             ObjClass: DataTypes.STRING,
             ObjType: DataTypes.STRING,
-            ObjCategory: DataTypes.STRING
+            ObjCategory: DataTypes.STRING,
+            DodNumber: DataTypes.STRING,
+            DodActive: DataTypes.BOOLEAN
         }
     );
 
