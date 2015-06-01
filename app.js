@@ -532,7 +532,7 @@ server.del('/DVP/API/' + hostVersion + '/CallRule/DeleteCallRule/:id', function(
 
 });
 
-server.get('/DVP/API/' + hostVersion + '/Translation/TranslationsByCompany/:companyId/:tenantId', function(req, res, next)
+server.get('/DVP/API/' + hostVersion + '/CallRule/TranslationsByCompany/:companyId/:tenantId', function(req, res, next)
 {
     var emptyArr = [];
     var reqId = uuid.v1();
@@ -570,7 +570,7 @@ server.get('/DVP/API/' + hostVersion + '/Translation/TranslationsByCompany/:comp
 
 });
 
-server.get('/DVP/API/' + hostVersion + '/Translation/TranslationById/:id/:companyId/:tenantId', function(req, res, next)
+server.get('/DVP/API/' + hostVersion + '/CallRule/TranslationById/:id/:companyId/:tenantId', function(req, res, next)
 {
     var reqId = uuid.v1();
     try
@@ -608,7 +608,7 @@ server.get('/DVP/API/' + hostVersion + '/Translation/TranslationById/:id/:compan
 
 });
 
-server.post('/DVP/API/' + hostVersion + '/Translation/SaveTranslation', function(req, res, next)
+server.post('/DVP/API/' + hostVersion + '/CallRule/SaveTranslation', function(req, res, next)
 {
     var reqId = uuid.v1();
     try
@@ -644,7 +644,7 @@ server.post('/DVP/API/' + hostVersion + '/Translation/SaveTranslation', function
 
 });
 
-server.post('/DVP/API/' + hostVersion + '/Translation/UpdateTranslation/:id', function(req, res, next)
+server.post('/DVP/API/' + hostVersion + '/CallRule/UpdateTranslation/:id', function(req, res, next)
 {
     var reqId = uuid.v1();
     try

@@ -125,7 +125,8 @@ var PickCallRuleOutboundComplete = function(aniNum, dnisNum, domain, context, co
                                     DNIS : tempDestination,
                                     ANI : tempOrigination,
                                     GatwewayCode : phnNumTrunkInfo.Trunk.TrunkCode,
-                                    Domain : phnNumTrunkInfo.Trunk.Domain
+                                    Domain : phnNumTrunkInfo.Trunk.Domain,
+                                    Timeout : callRule.Timeout
                                 };
 
                                 callback(undefined, outrule);
