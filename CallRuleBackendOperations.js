@@ -7,7 +7,7 @@ var GetPhoneNumber = function(phoneNumber, companyId, tenantId, callback)
 {
     try
     {
-        dbModel.TrunkNumber.find({where: [{PhoneNumber: phoneNumber},{CompanyId: companyId}]})
+        dbModel.TrunkPhoneNumber.find({where: [{PhoneNumber: phoneNumber},{CompanyId: companyId}]})
             .complete(function (err, trNum)
             {
                 if(err)
