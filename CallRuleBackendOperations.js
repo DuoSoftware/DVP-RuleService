@@ -28,8 +28,6 @@ var GetPhoneNumber = function(phoneNumber, companyId, tenantId, callback)
     }
 };
 
-
-
 var GetCallRulesForCompany = function(companyId, tenantId, callback)
 {
     try
@@ -79,8 +77,6 @@ var GetCallRuleById = function(ruleId, companyId, tenantId, callback)
         callback(ex, undefined);
     }
 };
-
-
 
 var PickCallRuleOutboundComplete = function(aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, callback)
 {
@@ -1051,6 +1047,8 @@ var SetCallRuleTranslation = function(ruleId, transId, companyId, tenantId, call
         callback(ex, false);
     }
 };
+
+
 
 
 
