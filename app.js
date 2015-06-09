@@ -116,7 +116,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRule/AssignTrunkNumberToOutboundRu
 
         if(id)
         {
-            ruleBackendHandler.SetOutboundRuleTrunkNumber(id, trunkNumber, companyId, tenantId, function(err, result){
+            ruleBackendHandler.SetOutboundRuleTrunkNumber(id, 1, 3, trunkNumber, function(err, result){
 
                 if(err)
                 {
@@ -172,7 +172,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleRegEx/:id', functi
 
                 if(err)
                 {
-                    logger.error(format('[DVP-RuleService.SetCallRuleRegEx] - [%s] - Exception occurred on method SetCallRuleRegEx', reqId), err);
+                    logger.error('[DVP-RuleService.SetCallRuleRegEx] - [%s] - Exception occurred on method SetCallRuleRegEx', reqId, err);
                     var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, undefined);
                     res.end(jsonString);
                 }
@@ -394,6 +394,53 @@ server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleTranslation/:id', 
 
 });
 
+server.post('/DVP/API/' + hostVersion + '/CallRule/AssignApp/:appId/ToRule/:ruleId', function(req, res, next)
+{
+    var reqId = uuid.v1();
+
+    try
+    {
+        var id = req.params.ruleId;
+        var appId = req.params.appId;
+
+        logger.debug('[DVP-RuleService.AssignAppToRule] - [%s] - HTTP Request Received - Req Params : ruleId : %s, appId : %s', reqId, id, appId);
+
+        if(id && appId)
+        {
+            ruleBackendHandler.SetCallRuleAppDB(reqId, id, appId, 1, 3, function(err, result){
+
+                if(err)
+                {
+                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, undefined);
+                    logger.debug('[DVP-PBXService.AssignAppToRule] - [%s] - API RESPONSE : %s', reqId, jsonString);
+                    res.end(jsonString);
+                }
+                else
+                {
+                    var jsonString = messageFormatter.FormatMessage(undefined, "App added to call rule successfully", result, undefined);
+                    logger.debug('[DVP-PBXService.AssignAppToRule] - [%s] - API RESPONSE : %s', reqId, jsonString);
+                    res.end(jsonString);
+                }
+            })
+        }
+        else
+        {
+            var jsonString = messageFormatter.FormatMessage(new Error("Empty params"), "ERROR", false, undefined);
+            logger.debug('[DVP-PBXService.AssignAppToRule] - [%s] - API RESPONSE : %s', reqId, jsonString);
+            res.end(jsonString);
+        }
+    }
+    catch(ex)
+    {
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, undefined);
+        logger.debug('[DVP-PBXService.AssignAppToRule] - [%s] - API RESPONSE : %s', reqId, jsonString);
+        res.end(jsonString);
+    }
+
+    return next();
+
+});
+
 //server.post('/DVP/API/' + hostVersion + '/CallRule/AddOutboundRule', function(req, res, next)
 server.post('/DVP/API/' + hostVersion + '/CallRule/AddOutboundRule', function(req, res, next)
 {
@@ -491,8 +538,8 @@ server.del('/DVP/API/' + hostVersion + '/CallRule/DeleteCallRule/:id', function(
     try
     {
         var id = req.params.id;
-        var companyId = req.body.companyId;
-        var tenantId = req.body.tenantId;
+        var companyId = 1;
+        var tenantId = 3;
 
         logger.debug('[DVP-RuleService.DeleteCallRule] - [%s] - HTTP Request Received - Req Params - Id : %s', reqId);
 
@@ -553,7 +600,7 @@ server.get('/DVP/API/' + hostVersion + '/CallRule/TranslationsByCompany/:company
             }
             else
             {
-                logger.debug('[DVP-RuleService.TranslationsByCompany] - [%s] - Get translations for company success - Returned : [%j]' + reqId, result);
+                logger.debug('[DVP-RuleService.TranslationsByCompany] - [%s] - Get translations for company success - Returned : ', reqId, JSON.stringify(result));
                 var jsonString = messageFormatter.FormatMessage(err, "Get translations for company success", true, result);
                 res.end(jsonString);
             }
@@ -656,6 +703,9 @@ server.post('/DVP/API/' + hostVersion + '/CallRule/UpdateTranslation/:id', funct
 
         transBackendHandler.UpdateTranslation(transId, transObj, function (err, result)
         {
+            transObj.CompanyId = 1;
+            transObj.TenantId = 3;
+
             if (err)
             {
                 logger.error('[DVP-RuleService.UpdateTranslation] - [%s] - Exception occurred on method UpdateTranslation', reqId, err);

@@ -10,7 +10,7 @@ function AddNewTranslation(transObj, callback)
             {
                 TransName: transObj.TransName,
                 TransDescription: transObj.TransDescription,
-                Enabled: transObj.Enabled,
+                Enabled: transObj.Enabled.toString(),
                 LAdd: transObj.LAdd,
                 LRemove: transObj.LRemove,
                 RAdd: transObj.RAdd,
