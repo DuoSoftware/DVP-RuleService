@@ -407,7 +407,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRule/AssignApp/:appId/ToRule/:rule
 
         if(id && appId)
         {
-            ruleBackendHandler.SetCallRuleAppDB(reqId, id, appId, 1, 3, function(err, result){
+            ruleBackendHandler.SetCallRuleAppDB(reqId, id, appId, 1, 1, function(err, result){
 
                 if(err)
                 {
