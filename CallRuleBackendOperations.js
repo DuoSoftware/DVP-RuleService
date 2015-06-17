@@ -90,7 +90,7 @@ var PickCallRuleOutboundComplete = function(aniNum, dnisNum, domain, context, co
             }
             else if(callRule)
             {
-                dbModel.TrunkPhoneNumber.find({where: [{PhoneNumber: callRule.TrunkNumber}, {TenantId: tenantId}], include: [{model: dbModel.Trunk, include: [{model: dbModel.Translation, as: "Translation"}]}]})
+                dbModel.TrunkPhoneNumber.find({where: [{PhoneNumber: callRule.TrunkNumber}, {TenantId: tenantId}], include: [{model: dbModel.LimitInfo, as: 'LimitInfoOutbound'},{model: dbModel.LimitInfo, as: 'LimitInfoBoth'},{model: dbModel.Trunk, include: [{model: dbModel.Translation, as: "Translation"}]}]})
                     .complete(function (err, phnNumTrunkInfo)
                     {
                         if (err)
@@ -100,39 +100,64 @@ var PickCallRuleOutboundComplete = function(aniNum, dnisNum, domain, context, co
                         }
                         else if(phnNumTrunkInfo)
                         {
-                            if(phnNumTrunkInfo.Trunk)
+                            var phnNumType = phnNumTrunkInfo.ObjCategory;
+
+                            if(phnNumType === 'OUTBOUND' || phnNumType === 'BOTH')
                             {
-                                var tempOrigination = callRule.TrunkNumber;
-                                var tempDestination = fm.DestinationNumber;
+                                var outLimit = -1;
+                                var bothLimit = -1;
 
-                                if(callRule.Translation)
+                                if(phnNumTrunkInfo.LimitInfoOutbound && phnNumTrunkInfo.LimitInfoOutbound.Enable && phnNumTrunkInfo.LimitInfoOutbound.MaxCount)
                                 {
-                                    //Translate ANI And DNIS
-                                    tempDestination = transHandler.TranslateHandler(callRule.Transaction, tempDestination);
-                                }
-                                if(callRule.ANITranslation)
-                                {
-                                    //Translate ANI And DNIS
-                                    tempOrigination = transHandler.TranslateHandler(callRule.ANITranslation, tempOrigination);
+                                    outLimit = phnNumTrunkInfo.LimitInfoOutbound.MaxCount;
                                 }
 
-                                var outrule =
+                                if(phnNumTrunkInfo.LimitInfoBoth && phnNumTrunkInfo.LimitInfoBoth.Enable && phnNumTrunkInfo.LimitInfoBoth.MaxCount)
                                 {
-                                    DNIS : tempDestination,
-                                    ANI : tempOrigination,
-                                    GatwewayCode : phnNumTrunkInfo.Trunk.TrunkCode,
-                                    Domain : phnNumTrunkInfo.Trunk.Domain,
-                                    Timeout : callRule.Timeout
-                                };
+                                    bothLimit = phnNumTrunkInfo.LimitInfoBoth.MaxCount;
+                                }
 
-                                callback(undefined, outrule);
+                                if(phnNumTrunkInfo.Trunk)
+                                {
+                                    var tempOrigination = callRule.TrunkNumber;
+                                    var tempDestination = dnisNum;
 
+                                    if(callRule.Translation)
+                                    {
+                                        //Translate ANI And DNIS
+                                        tempDestination = transHandler.TranslateHandler(callRule.Transaction, tempDestination);
+                                    }
+                                    if(callRule.ANITranslation)
+                                    {
+                                        //Translate ANI And DNIS
+                                        tempOrigination = transHandler.TranslateHandler(callRule.ANITranslation, tempOrigination);
+                                    }
+
+                                    var outrule =
+                                    {
+                                        DNIS : tempDestination,
+                                        ANI : tempOrigination,
+                                        GatwewayCode : phnNumTrunkInfo.Trunk.TrunkCode,
+                                        Domain : phnNumTrunkInfo.Trunk.Domain,
+                                        Timeout : callRule.Timeout,
+                                        OutLimit : outLimit,
+                                        BothLimit : bothLimit,
+                                        NumberType : phnNumType,
+                                        TrunkNumber : phnNumTrunkInfo.PhoneNumber
+                                    };
+
+                                    callback(undefined, outrule);
+
+                                }
+                                else
+                                {
+                                    callback(new Error('No trunk found'), undefined);
+                                }
                             }
                             else
                             {
-                                callback(new Error('No trunk found'), undefined);
+                                callback(new Error('phone number is not tagged as an outbound number'), undefined);
                             }
-
 
                         }
                         else
@@ -156,7 +181,7 @@ var PickCallRuleOutboundComplete = function(aniNum, dnisNum, domain, context, co
         callback(ex, undefined);
 
     }
-}
+};
 
 var PickCallRuleOutbound = function(aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, callback)
 {
