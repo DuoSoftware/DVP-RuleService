@@ -90,7 +90,7 @@ var PickCallRuleOutboundComplete = function(aniNum, dnisNum, domain, context, co
             }
             else if(callRule)
             {
-                dbModel.TrunkPhoneNumber.find({where: [{PhoneNumber: callRule.TrunkNumber}, {TenantId: tenantId}], include: [{model: dbModel.LimitInfo, as: 'LimitInfoOutbound'},{model: dbModel.LimitInfo, as: 'LimitInfoBoth'},{model: dbModel.Trunk, include: [{model: dbModel.Translation, as: "Translation"}]}]})
+                dbModel.TrunkPhoneNumber.find({where: [{PhoneNumber: callRule.TrunkNumber}, {TenantId: tenantId}], include: [{model: dbModel.LimitInfo, as: 'LimitInfoOutbound'},{model: dbModel.LimitInfo, as: 'LimitInfoBoth'},{model: dbModel.Trunk, as: 'Trunk', include: [{model: dbModel.Translation, as: "Translation"}]}]})
                     .complete(function (err, phnNumTrunkInfo)
                     {
                         if (err)
