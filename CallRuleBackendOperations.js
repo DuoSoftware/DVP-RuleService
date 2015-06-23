@@ -104,8 +104,8 @@ var PickCallRuleOutboundComplete = function(aniNum, dnisNum, domain, context, co
 
                             if(phnNumType === 'OUTBOUND' || phnNumType === 'BOTH')
                             {
-                                var outLimit = -1;
-                                var bothLimit = -1;
+                                var outLimit = undefined;
+                                var bothLimit = undefined;
 
                                 if(phnNumTrunkInfo.LimitInfoOutbound && phnNumTrunkInfo.LimitInfoOutbound.Enable && phnNumTrunkInfo.LimitInfoOutbound.MaxCount)
                                 {
@@ -143,8 +143,16 @@ var PickCallRuleOutboundComplete = function(aniNum, dnisNum, domain, context, co
                                         OutLimit : outLimit,
                                         BothLimit : bothLimit,
                                         NumberType : phnNumType,
-                                        TrunkNumber : phnNumTrunkInfo.PhoneNumber
+                                        TrunkNumber : phnNumTrunkInfo.PhoneNumber,
+                                        CompanyId : callRule.CompanyId,
+                                        TenantId : callRule.TenantId,
+                                        CheckLimit : true
                                     };
+
+                                    if(phnNumTrunkInfo.Trunk.LoadBalancerId)
+                                    {
+                                        outrule.CheckLimit = false;
+                                    }
 
                                     callback(undefined, outrule);
 
