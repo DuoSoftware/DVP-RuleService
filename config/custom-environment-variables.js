@@ -5,17 +5,17 @@
 module.exports = {
 
     "DB": {
-        "Type":"DB_TYPE",
-        "User":"DB_USER",
-        "Password":"DB_PASSWORD",
-        "Port":"DB_PORT",
-        "Host":"DB_HOST",
-        "Database":"DB_BASE"
+        "Type":"SYS_DATABASE_TYPE",
+        "User":"SYS_DATABASE_POSTGRES_USER",
+        "Password":"SYS_DATABASE_POSTGRES_PASSWORD",
+        "Port":"SYS_SQL_PORT",
+        "Host":"SYS_DATABASE_HOST",
+        "Database":"SYS_DATABASE_POSTGRES_USER"
     },
 
     "Host":{
-        "Ip":"HOST_IP",
-        "Port":"HOST_PORT",
+        "Ip":"HOST_NAME",
+        "Port":"HOST_CLUSTER_PORT",
         "Version":"HOST_VERSION"
     }
 };
