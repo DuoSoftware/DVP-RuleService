@@ -539,7 +539,7 @@ server.del('/DVP/API/' + hostVersion + '/CallRule/DeleteCallRule/:id', function(
     {
         var id = req.params.id;
         var companyId = 1;
-        var tenantId = 3;
+        var tenantId = 1;
 
         logger.debug('[DVP-RuleService.DeleteCallRule] - [%s] - HTTP Request Received - Req Params - Id : %s', reqId);
 
