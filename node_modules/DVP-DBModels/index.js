@@ -164,6 +164,7 @@ models.forEach(function(model) {
 
     m.PBXUser.hasMany(m.FollowMe, {as: "FollowMe", foreignKey: "PBXUserUuid"});
     m.FollowMe.belongsTo(m.PBXUser, {as: "PBXUser", foreignKey: "PBXUserUuid"});
+    m.FollowMe.belongsTo(m.PBXUser, {as: "DestinationUser", foreignKey: "DestinationUserUuid"});
 
     m.PBXUser.hasMany(m.Forwarding, {as: "Forwarding", foreignKey: "PBXUserUuid"});
     m.Forwarding.belongsTo(m.PBXUser, {as: "PBXUser", foreignKey: "PBXUserUuid"});

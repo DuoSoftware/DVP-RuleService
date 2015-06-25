@@ -15,7 +15,7 @@ module.exports = {
 
     "Host":{
         "Ip":"HOST_NAME",
-        "Port":"HOST_CLUSTER_PORT",
+        "Port":"HOST_RULESERVICE_PORT",
         "Version":"HOST_VERSION"
     }
 };
