@@ -100,6 +100,46 @@ server.get('/DVP/API/' + hostVersion + '/CallRule/CallRuleById/:id/:companyId/:t
 
 });
 
+server.get('/DVP/API/' + hostVersion + '/CallRule/PickOutboundRule/ANI/:ani/DNIS/:dnis', function(req, res, next)
+{
+    var reqId = uuid.v1();
+    try
+    {
+        var ani = req.params.ani;
+        var dnis = req.params.dnis;
+
+        logger.debug('[DVP-RuleService.CallRuleById] - [%s] - HTTP Request Received - Req Params : ani : %s, dnis : %s', reqId, ani, dnis);
+
+        var companyId = 1;
+        var tenantId = 1;
+
+        ruleBackendHandler.PickCallRuleOutboundComplete(ani, dnis, '', '', companyId, tenantId, false, function (err, result)
+        {
+            if (err)
+            {
+                logger.error('[DVP-RuleService.CallRuleById] - [%s] - Exception occurred on method GetCallRuleById', reqId, err);
+                var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, result);
+                res.end(jsonString);
+            }
+            else
+            {
+                logger.debug('[DVP-RuleService.CallRuleById] - [%s] - Get call rule by id success - Returned : %j', reqId, result);
+                var jsonString = messageFormatter.FormatMessage(err, "Get call rule success", true, result);
+                res.end(jsonString);
+            }
+        });
+    }
+    catch(ex)
+    {
+        logger.error(format('[DVP-RuleService.CallRuleById] - [%s] - Exception occurred', reqId), ex);
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, undefined);
+        res.end(jsonString);
+    }
+
+    return next();
+
+});
+
 //server.post('/DVP/API/' + hostVersion + '/CallRule/SetTrunkNumber/:id/:trunkNumber/:companyId/:tenantId', function(req, res, next)
 server.post('/DVP/API/' + hostVersion + '/CallRule/AssignTrunkNumberToOutboundRule/:id', function(req, res, next)
 {
