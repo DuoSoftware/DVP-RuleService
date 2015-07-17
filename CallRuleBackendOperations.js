@@ -95,7 +95,7 @@ var PickCallRuleOutboundComplete = function(aniNum, dnisNum, domain, context, co
                     {
                         if (err)
                         {
-                            logger.error('[DVP-DynamicConfigurationGenerator.GetTrunkAndNumberInfo] PGSQL Get trunk and phone number query failed', err);
+                            logger.error('[DVP-RuleService.PickCallRuleOutboundComplete] PGSQL Get trunk and phone number query failed', err);
                             callback(err, undefined);
                         }
                         else if(phnNumTrunkInfo)
@@ -159,17 +159,20 @@ var PickCallRuleOutboundComplete = function(aniNum, dnisNum, domain, context, co
                                 }
                                 else
                                 {
+                                    logger.error('[DVP-RuleService.PickCallRuleOutboundComplete] - No trunk found');
                                     callback(new Error('No trunk found'), undefined);
                                 }
                             }
                             else
                             {
+                                logger.error('[DVP-RuleService.PickCallRuleOutboundComplete] - phone number is not tagged as an outbound number');
                                 callback(new Error('phone number is not tagged as an outbound number'), undefined);
                             }
 
                         }
                         else
                         {
+                            logger.error('[DVP-RuleService.PickCallRuleOutboundComplete] - Phone number trunk info not found');
                             callback(new Error('Phone number trunk info not found'), undefined);
                         }
 
@@ -178,6 +181,7 @@ var PickCallRuleOutboundComplete = function(aniNum, dnisNum, domain, context, co
             }
             else
             {
+                logger.error('[DVP-RuleService.PickCallRuleOutboundComplete] - Call rule not found');
                 callback(new Error('Call rule not found'), undefined);
             }
 
@@ -186,8 +190,8 @@ var PickCallRuleOutboundComplete = function(aniNum, dnisNum, domain, context, co
     }
     catch(ex)
     {
+        logger.error('[DVP-RuleService.PickCallRuleOutboundComplete] - Error occurred', ex);
         callback(ex, undefined);
-
     }
 };
 
@@ -433,11 +437,11 @@ var AddOutboundRule = function(ruleInfo, callback)
 {
     try
     {
-        if(ruleInfo.ObjType == 'Outbound')
+        if(ruleInfo.ObjType == 'OUTBOUND')
         {
             //allow opereation
 
-            if(ruleInfo.ObjCategory && (ruleInfo.ObjCategory == 'IVR' || ruleInfo.ObjCategory == 'URL' || ruleInfo.ObjCategory == 'Gateway'))
+            if(ruleInfo.ObjCategory && ruleInfo.ObjCategory == 'GATEWAY')
             {
                 dbModel.CallRule
                     .find({where: {id: ruleInfo.id}})
@@ -467,10 +471,6 @@ var AddOutboundRule = function(ruleInfo, callback)
 
                                 if(rule.CompanyId == ruleInfo.CompanyId && rule.TenantId == ruleInfo.TenantId)
                                 {
-                                    //allow update
-
-                                    if(ruleInfo.ObjCategory == "Gateway")
-                                    {
                                         //need to validate trunk number
 
                                         if(ruleInfo.TrunkNumber)
@@ -499,7 +499,6 @@ var AddOutboundRule = function(ruleInfo, callback)
                                                         DNIS: ruleInfo.DNIS,
                                                         ANI: ruleInfo.ANI,
                                                         Priority: ruleInfo.Priority,
-                                                        TargetScript: ruleInfo.TargetScript,
                                                         TrunkId: num.TrunkId,
                                                         TrunkNumber: ruleInfo.TrunkNumber,
                                                         ExtraData: ruleInfo.ExtraData}).complete(function (err)
@@ -527,11 +526,6 @@ var AddOutboundRule = function(ruleInfo, callback)
                                         {
                                             callback(new Error('Trunk number not given'), -1, false);
                                         }
-                                    }
-                                    else
-                                    {
-                                        callback(new Error('Value Gateway is only allowed of ObjCategory'), -1, false);
-                                    }
 
 
                                 }
@@ -545,9 +539,6 @@ var AddOutboundRule = function(ruleInfo, callback)
                             {
                                 logger.info('[DVP-RuleService.AddOutboundRule] PGSQL Get call rule by id query success');
 
-                                if (ruleInfo.ObjCategory == "Gateway")
-                                {
-                                    //need to validate trunk number
 
                                     if (ruleInfo.TrunkNumber)
                                     {
@@ -575,7 +566,6 @@ var AddOutboundRule = function(ruleInfo, callback)
                                                     DNIS: ruleInfo.DNIS,
                                                     ANI: ruleInfo.ANI,
                                                     Priority: ruleInfo.Priority,
-                                                    TargetScript: ruleInfo.TargetScript,
                                                     ExtraData: ruleInfo.ExtraData
                                                 });
 
@@ -615,11 +605,6 @@ var AddOutboundRule = function(ruleInfo, callback)
                                     {
                                         callback(new Error('Trunk number not given'), -1, false);
                                     }
-                                }
-                                else
-                                {
-                                    callback(new Error('Value Gateway is only allowed of ObjCategory'), -1, false);
-                                }
                                 //save call rule
                             }
                         }
@@ -653,11 +638,11 @@ var AddInboundRule = function(ruleInfo, callback)
 {
     try
     {
-        if(ruleInfo.ObjType == 'Inbound')
+        if(ruleInfo.ObjType == 'INBOUND')
         {
             //allow opereation
 
-            if(ruleInfo.ObjCategory && (ruleInfo.ObjCategory == 'IVR' || ruleInfo.ObjCategory == 'URL' || ruleInfo.ObjCategory == 'FAX'))
+            if(ruleInfo.ObjCategory)
             {
                 dbModel.CallRule
                     .find({where: {id: ruleInfo.id}})
@@ -703,7 +688,6 @@ var AddInboundRule = function(ruleInfo, callback)
                                         DNIS: ruleInfo.DNIS,
                                         ANI: ruleInfo.ANI,
                                         Priority: ruleInfo.Priority,
-                                        TargetScript: ruleInfo.TargetScript,
                                         ScheduleId: ruleInfo.ScheduleId,
                                         TranslationId: ruleInfo.TranslationId,
                                         ExtraData: ruleInfo.ExtraData}).complete(function (err)
@@ -747,7 +731,6 @@ var AddInboundRule = function(ruleInfo, callback)
                                     DNIS: ruleInfo.DNIS,
                                     ANI: ruleInfo.ANI,
                                     Priority: ruleInfo.Priority,
-                                    TargetScript: ruleInfo.TargetScript,
                                     ScheduleId: ruleInfo.ScheduleId,
                                     TranslationId: ruleInfo.TranslationId,
                                     ExtraData: ruleInfo.ExtraData
@@ -1145,9 +1128,6 @@ var SetCallRuleTranslation = function(ruleId, transId, companyId, tenantId, call
         callback(ex, false);
     }
 };
-
-
-
 
 
 module.exports.AddOutboundRule = AddOutboundRule;

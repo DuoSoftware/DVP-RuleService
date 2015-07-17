@@ -496,6 +496,8 @@ server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/Outbound', functi
 
         if(ruleInfo)
         {
+            ruleInfo.CompanyId = 1;
+            ruleInfo.TenantId = 1;
             ruleBackendHandler.AddOutboundRule(ruleInfo, function(err, recordId, result){
 
                 if(err)
@@ -541,6 +543,8 @@ server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/Inbound', functio
 
         if(ruleInfo)
         {
+            ruleInfo.CompanyId = 1;
+            ruleInfo.TenantId = 1;
 
             ruleBackendHandler.AddInboundRule(ruleInfo, function(err, recordId, result){
 
@@ -707,6 +711,9 @@ server.post('/DVP/API/' + hostVersion + '/CallRuleApi/Translation', function(req
 
         var transObj = req.body;
 
+        transObj.CompanyId = 1;
+        transObj.TenantId = 1;
+
         transBackendHandler.AddNewTranslation(transObj, function (err, transId, result)
         {
             if (err)
@@ -747,7 +754,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRuleApi/ExistingTranslation/:id', 
         transBackendHandler.UpdateTranslation(transId, transObj, function (err, result)
         {
             transObj.CompanyId = 1;
-            transObj.TenantId = 3;
+            transObj.TenantId = 1;
 
             if (err)
             {
