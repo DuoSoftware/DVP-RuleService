@@ -85,7 +85,7 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
 {
     try
     {
-        PickCallRuleOutbound(aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, function(err, callRule)
+        PickCallRuleOutbound(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, function(err, callRule)
         {
             if(err)
             {
