@@ -203,7 +203,7 @@ var PickCallRuleOutbound = function(reqId, aniNum, dnisNum, domain, context, com
     try
     {
         dbModel.CallRule
-            .findAll({where :[{CompanyId: companyId},{TenantId: tenantId},{Enable: true}, {ObjType: 'OUTBOUND'}], order: ['Priority']})
+            .findAll({where :[{CompanyId: companyId},{TenantId: tenantId},{Enable: true}, {Direction: 'OUTBOUND'}], order: ['Priority']})
             .complete(function (err, crList)
             {
                 if(err)
