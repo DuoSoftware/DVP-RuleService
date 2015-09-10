@@ -72,7 +72,9 @@ var models = [
     "CampCampaignInfo",
     "CampContactInfo",
     "CampOngoingCampaign",
-    "CampContactSchedule"
+    "CampContactSchedule",
+    "CampContactCategory",
+    "CampDialoutInfo"
 ];
 
 models.forEach(function(model) {
@@ -278,6 +280,10 @@ models.forEach(function(model) {
             m.CampScheduleInfo.belongsTo(m.CampCampaignInfo, {as:"CampCampaignInfo", foreignKey:"CampaignId"});
             m.CampCampaignInfo.hasMany(m.CampScheduleInfo, {as:"CampScheduleInfo", foreignKey:"CampaignId"});
             //------------------CampScheduleInfo
+    //------------------CampContactCategory
+    m.CampContactInfo.belongsTo(m.CampContactCategory, {as:"CampContactCategory", foreignKey:"CategoryID"});
+    m.CampContactCategory.hasMany(m.CampContactInfo, {as:"CampContactInfo", foreignKey:"CategoryID"});
+    //------------------CampContactCategory
 
     // ----------------------- [CampaignManager] ----------------------- //
 

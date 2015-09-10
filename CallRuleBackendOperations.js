@@ -299,6 +299,90 @@ var PickCallRuleOutbound = function(reqId, aniNum, dnisNum, domain, context, com
     }
 };
 
+var PickClickToCallRuleInbound = function(reqId, aniNum, dnisNum, context, companyId, tenantId, callback)
+{
+    try
+    {
+        dbModel.CallRule
+            .findAll({where :[{CompanyId: companyId},{TenantId: tenantId},{Enable: true}, {Direction: 'INBOUND'}, {ObjCategory: 'C2C'}], order: ['Priority']})
+            .complete(function (err, crList)
+            {
+                if(err)
+                {
+                    logger.error('[DVP-RuleService.PickClickToCallRuleInbound] PGSQL Get inbound rules query failed', err);
+                    callback(err, undefined);
+                }
+                else
+                {
+                    logger.info('[DVP-RuleService.PickClickToCallRuleInbound] PGSQL Get inbound rules query success');
+                    var callRulePicked = undefined;
+
+                    try
+                    {
+                        var crCount = crList.length;
+
+                        for (i = 0; i < crCount; i++)
+                        {
+                            if(crList[i].DNISRegEx && crList[i].ANIRegEx && crList[i].ContextRegEx)
+                            {
+                                var dnisRegExPattern = new RegExp(crList[i].DNISRegEx);
+                                var aniRegExPattern = new RegExp(crList[i].ANIRegEx);
+                                var contextRegEx = new RegExp(crList[i].ContextRegEx);
+
+                                if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context))
+                                {
+                                    //pick call rule and break op
+                                    callRulePicked = crList[i];
+                                    break;
+                                }
+                            }
+                        }
+
+                        if(callRulePicked)
+                        {
+                            //get application, get schedule, get translations
+                            dbModel.CallRule
+                                .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Application, as: "Application", include : [{model: dbModel.Application, as: "MasterApplication"}]},{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"}]})
+                                .complete(function (err, crInfo)
+                                {
+                                    if(err)
+                                    {
+                                        logger.error('[DVP-RuleService.PickClickToCallRuleInbound] PGSQL Get schedules translations for inbound rule query failed', err);
+                                    }
+                                    else
+                                    {
+                                        logger.info('[DVP-RuleService.PickClickToCallRuleInbound] PGSQL Get schedules translations for inbound rule query success');
+                                    }
+                                    callback(err, crInfo);
+
+                                });
+
+                        }
+                        else
+                        {
+                            callback(new Error('No matching c2c inbound rules found for reg ex'), undefined);
+                        }
+
+
+
+                    }
+                    catch(ex)
+                    {
+                        callback(ex, undefined);
+
+                    }
+
+
+                }
+
+            })
+    }
+    catch(ex)
+    {
+        callback(ex, undefined);
+    }
+};
+
 var PickCallRuleInbound = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, callback)
 {
     try
@@ -562,7 +646,7 @@ var AddInboundRule = function(reqId, ruleInfo, callback)
                 CallRuleDescription: ruleInfo.CallRuleDescription,
                 ObjClass: 'DVP',
                 ObjType: 'CALLRULE',
-                ObjCategory: '',
+                ObjCategory: ruleInfo.ObjCategory,
                 Enable: ruleInfo.Enable,
                 CompanyId: ruleInfo.CompanyId,
                 TenantId: ruleInfo.TenantId,
@@ -979,3 +1063,4 @@ module.exports.PickCallRuleInbound = PickCallRuleInbound;
 module.exports.PickCallRuleOutbound = PickCallRuleOutbound;
 module.exports.PickCallRuleOutboundComplete = PickCallRuleOutboundComplete;
 module.exports.SetCallRuleAppDB = SetCallRuleAppDB;
+module.exports.PickClickToCallRuleInbound = PickClickToCallRuleInbound;
