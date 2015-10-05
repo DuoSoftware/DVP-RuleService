@@ -8,18 +8,15 @@ var GetPhoneNumber = function(reqId, phoneNumber, companyId, tenantId, callback)
     try
     {
         dbModel.TrunkPhoneNumber.find({where: [{PhoneNumber: phoneNumber},{CompanyId: companyId},{TenantId: tenantId}]})
-            .complete(function (err, trNum)
+            .then(function (trNum)
             {
-                if(err)
-                {
-                    logger.error('[DVP-RuleService.GetPhoneNumber] PGSQL Get phone number for company query failed', err);
-                    callback(err, undefined);
-                }
-                else
-                {
-                    logger.info('[DVP-RuleService.GetPhoneNumber] PGSQL Get phone number for company query success');
-                    callback(undefined, trNum);
-                }
+                logger.info('[DVP-RuleService.GetPhoneNumber] PGSQL Get phone number for company query success');
+                callback(undefined, trNum);
+
+            }).catch(function(err)
+            {
+                logger.error('[DVP-RuleService.GetPhoneNumber] PGSQL Get phone number for company query failed', err);
+                callback(err, undefined);
             });
     }
     catch(ex)
@@ -31,27 +28,26 @@ var GetPhoneNumber = function(reqId, phoneNumber, companyId, tenantId, callback)
 
 var GetCallRulesForCompany = function(reqId, companyId, tenantId, callback)
 {
+    var tempList = [];
     try
     {
+
         dbModel.CallRule.findAll({where: [{CompanyId: companyId},{TenantId: tenantId}]})
-            .complete(function (err, callRules)
+            .then(function (callRules)
             {
-                if(err)
-                {
-                    logger.error('[DVP-RuleService.GetCallRulesForCompany] PGSQL Get call rules query failed', err);
-                    callback(err, undefined);
-                }
-                else
-                {
-                    logger.info('[DVP-RuleService.GetCallRulesForCompany] PGSQL Get call rules query success');
-                    callback(undefined, callRules);
-                }
+                logger.info('[DVP-RuleService.GetCallRulesForCompany] PGSQL Get call rules query success');
+                callback(undefined, callRules);
+
+            }).catch(function(err)
+            {
+                logger.error('[DVP-RuleService.GetCallRulesForCompany] PGSQL Get call rules query failed', err);
+                callback(err, tempList);
             });
     }
     catch(ex)
     {
         logger.error('[DVP-RuleService.GetCallRulesForCompany] Unhandled Error occurred', ex);
-        callback(ex, undefined);
+        callback(ex, tempList);
     }
 };
 
@@ -60,18 +56,15 @@ var GetCallRuleById = function(reqId, ruleId, companyId, tenantId, callback)
     try
     {
         dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId},{TenantId: tenantId}]})
-            .complete(function (err, callRule)
+            .then(function (callRule)
             {
-                if(err)
-                {
-                    logger.error('[DVP-RuleService.GetCallRuleById] PGSQL Get call rule by id query failed', err);
-                    callback(err, undefined);
-                }
-                else
-                {
-                    logger.info('[DVP-RuleService.GetCallRuleById] PGSQL Get call rule by id query success');
-                    callback(undefined, callRule);
-                }
+                logger.info('[DVP-RuleService.GetCallRuleById] PGSQL Get call rule by id query success');
+                callback(undefined, callRule);
+
+            }).catch(function(err)
+            {
+                logger.error('[DVP-RuleService.GetCallRuleById] PGSQL Get call rule by id query failed', err);
+                callback(err, undefined);
             });
     }
     catch(ex)
@@ -94,14 +87,9 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
             else if(callRule)
             {
                 dbModel.TrunkPhoneNumber.find({where: [{PhoneNumber: callRule.TrunkNumber}, {TenantId: tenantId}], include: [{model: dbModel.LimitInfo, as: 'LimitInfoOutbound'},{model: dbModel.LimitInfo, as: 'LimitInfoBoth'},{model: dbModel.Trunk, as: 'Trunk', include: [{model: dbModel.Translation, as: "Translation"}]}]})
-                    .complete(function (err, phnNumTrunkInfo)
+                    .then(function (phnNumTrunkInfo)
                     {
-                        if (err)
-                        {
-                            logger.error('[DVP-RuleService.PickCallRuleOutboundComplete] PGSQL Get trunk and phone number query failed', err);
-                            callback(err, undefined);
-                        }
-                        else if(phnNumTrunkInfo)
+                        if(phnNumTrunkInfo)
                         {
                             var phnNumType = phnNumTrunkInfo.ObjCategory;
 
@@ -179,6 +167,10 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
                             callback(new Error('Phone number trunk info not found'), undefined);
                         }
 
+                    }).catch(function(err)
+                    {
+                        logger.error('[DVP-RuleService.PickCallRuleOutboundComplete] PGSQL Get trunk and phone number query failed', err);
+                        callback(err, undefined);
                     });
 
             }
@@ -204,15 +196,9 @@ var PickCallRuleOutbound = function(reqId, aniNum, dnisNum, domain, context, com
     {
         dbModel.CallRule
             .findAll({where :[{CompanyId: companyId},{TenantId: tenantId},{Enable: true}, {Direction: 'OUTBOUND'}], order: ['Priority']})
-            .complete(function (err, crList)
+            .then(function (crList)
             {
-                if(err)
-                {
-                    logger.error('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get outbound rules query failed', err);
-                    callback(err, undefined);
-                }
-                else
-                {
+
                     logger.info('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get outbound rules query success');
                     var callRulePicked = undefined;
 
@@ -261,18 +247,16 @@ var PickCallRuleOutbound = function(reqId, aniNum, dnisNum, domain, context, com
                             //get application, get schedule, get translations
                             dbModel.CallRule
                                 .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"},{model: dbModel.Translation, as: "ANITranslation"}, {model: dbModel.TrunkPhoneNumber, as: "TrunkPhoneNumber"}]})
-                                .complete(function (err, crInfo)
+                                .then(function (crInfo)
                                 {
-                                    if(err)
-                                    {
-                                        logger.error('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get schedules translations for outbound rule query failed', err);
-                                    }
-                                    else
-                                    {
-                                        logger.info('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get schedules translations for outbound rule query success');
-                                    }
-                                    callback(err, crInfo);
+                                    logger.info('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get schedules translations for outbound rule query success');
 
+                                    callback(undefined, crInfo);
+
+                                }).catch(function(err)
+                                {
+                                    logger.error('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get schedules translations for outbound rule query failed', err);
+                                    callback(err, undefined);
                                 });
 
                         }
@@ -289,8 +273,12 @@ var PickCallRuleOutbound = function(reqId, aniNum, dnisNum, domain, context, com
                         callback(ex, undefined);
                     }
 
-                }
 
+
+            }).catch(function(err)
+            {
+                logger.error('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get outbound rules query failed', err);
+                callback(err, undefined);
             })
     }
     catch(ex)
@@ -305,15 +293,9 @@ var PickClickToCallRuleInbound = function(reqId, aniNum, dnisNum, context, compa
     {
         dbModel.CallRule
             .findAll({where :[{CompanyId: companyId},{TenantId: tenantId},{Enable: true}, {Direction: 'INBOUND'}, {ObjCategory: 'C2C'}], order: ['Priority']})
-            .complete(function (err, crList)
+            .then(function (crList)
             {
-                if(err)
-                {
-                    logger.error('[DVP-RuleService.PickClickToCallRuleInbound] PGSQL Get inbound rules query failed', err);
-                    callback(err, undefined);
-                }
-                else
-                {
+
                     logger.info('[DVP-RuleService.PickClickToCallRuleInbound] PGSQL Get inbound rules query success');
                     var callRulePicked = undefined;
 
@@ -343,18 +325,16 @@ var PickClickToCallRuleInbound = function(reqId, aniNum, dnisNum, context, compa
                             //get application, get schedule, get translations
                             dbModel.CallRule
                                 .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Application, as: "Application", include : [{model: dbModel.Application, as: "MasterApplication"}]},{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"}]})
-                                .complete(function (err, crInfo)
+                                .then(function (crInfo)
                                 {
-                                    if(err)
-                                    {
-                                        logger.error('[DVP-RuleService.PickClickToCallRuleInbound] PGSQL Get schedules translations for inbound rule query failed', err);
-                                    }
-                                    else
-                                    {
-                                        logger.info('[DVP-RuleService.PickClickToCallRuleInbound] PGSQL Get schedules translations for inbound rule query success');
-                                    }
-                                    callback(err, crInfo);
+                                    logger.info('[DVP-RuleService.PickClickToCallRuleInbound] PGSQL Get schedules translations for inbound rule query success');
 
+                                    callback(undefined, crInfo);
+
+                                }).catch(function(err)
+                                {
+                                    logger.error('[DVP-RuleService.PickClickToCallRuleInbound] PGSQL Get schedules translations for inbound rule query failed', err);
+                                    callback(err, undefined);
                                 });
 
                         }
@@ -373,8 +353,12 @@ var PickClickToCallRuleInbound = function(reqId, aniNum, dnisNum, context, compa
                     }
 
 
-                }
 
+
+            }).catch(function(err)
+            {
+                logger.error('[DVP-RuleService.PickClickToCallRuleInbound] PGSQL Get inbound rules query failed', err);
+                callback(err, undefined);
             })
     }
     catch(ex)
@@ -389,15 +373,9 @@ var PickCallRuleInbound = function(reqId, aniNum, dnisNum, domain, context, comp
     {
         dbModel.CallRule
             .findAll({where :[{CompanyId: companyId},{TenantId: tenantId},{Enable: true}, {Direction: 'INBOUND'}], order: ['Priority']})
-            .complete(function (err, crList)
+            .then(function (crList)
             {
-                if(err)
-                {
-                    logger.error('[DVP-RuleService.PickCallRuleInbound] PGSQL Get inbound rules query failed', err);
-                    callback(err, undefined);
-                }
-                else
-                {
+
                     logger.info('[DVP-RuleService.PickCallRuleInbound] PGSQL Get inbound rules query success');
                     var callRulePicked = undefined;
 
@@ -427,18 +405,16 @@ var PickCallRuleInbound = function(reqId, aniNum, dnisNum, domain, context, comp
                             //get application, get schedule, get translations
                             dbModel.CallRule
                                 .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Application, as: "Application", include : [{model: dbModel.Application, as: "MasterApplication"}]},{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"}]})
-                                .complete(function (err, crInfo)
+                                .then(function (crInfo)
                                 {
-                                    if(err)
-                                    {
-                                        logger.error('[DVP-RuleService.PickCallRuleInbound] PGSQL Get schedules translations for inbound rule query failed', err);
-                                    }
-                                    else
-                                    {
-                                        logger.info('[DVP-RuleService.PickCallRuleInbound] PGSQL Get schedules translations for inbound rule query success');
-                                    }
-                                    callback(err, crInfo);
+                                    logger.info('[DVP-RuleService.PickCallRuleInbound] PGSQL Get schedules translations for inbound rule query success');
 
+                                    callback(undefined, crInfo);
+
+                                }).catch(function(err)
+                                {
+                                    logger.error('[DVP-RuleService.PickCallRuleInbound] PGSQL Get schedules translations for inbound rule query failed', err);
+                                    callback(err, undefined);
                                 });
 
                         }
@@ -453,12 +429,15 @@ var PickCallRuleInbound = function(reqId, aniNum, dnisNum, domain, context, comp
                     catch(ex)
                     {
                         callback(ex, undefined);
-
                     }
 
 
-                }
 
+
+            }).catch(function(err)
+            {
+                logger.error('[DVP-RuleService.PickCallRuleInbound] PGSQL Get inbound rules query failed', err);
+                callback(err, undefined);
             })
     }
     catch(ex)
@@ -472,15 +451,9 @@ var SetOutboundRuleTrunkNumber = function(reqId, ruleId, companyId, tenantId, tr
     try
     {
         dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId},{TenantId: tenantId},{Direction: 'OUTBOUND'}]})
-            .complete(function (err, callRule)
+            .then(function (callRule)
             {
-                if(err)
-                {
-                    logger.error('[DVP-RuleService.SetOutboundRuleTrunkNumber] PGSQL Get call rule by id query failed', err);
-                    callback(err, false);
-                }
-                else
-                {
+
                     if(callRule)
                     {
                         logger.info('[DVP-RuleService.SetOutboundRuleTrunkNumber] PGSQL Get call rule by id query success');
@@ -492,19 +465,15 @@ var SetOutboundRuleTrunkNumber = function(reqId, ruleId, companyId, tenantId, tr
                             }
                             else if(num && (num.ObjCategory === 'BOTH' || num.ObjCategory === 'OUTBOUND'))
                             {
-                                callRule.updateAttributes({TrunkId: num.TrunkId, TrunkNumber: trunkNum, PhoneNumId: num.id}).complete(function (err)
+                                callRule.updateAttributes({TrunkId: num.TrunkId, TrunkNumber: trunkNum, PhoneNumId: num.id}).then(function (updtRes)
                                 {
-                                    if(err)
-                                    {
-                                        logger.error('[DVP-RuleService.SetOutboundRuleTrunkNumber] PGSQL Update call rule with trunk number query failed', err);
-                                        callback(err, false);
-                                    }
-                                    else
-                                    {
-                                        logger.info('[DVP-RuleService.SetOutboundRuleTrunkNumber] PGSQL Update call rule with trunk number query success');
-                                        callback(undefined, true);
-                                    }
+                                    logger.info('[DVP-RuleService.SetOutboundRuleTrunkNumber] PGSQL Update call rule with trunk number query success');
+                                    callback(undefined, true);
 
+                                }).catch(function(err)
+                                {
+                                    logger.error('[DVP-RuleService.SetOutboundRuleTrunkNumber] PGSQL Update call rule with trunk number query failed', err);
+                                    callback(err, false);
                                 });
                             }
                             else
@@ -518,7 +487,11 @@ var SetOutboundRuleTrunkNumber = function(reqId, ruleId, companyId, tenantId, tr
                         callback(new Error('Cannot find an outbound rule with given id'), false);
                     }
 
-                }
+
+            }).catch(function(err)
+            {
+                logger.error('[DVP-RuleService.SetOutboundRuleTrunkNumber] PGSQL Get call rule by id query failed', err);
+                callback(err, false);
             });
     }
     catch(ex)
@@ -577,27 +550,23 @@ var AddOutboundRule = function(reqId, ruleInfo, callback)
 
                         rule
                             .save()
-                            .complete(function (err)
+                            .then(function (saveRes)
                             {
                                 try
                                 {
-                                    if (err)
-                                    {
-                                        logger.error('[DVP-RuleService.AddOutboundRule] PGSQL Insert outbound call rule with all attributes query failed', err);
-                                        callback(err, -1, false);
-                                    }
-                                    else
-                                    {
                                         logger.info('[DVP-RuleService.AddOutboundRule] PGSQL Insert outbound call rule with all attributes query success');
                                         var ruleId = rule.id;
                                         callback(undefined, ruleId, true);
-                                    }
                                 }
                                 catch (ex)
                                 {
                                     callback(ex,-1, false);
                                 }
 
+                            }).catch(function(err)
+                            {
+                                logger.error('[DVP-RuleService.AddOutboundRule] PGSQL Insert outbound call rule with all attributes query failed', err);
+                                callback(err, -1, false);
                             })
 
                     }
@@ -665,26 +634,25 @@ var AddInboundRule = function(reqId, ruleInfo, callback)
 
             rule
                 .save()
-                .complete(function (err)
+                .then(function (saveRes)
                 {
-                    try {
-                        if (err)
-                        {
-                            logger.error('[DVP-RuleService.AddInboundRule] PGSQL Insert inbound call rule with all attributes query failed', err);
-                            callback(err, -1, false);
-                        }
-                        else
-                        {
+                    try
+                    {
+
                             logger.info('[DVP-RuleService.AddInboundRule] PGSQL Insert inbound call rule with all attributes query success');
                             var ruleId = rule.id;
                             callback(undefined, ruleId, true);
-                        }
+
                     }
                     catch (ex)
                     {
                         callback(ex,-1, false);
                     }
 
+                }).catch(function(err)
+                {
+                    logger.error('[DVP-RuleService.AddInboundRule] PGSQL Insert inbound call rule with all attributes query failed', err);
+                    callback(err, -1, false);
                 })
 
 
@@ -706,30 +674,22 @@ var SetCallRuleAvailability = function(reqId, ruleId, enable, companyId, tenantI
 {
     try
     {
-        dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId}]}).complete(function (err, ruleRec)
+        dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId}]}).then(function (ruleRec)
         {
-            if(err)
-            {
-                logger.error('[DVP-RuleService.AddInboundRule] PGSQL Get call rule by id query failed', err);
-                callback(err, false);
-            }
-            else if(ruleRec)
+            if(ruleRec)
             {
                 //update attrib
                 logger.info('[DVP-RuleService.AddInboundRule] PGSQL Get call rule by id query success');
-                ruleRec.updateAttributes({Enable: enable}).complete(function (err)
+                ruleRec.updateAttributes({Enable: enable}).then(function (upRes)
                 {
-                    if(err)
-                    {
-                        logger.error('[DVP-RuleService.AddInboundRule] PGSQL Update call rule with availability query failed', err);
-                        callback(err, false);
-                    }
-                    else
-                    {
-                        logger.info('[DVP-RuleService.AddInboundRule] PGSQL Update call rule with availability query success');
-                        callback(undefined, true);
-                    }
+                    logger.info('[DVP-RuleService.AddInboundRule] PGSQL Update call rule with availability query success');
+                    callback(undefined, true);
 
+
+                }).catch(function(err)
+                {
+                    logger.error('[DVP-RuleService.AddInboundRule] PGSQL Update call rule with availability query failed', err);
+                    callback(err, false);
                 });
             }
             else
@@ -738,6 +698,10 @@ var SetCallRuleAvailability = function(reqId, ruleId, enable, companyId, tenantI
                 callback(new Error("Unable to find call rule for company"), false);
             }
 
+        }).catch(function(err)
+        {
+            logger.error('[DVP-RuleService.AddInboundRule] PGSQL Get call rule by id query failed', err);
+            callback(err, false);
         });
     }
     catch(ex)
@@ -750,14 +714,9 @@ var SetCallRuleRegEx = function(reqId, ruleId, DNISRegExMethod, ANIRegExMethod, 
 {
     try
     {
-        dbModel.CallRule.find({where: [{id: ruleId},{TenantId: tenantId}]}).complete(function (err, ruleRec)
+        dbModel.CallRule.find({where: [{id: ruleId},{TenantId: tenantId}]}).then(function (ruleRec)
         {
-            if(err)
-            {
-                logger.error('[DVP-RuleService.SetCallRuleRegEx] PGSQL Get call rule by id query failed', err);
-                callback(err, false);
-            }
-            else if(ruleRec)
+            if(ruleRec)
             {
                 logger.info('[DVP-RuleService.SetCallRuleRegEx] PGSQL Get call rule by id query success');
                 //update attrib
@@ -770,19 +729,17 @@ var SetCallRuleRegEx = function(reqId, ruleId, DNISRegExMethod, ANIRegExMethod, 
                         ANIRegExPattern: ANIRegExMethod,
                         DNIS: DNIS,
                         ANI: ANI
-                    }).complete(function (err)
+                    }).then(function (updtRes)
                     {
-                        if (err)
-                        {
-                            logger.error('[DVP-RuleService.SetCallRuleRegEx] PGSQL Update call rule with regular expressions query failed', err);
-                            callback(err, false);
-                        }
-                        else
-                        {
+
                             logger.info('[DVP-RuleService.SetCallRuleRegEx] PGSQL Update call rule with regular expressions query success');
                             callback(undefined, true);
-                        }
 
+
+                    }).catch(function(err)
+                    {
+                        logger.error('[DVP-RuleService.SetCallRuleRegEx] PGSQL Update call rule with regular expressions query failed', err);
+                        callback(err, false);
                     });
 
 
@@ -793,6 +750,10 @@ var SetCallRuleRegEx = function(reqId, ruleId, DNISRegExMethod, ANIRegExMethod, 
                 callback(new Error("Unable to find call rule for company"), false);
             }
 
+        }).catch(function(err)
+        {
+            logger.error('[DVP-RuleService.SetCallRuleRegEx] PGSQL Get call rule by id query failed', err);
+            callback(err, false);
         });
     }
     catch(ex)
@@ -805,31 +766,23 @@ var SetCallRulePriority = function(reqId, ruleId, priority, companyId, tenantId,
 {
     try
     {
-        dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId}]}).complete(function (err, ruleRec)
+        dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId}]}).then(function (ruleRec)
         {
 
-            if(err)
-            {
-                logger.error('[DVP-RuleService.SetCallRulePriority] PGSQL Get call rule by id query failed', err);
-                callback(err, false);
-            }
-            else if(ruleRec)
+            if(ruleRec)
             {
                 //update attrib
                 logger.info('[DVP-RuleService.SetCallRulePriority] PGSQL Get call rule by id query success');
-                ruleRec.updateAttributes({Priority: priority}).complete(function (err)
+                ruleRec.updateAttributes({Priority: priority}).then(function (updtRes)
                 {
-                    if(err)
-                    {
-                        logger.error('[DVP-RuleService.SetCallRulePriority] PGSQL Update call rule with priority query failed', err);
-                        callback(err, false);
-                    }
-                    else
-                    {
-                        logger.info('[DVP-RuleService.SetCallRulePriority] PGSQL Update call rule with priority query success');
-                        callback(undefined, true);
-                    }
+                    logger.info('[DVP-RuleService.SetCallRulePriority] PGSQL Update call rule with priority query success');
+                    callback(undefined, true);
 
+
+                }).catch(function(err)
+                {
+                    logger.error('[DVP-RuleService.SetCallRulePriority] PGSQL Update call rule with priority query failed', err);
+                    callback(err, false);
                 });
             }
             else
@@ -838,6 +791,10 @@ var SetCallRulePriority = function(reqId, ruleId, priority, companyId, tenantId,
                 callback(new Error("Unable to find call rule for company"), false);
             }
 
+        }).catch(function(err)
+        {
+            logger.error('[DVP-RuleService.SetCallRulePriority] PGSQL Get call rule by id query failed', err);
+            callback(err, false);
         });
     }
     catch(ex)
@@ -850,40 +807,27 @@ var SetCallRuleAppDB = function(reqId, ruleId, appId, companyId, tenantId, callb
 {
     try
     {
-        dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId},{TenantId: tenantId}]}).complete(function (err, ruleRec)
+        dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId},{TenantId: tenantId}]}).then(function (ruleRec)
         {
-            if(err)
-            {
-                logger.error('[DVP-RuleService.SetCallRuleAppDB] PGSQL Get call rule query failed', err);
-                callback(err, false);
-            }
-            else if (ruleRec)
+            if (ruleRec)
             {
                 logger.info('[DVP-RuleService.SetCallRuleAppDB] PGSQL Get call rule query success');
 
-                dbModel.Application.find({where: [{id: appId},{CompanyId: companyId},{TenantId: tenantId}]}).complete(function (err, appRec)
+                dbModel.Application.find({where: [{id: appId},{CompanyId: companyId},{TenantId: tenantId}]}).then(function (appRec)
                 {
-                    if(err)
-                    {
-                        logger.error('[DVP-RuleService.SetCallRuleAppDB] PGSQL Get app query failed', err);
-                        callback(err, false);
-                    }
-                    else if(appRec)
+                    if(appRec)
                     {
                         logger.debug('[DVP-RuleService.SetCallRuleAppDB] PGSQL Get app query success');
-                        ruleRec.setApplication(appRec).complete(function (err, result)
+                        ruleRec.setApplication(appRec).then(function (result)
                         {
-                            if (err)
-                            {
-                                logger.error('[DVP-RuleService.SetCallRuleAppDB] - [%s] - update rule with application PGSQL query failed', reqId, err);
-                                callback(err, false);
-                            }
-                            else
-                            {
-                                logger.debug('[DVP-RuleService.SetCallRuleAppDB] - [%s] - update rule with application PGSQL query success', reqId);
-                                callback(undefined, true);
-                            }
+                            logger.debug('[DVP-RuleService.SetCallRuleAppDB] - [%s] - update rule with application PGSQL query success', reqId);
+                            callback(undefined, true);
 
+
+                        }).catch(function(err)
+                        {
+                            logger.error('[DVP-RuleService.SetCallRuleAppDB] - [%s] - update rule with application PGSQL query failed', reqId, err);
+                            callback(err, false);
                         })
 
                     }
@@ -892,6 +836,10 @@ var SetCallRuleAppDB = function(reqId, ruleId, appId, companyId, tenantId, callb
                         logger.debug('[DVP-RuleService.SetCallRuleAppDB] PGSQL Get app query success');
                         callback(new Error('No app found'), false);
                     }
+                }).catch(function(err)
+                {
+                    logger.error('[DVP-RuleService.SetCallRuleAppDB] PGSQL Get app query failed', err);
+                    callback(err, false);
                 });
 
 
@@ -902,6 +850,10 @@ var SetCallRuleAppDB = function(reqId, ruleId, appId, companyId, tenantId, callb
                 callback(new Error('No call rule found'), false);
             }
 
+        }).catch(function(err)
+        {
+            logger.error('[DVP-RuleService.SetCallRuleAppDB] PGSQL Get call rule query failed', err);
+            callback(err, false);
         })
     }
     catch(ex)
@@ -915,25 +867,22 @@ var DeleteCallRule = function(reqId, ruleId, companyId, tenantId, callback)
 {
     try
     {
-        dbModel.CallRule.find({where: [{id: ruleId}]}).complete(function (err, ruleRec)
+        dbModel.CallRule.find({where: [{id: ruleId}]}).then(function (ruleRec)
         {
-            if (!err && ruleRec)
+            if (ruleRec)
             {
                 logger.info('[DVP-RuleService.DeleteCallRule] PGSQL Get call rule by id query success');
                 if(ruleRec.CompanyId == companyId)
                 {
-                    ruleRec.destroy().complete(function (err, result)
+                    ruleRec.destroy().then(function (result)
                     {
-                        if(!err)
-                        {
-                            logger.info('[DVP-RuleService.DeleteCallRule] PGSQL Delete call rule query success');
-                            callback(undefined, true);
-                        }
-                        else
-                        {
-                            logger.error('[DVP-RuleService.DeleteCallRule] PGSQL Delete call rule query failed', err);
-                            callback(err, false);
-                        }
+                        logger.info('[DVP-RuleService.DeleteCallRule] PGSQL Delete call rule query success');
+                        callback(undefined, true);
+
+                    }).catch(function(err)
+                    {
+                        logger.error('[DVP-RuleService.DeleteCallRule] PGSQL Delete call rule query failed', err);
+                        callback(err, false);
                     });
                 }
                 else
@@ -948,6 +897,10 @@ var DeleteCallRule = function(reqId, ruleId, companyId, tenantId, callback)
                 callback(undefined, false);
             }
 
+        }).catch(function(err)
+        {
+            logger.error('[DVP-RuleService.DeleteCallRule] PGSQL Get call rule by id query failed', err);
+            callback(err, false);
         })
     }
     catch(ex)
@@ -961,31 +914,22 @@ var SetCallRuleSchedule = function(reqId, ruleId, scheduleId, companyId, tenantI
 {
     try
     {
-        dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId}]}).complete(function (err, ruleRec)
+        dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId}]}).then(function (ruleRec)
         {
 
-            if(err)
-            {
-                logger.error('[DVP-RuleService.SetCallRuleSchedule] PGSQL Get call rule by id query failed', err);
-                callback(err, false);
-            }
-            else if(ruleRec)
+            if(ruleRec)
             {
                 logger.info('[DVP-RuleService.SetCallRuleSchedule] PGSQL Get call rule by id query success');
                 //update attrib
-                ruleRec.updateAttributes({ScheduleId: scheduleId}).complete(function (err)
+                ruleRec.updateAttributes({ScheduleId: scheduleId}).then(function (updtRes)
                 {
-                    if(err)
-                    {
-                        logger.error('[DVP-RuleService.SetCallRuleSchedule] PGSQL Update call rule with schedule query fail', err);
-                        callback(err, false);
-                    }
-                    else
-                    {
-                        logger.info('[DVP-RuleService.SetCallRuleSchedule] PGSQL Update call rule with schedule query success');
-                        callback(undefined, true);
-                    }
+                    logger.info('[DVP-RuleService.SetCallRuleSchedule] PGSQL Update call rule with schedule query success');
+                    callback(undefined, true);
 
+                }).catch(function(err)
+                {
+                    logger.error('[DVP-RuleService.SetCallRuleSchedule] PGSQL Update call rule with schedule query fail', err);
+                    callback(err, false);
                 });
             }
             else
@@ -994,6 +938,10 @@ var SetCallRuleSchedule = function(reqId, ruleId, scheduleId, companyId, tenantI
                 callback(new Error("Unable to find call rule for company"), false);
             }
 
+        }).catch(function(err)
+        {
+            logger.error('[DVP-RuleService.SetCallRuleSchedule] PGSQL Get call rule by id query failed', err);
+            callback(err, false);
         });
     }
     catch(ex)
@@ -1006,31 +954,22 @@ var SetCallRuleTranslation = function(reqId, ruleId, transId, companyId, tenantI
 {
     try
     {
-        dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId}]}).complete(function (err, ruleRec)
+        dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId}]}).then(function (ruleRec)
         {
 
-            if(err)
-            {
-                logger.error('[DVP-RuleService.SetCallRuleTranslation] PGSQL Get call rule by id query failed', err);
-                callback(err, false);
-            }
-            else if(ruleRec)
+            if(ruleRec)
             {
                 //update attrib
                 logger.info('[DVP-RuleService.SetCallRuleTranslation] PGSQL Get call rule by id query success');
-                ruleRec.updateAttributes({TranslationId: transId}).complete(function (err)
+                ruleRec.updateAttributes({TranslationId: transId}).then(function (upRes)
                 {
-                    if(err)
-                    {
-                        logger.error('[DVP-RuleService.SetCallRuleTranslation] PGSQL Update call rule with translation query fail', err);
-                        callback(err, false);
-                    }
-                    else
-                    {
-                        logger.info('[DVP-RuleService.SetCallRuleTranslation] PGSQL Update call rule with translation query success');
-                        callback(undefined, true);
-                    }
+                    logger.info('[DVP-RuleService.SetCallRuleTranslation] PGSQL Update call rule with translation query success');
+                    callback(undefined, true);
 
+                }).catch(function(err)
+                {
+                    logger.error('[DVP-RuleService.SetCallRuleTranslation] PGSQL Update call rule with translation query fail', err);
+                    callback(err, false);
                 });
             }
             else
@@ -1039,6 +978,10 @@ var SetCallRuleTranslation = function(reqId, ruleId, transId, companyId, tenantI
                 callback(new Error("Unable to find call rule for company"), false);
             }
 
+        }).catch(function(err)
+        {
+            logger.error('[DVP-RuleService.SetCallRuleTranslation] PGSQL Get call rule by id query failed', err);
+            callback(err, false);
         });
     }
     catch(ex)
