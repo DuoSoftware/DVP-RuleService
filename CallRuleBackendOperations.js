@@ -1,7 +1,7 @@
-var dbModel = require('DVP-DBModels');
+var dbModel = require('dvp-dbmodels');
 var regExHandler = require('./RegExHandler.js');
 var transHandler = require('./TranslationHandler.js');
-var logger = require('DVP-Common/LogHandler/CommonLogHandler.js').logger;
+var logger = require('dvp-common/LogHandler/CommonLogHandler.js').logger;
 
 var GetPhoneNumber = function(reqId, phoneNumber, companyId, tenantId, callback)
 {

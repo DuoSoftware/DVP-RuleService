@@ -1,5 +1,5 @@
-var DbConn = require('DVP-DBModels');
-var logger = require('DVP-Common/LogHandler/CommonLogHandler.js').logger;
+var DbConn = require('dvp-dbmodels');
+var logger = require('dvp-common/LogHandler/CommonLogHandler.js').logger;
 
 function AddNewTranslation(transObj, callback)
 {
