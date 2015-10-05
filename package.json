@@ -1,5 +1,5 @@
 {
-  "name": "DVP-RuleService",
+  "name": "dvp-ruleservice",
   "version": "1.0.0",
   "description": "DVP-RuleService\r ===============",
   "main": "app.js",
