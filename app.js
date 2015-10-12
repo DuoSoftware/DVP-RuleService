@@ -27,7 +27,7 @@ server.use(restify.bodyParser());
 
 
 //server.get('/DVP/API/' + hostVersion + '/CallRule/GetCallRules/:companyId/:tenantId', function(req, res, next)
-server.get('/DVP/API/' + hostVersion + '/CallRuleApi/CallRules', function(req, res, next)
+server.get('/DVP/API/:version/CallRuleApi/CallRules', function(req, res, next)
 {
     var reqId = uuid.v1();
     try
@@ -64,7 +64,7 @@ server.get('/DVP/API/' + hostVersion + '/CallRuleApi/CallRules', function(req, r
 
 });
 //server.get('/DVP/API/' + hostVersion + '/CallRule/GetCallRule/:id/:companyId/:tenantId', function(req, res, next)
-server.get('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/:id', function(req, res, next)
+server.get('/DVP/API/:version/CallRuleApi/CallRule/:id', function(req, res, next)
 {
     var reqId = uuid.v1();
     try
@@ -103,7 +103,7 @@ server.get('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/:id', function(req
 
 });
 
-server.get('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/Outbound/ANI/:ani/DNIS/:dnis', function(req, res, next)
+server.get('/DVP/API/:version/CallRuleApi/CallRule/Outbound/ANI/:ani/DNIS/:dnis', function(req, res, next)
 {
     var reqId = uuid.v1();
     try
@@ -144,7 +144,7 @@ server.get('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/Outbound/ANI/:ani/
 });
 
 //server.post('/DVP/API/' + hostVersion + '/CallRule/SetTrunkNumber/:id/:trunkNumber/:companyId/:tenantId', function(req, res, next)
-server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/:id/SetNumber/:trNum', function(req, res, next)
+server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetNumber/:trNum', function(req, res, next)
 {
     var reqId = uuid.v1();
 
@@ -193,7 +193,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/:id/SetNumber/:tr
 
 //server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleRegEx/:id/:DNISRegExMethod/:ANIRegExMethod/:DNIS/:ANI/:companyId/:tenantId', function(req, res, next)
 //params added to body
-server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/:id/SetRegEx', function(req, res, next)
+server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetRegEx', function(req, res, next)
 {
     var reqId = uuid.v1();
 
@@ -245,7 +245,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/:id/SetRegEx', fu
 
 //server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleAvailability/:id/:enabled/:companyId/:tenantId', function(req, res, next)
 //added some params to get from body
-server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/:id/SetAvailability/:enabled', function(req, res, next)
+server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetAvailability/:enabled', function(req, res, next)
 {
     var reqId = uuid.v1();
 
@@ -294,7 +294,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/:id/SetAvailabili
 
 //server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRulePriority/:id/:priority/:companyId/:tenantId', function(req, res, next)
 //some params moved to body
-server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/:id/SetPriority/:priority', function(req, res, next)
+server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetPriority/:priority', function(req, res, next)
 {
     var reqId = uuid.v1();
 
@@ -342,7 +342,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/:id/SetPriority/:
 });
 
 //server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleSchedule/:id/:scheduleId/:companyId/:tenantId', function(req, res, next)
-server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/:id/SetSchedule/:scheduleId', function(req, res, next)
+server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetSchedule/:scheduleId', function(req, res, next)
 {
     var reqId = uuid.v1();
 
@@ -390,7 +390,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/:id/SetSchedule/:
 });
 
 //server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleTranslation/:id/:transId/:companyId/:tenantId', function(req, res, next)
-server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/:id/SetTranslation/:transId', function(req, res, next)
+server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetTranslation/:transId', function(req, res, next)
 {
     var reqId = uuid.v1();
 
@@ -437,7 +437,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/:id/SetTranslatio
 
 });
 
-server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/:ruleId/SetApplication/:appId', function(req, res, next)
+server.post('/DVP/API/:version/CallRuleApi/CallRule/:ruleId/SetApplication/:appId', function(req, res, next)
 {
     var reqId = uuid.v1();
 
@@ -485,7 +485,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/:ruleId/SetApplic
 });
 
 //server.post('/DVP/API/' + hostVersion + '/CallRule/AddOutboundRule', function(req, res, next)
-server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/Outbound', function(req, res, next)
+server.post('/DVP/API/:version/CallRuleApi/CallRule/Outbound', function(req, res, next)
 {
     var reqId = uuid.v1();
     try
@@ -530,7 +530,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/Outbound', functi
 
 //{"CallRuleDescription": "ff", "ObjClass": "MM", "ObjType":"Inbound", "ObjCategory": "URL", "Enable":true, "CompanyId": 1, "TenantId": 3, "RegExPattern":"StartWith", "ANIRegExPattern": "StartWith", "DNIS": "123", "ANI":"", "Priority": 1, "TargetScript": "ppppp", "ScheduleId":2,                                        "ExtraData": "dfd"}
 //server.post('/DVP/API/' + hostVersion + '/CallRule/AddInboundRule', function(req, res, next)
-server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/Inbound', function(req, res, next)
+server.post('/DVP/API/:version/CallRuleApi/CallRule/Inbound', function(req, res, next)
 {
     var reqId = uuid.v1();
     try
@@ -575,7 +575,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/Inbound', functio
 });
 
 //server.post('/DVP/API/' + hostVersion + '/CallRule/DeleteRule/:id/:companyId/:tenantId', function(req, res, next)
-server.del('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/:id', function(req, res, next)
+server.del('/DVP/API/:version/CallRuleApi/CallRule/:id', function(req, res, next)
 {
     var reqId = uuid.v1();
     try
@@ -622,7 +622,7 @@ server.del('/DVP/API/' + hostVersion + '/CallRuleApi/CallRule/:id', function(req
 
 });
 
-server.get('/DVP/API/' + hostVersion + '/CallRuleApi/Translations', function(req, res, next)
+server.get('/DVP/API/:version/CallRuleApi/Translations', function(req, res, next)
 {
     var emptyArr = [];
     var reqId = uuid.v1();
@@ -660,7 +660,7 @@ server.get('/DVP/API/' + hostVersion + '/CallRuleApi/Translations', function(req
 
 });
 
-server.get('/DVP/API/' + hostVersion + '/CallRuleApi/Translation/:id', function(req, res, next)
+server.get('/DVP/API/:version/CallRuleApi/Translation/:id', function(req, res, next)
 {
     var reqId = uuid.v1();
     try
@@ -698,7 +698,7 @@ server.get('/DVP/API/' + hostVersion + '/CallRuleApi/Translation/:id', function(
 
 });
 
-server.post('/DVP/API/' + hostVersion + '/CallRuleApi/Translation', function(req, res, next)
+server.post('/DVP/API/:version/CallRuleApi/Translation', function(req, res, next)
 {
     var reqId = uuid.v1();
     try
@@ -734,7 +734,7 @@ server.post('/DVP/API/' + hostVersion + '/CallRuleApi/Translation', function(req
 
 });
 
-server.post('/DVP/API/' + hostVersion + '/CallRuleApi/ExistingTranslation/:id', function(req, res, next)
+server.post('/DVP/API/:version/CallRuleApi/ExistingTranslation/:id', function(req, res, next)
 {
     var reqId = uuid.v1();
     try
