@@ -37,7 +37,7 @@ server.get('/DVP/API/:version/CallRuleApi/CallRules', function(req, res, next)
         var companyId = 1;
         var tenantId = 1;
 
-        ruleBackendHandler.GetCallRulesForCompany(companyId, tenantId, function (err, result)
+        ruleBackendHandler.GetCallRulesForCompany(reqId, companyId, tenantId, function (err, result)
         {
             if (err)
             {
@@ -76,7 +76,7 @@ server.get('/DVP/API/:version/CallRuleApi/CallRule/:id', function(req, res, next
         var companyId = 1;
         var tenantId = 1;
 
-        ruleBackendHandler.GetCallRuleById(id, companyId, tenantId, function (err, result)
+        ruleBackendHandler.GetCallRuleById(reqId, id, companyId, tenantId, function (err, result)
         {
             if (err)
             {
@@ -116,7 +116,7 @@ server.get('/DVP/API/:version/CallRuleApi/CallRule/Outbound/ANI/:ani/DNIS/:dnis'
         var companyId = 1;
         var tenantId = 1;
 
-        ruleBackendHandler.PickCallRuleOutboundComplete(ani, dnis, '', '', companyId, tenantId, false, function (err, result)
+        ruleBackendHandler.PickCallRuleOutboundComplete(reqId, ani, dnis, '', '', companyId, tenantId, false, function (err, result)
         {
             if (err)
             {
@@ -159,7 +159,7 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetNumber/:trNum', funct
 
         if(id)
         {
-            ruleBackendHandler.SetOutboundRuleTrunkNumber(id, companyId, tenantId, trunkNumber, function(err, result){
+            ruleBackendHandler.SetOutboundRuleTrunkNumber(reqId, id, companyId, tenantId, trunkNumber, function(err, result){
 
                 if(err)
                 {
@@ -211,7 +211,7 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetRegEx', function(req,
 
         if(id)
         {
-            ruleBackendHandler.SetCallRuleRegEx(id, DNISRegExMethod, ANIRegExMethod, DNIS, ANI, companyId, tenantId, function(err, result){
+            ruleBackendHandler.SetCallRuleRegEx(reqId, id, DNISRegExMethod, ANIRegExMethod, DNIS, ANI, companyId, tenantId, function(err, result){
 
                 if(err)
                 {
@@ -260,7 +260,7 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetAvailability/:enabled
 
         if(id)
         {
-            ruleBackendHandler.SetCallRuleAvailability(id, enabled, companyId, tenantId, function(err, result){
+            ruleBackendHandler.SetCallRuleAvailability(reqId, id, enabled, companyId, tenantId, function(err, result){
 
                 if(err)
                 {
@@ -309,7 +309,7 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetPriority/:priority', 
 
         if(id)
         {
-            ruleBackendHandler.SetCallRulePriority(id, priority, companyId, tenantId, function(err, result){
+            ruleBackendHandler.SetCallRulePriority(reqId, id, priority, companyId, tenantId, function(err, result){
 
                 if(err)
                 {
@@ -357,7 +357,7 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetSchedule/:scheduleId'
 
         if(id)
         {
-            ruleBackendHandler.SetCallRuleSchedule(id, scheduleId, companyId, tenantId, function(err, result){
+            ruleBackendHandler.SetCallRuleSchedule(reqId, id, scheduleId, companyId, tenantId, function(err, result){
 
                 if(err)
                 {
@@ -405,7 +405,7 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetTranslation/:transId'
 
         if(id)
         {
-            ruleBackendHandler.SetCallRuleTranslation(id, transId, companyId, tenantId, function(err, result){
+            ruleBackendHandler.SetCallRuleTranslation(reqId, id, transId, companyId, tenantId, function(err, result){
 
                 if(err)
                 {
@@ -496,7 +496,7 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule/Outbound', function(req, res
 
         if(ruleInfo)
         {
-            ruleBackendHandler.AddOutboundRule(ruleInfo, function(err, recordId, result){
+            ruleBackendHandler.AddOutboundRule(reqId, ruleInfo, function(err, recordId, result){
 
                 if(err)
                 {
@@ -542,7 +542,7 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule/Inbound', function(req, res,
         if(ruleInfo)
         {
 
-            ruleBackendHandler.AddInboundRule(ruleInfo, function(err, recordId, result){
+            ruleBackendHandler.AddInboundRule(reqId, ruleInfo, function(err, recordId, result){
 
                 if(err)
                 {
@@ -590,7 +590,7 @@ server.del('/DVP/API/:version/CallRuleApi/CallRule/:id', function(req, res, next
 
         if(intId != NaN)
         {
-            ruleBackendHandler.DeleteCallRule(id, companyId, tenantId, function(err, recordId, result){
+            ruleBackendHandler.DeleteCallRule(reqId, id, companyId, tenantId, function(err, recordId, result){
 
                 if(err)
                 {
@@ -633,7 +633,7 @@ server.get('/DVP/API/:version/CallRuleApi/Translations', function(req, res, next
         var companyId = 1;
         var tenantId = 1;
 
-        transBackendHandler.GetAllTranslationsForCompany(companyId, function (err, result)
+        transBackendHandler.GetAllTranslationsForCompany(reqId, companyId, function (err, result)
         {
             if (err)
             {
@@ -671,7 +671,7 @@ server.get('/DVP/API/:version/CallRuleApi/Translation/:id', function(req, res, n
         var companyId = req.params.companyId;
         var tenantId = req.params.tenantId;
 
-        transBackendHandler.GetTranslationById(transId, companyId, function (err, result)
+        transBackendHandler.GetTranslationById(reqId, transId, companyId, function (err, result)
         {
             if (err)
             {
@@ -707,7 +707,7 @@ server.post('/DVP/API/:version/CallRuleApi/Translation', function(req, res, next
 
         var transObj = req.body;
 
-        transBackendHandler.AddNewTranslation(transObj, function (err, transId, result)
+        transBackendHandler.AddNewTranslation(reqId, transObj, function (err, transId, result)
         {
             if (err)
             {
@@ -744,10 +744,10 @@ server.post('/DVP/API/:version/CallRuleApi/ExistingTranslation/:id', function(re
         var transId = req.params.id;
         var transObj = req.body;
 
-        transBackendHandler.UpdateTranslation(transId, transObj, function (err, result)
+        transBackendHandler.UpdateTranslation(reqId, transId, transObj, function (err, result)
         {
             transObj.CompanyId = 1;
-            transObj.TenantId = 3;
+            transObj.TenantId = 1;
 
             if (err)
             {

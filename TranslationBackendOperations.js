@@ -1,7 +1,7 @@
 var DbConn = require('dvp-dbmodels');
 var logger = require('dvp-common/LogHandler/CommonLogHandler.js').logger;
 
-function AddNewTranslation(transObj, callback)
+function AddNewTranslation(reqId, transObj, callback)
 {
     try
     {
@@ -40,7 +40,7 @@ function AddNewTranslation(transObj, callback)
     }
 }
 
-function UpdateTranslation(transId, obj, callback)
+function UpdateTranslation(reqId, transId, obj, callback)
 {
     try
     {
@@ -95,7 +95,7 @@ function UpdateTranslation(transId, obj, callback)
     }
 }
 
-function GetTranslationById(transId, companyId, callback)
+function GetTranslationById(reqId, transId, companyId, callback)
 {
     try
     {
@@ -116,7 +116,7 @@ function GetTranslationById(transId, companyId, callback)
     }
 }
 
-function GetAllTranslationsForCompany(companyId, callback)
+function GetAllTranslationsForCompany(reqId, companyId, callback)
 {
     var emptyArr = [];
     try
