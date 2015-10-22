@@ -629,7 +629,8 @@ var AddInboundRule = function(reqId, ruleInfo, callback)
                 Priority: ruleInfo.Priority,
                 ScheduleId: ruleInfo.ScheduleId,
                 TranslationId: ruleInfo.TranslationId,
-                ExtraData: ruleInfo.ExtraData
+                ExtraData: ruleInfo.ExtraData,
+                Direction: ruleInfo.Direction
             });
 
             rule
