@@ -4,8 +4,8 @@ module.exports = {
     "User":"duo",
     "Password":"DuoS123",
     "Port":5432,
-    "Host":"localhost",
-    "Database":"dvpdb"
+    "Host":"104.131.105.222",
+    "Database":"duo"
   },
   "Host":{
     "Ip":"0.0.0.0",

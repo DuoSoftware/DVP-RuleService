@@ -457,7 +457,7 @@ var SetOutboundRuleTrunkNumber = function(reqId, ruleId, companyId, tenantId, tr
                     if(callRule)
                     {
                         logger.info('[DVP-RuleService.SetOutboundRuleTrunkNumber] PGSQL Get call rule by id query success');
-                        GetPhoneNumber(trunkNum, companyId, tenantId, function(err, num)
+                        GetPhoneNumber(reqId, trunkNum, companyId, tenantId, function(err, num)
                         {
                             if(err)
                             {
@@ -520,7 +520,7 @@ var AddOutboundRule = function(reqId, ruleInfo, callback)
 
             if (ruleInfo.TrunkNumber)
             {
-                GetPhoneNumber(ruleInfo.TrunkNumber, ruleInfo.CompanyId, ruleInfo.TenantId, function (err, num)
+                GetPhoneNumber(reqId, ruleInfo.TrunkNumber, ruleInfo.CompanyId, ruleInfo.TenantId, function (err, num)
                 {
                     if (err)
                     {
@@ -545,7 +545,10 @@ var AddOutboundRule = function(reqId, ruleInfo, callback)
                             ANI: ruleInfo.ANI,
                             Priority: ruleInfo.Priority,
                             ExtraData: ruleInfo.ExtraData,
-                            Direction: ruleInfo.Direction
+                            Direction: ruleInfo.Direction,
+                            TrunkId: num.TrunkId,
+                            TrunkNumber: ruleInfo.TrunkNumber,
+                            PhoneNumId: num.id
                         });
 
                         rule
