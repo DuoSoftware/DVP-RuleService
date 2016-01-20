@@ -47,7 +47,7 @@ server.get('/DVP/API/:version/CallRuleApi/CallRules', function(req, res, next)
             }
             else
             {
-                logger.debug('[DVP-RuleService.GetCallRules] - [%s] - Get call rules success - Returned : [%j]' + reqId, result);
+                logger.debug('[DVP-RuleService.GetCallRules] - [%s] - Get call rules success - Returned : [%s]' + reqId, JSON.stringify(result));
                 var jsonString = messageFormatter.FormatMessage(err, "Get call rules success", true, result);
                 res.end(jsonString);
             }
