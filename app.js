@@ -63,6 +63,46 @@ server.get('/DVP/API/:version/CallRuleApi/CallRules', function(req, res, next)
     return next();
 
 });
+
+server.get('/DVP/API/:version/CallRuleApi/CallRules/Direction/:direction', function(req, res, next)
+{
+    var reqId = uuid.v1();
+    try
+    {
+        logger.debug('[DVP-RuleService.GetCallRulesByDirection] - [%s] - HTTP Request Received', reqId);
+
+        var companyId = 1;
+        var tenantId = 1;
+
+        var direction = req.params.direction;
+
+        ruleBackendHandler.GetCallRulesByDirection(reqId, companyId, tenantId,direction, function (err, result)
+        {
+            if (err)
+            {
+                logger.error('[DVP-RuleService.GetCallRulesByDirection] - [%s] - Exception occurred on method GetCallRulesByDirection', reqId, err);
+                var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, result);
+                res.end(jsonString);
+            }
+            else
+            {
+                logger.debug('[DVP-RuleService.GetCallRulesByDirection] - [%s] - Get call rules success - Returned : [%s]' + reqId, JSON.stringify(result));
+                var jsonString = messageFormatter.FormatMessage(err, "Get call rules success", true, result);
+                res.end(jsonString);
+            }
+        });
+    }
+    catch(ex)
+    {
+        logger.error('[DVP-RuleService.GetCallRules] - [%s] - Exception occurred', reqId, ex);
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, undefined);
+        res.end(jsonString);
+    }
+
+    return next();
+
+});
+
 //server.get('/DVP/API/' + hostVersion + '/CallRule/GetCallRule/:id/:companyId/:tenantId', function(req, res, next)
 server.get('/DVP/API/:version/CallRuleApi/CallRule/:id', function(req, res, next)
 {

@@ -51,6 +51,51 @@ var GetCallRulesForCompany = function(reqId, companyId, tenantId, callback)
     }
 };
 
+var GetCallRulesByDirection = function(reqId, companyId, tenantId, direction, callback)
+{
+    var tempList = [];
+    try
+    {
+
+        if(direction === 'INBOUND')
+        {
+            dbModel.CallRule.findAll({where: [{CompanyId: companyId},{TenantId: tenantId}, {Direction: direction}], include: [{model: dbModel.Application, as: "Application"}]})
+                .then(function (callRules)
+                {
+                    logger.info('[DVP-RuleService.GetCallRulesForCompany] PGSQL Get call rules query success');
+                    callback(undefined, callRules);
+
+                }).catch(function(err)
+                {
+                    logger.error('[DVP-RuleService.GetCallRulesForCompany] PGSQL Get call rules query failed', err);
+                    callback(err, tempList);
+                });
+        }
+        else
+        {
+            dbModel.CallRule.findAll({where: [{CompanyId: companyId},{TenantId: tenantId}, {Direction: direction}]})
+                .then(function (callRules)
+                {
+                    logger.info('[DVP-RuleService.GetCallRulesForCompany] PGSQL Get call rules query success');
+                    callback(undefined, callRules);
+
+                }).catch(function(err)
+                {
+                    logger.error('[DVP-RuleService.GetCallRulesForCompany] PGSQL Get call rules query failed', err);
+                    callback(err, tempList);
+                });
+
+        }
+
+
+    }
+    catch(ex)
+    {
+        logger.error('[DVP-RuleService.GetCallRulesForCompany] Unhandled Error occurred', ex);
+        callback(ex, tempList);
+    }
+};
+
 var GetCallRuleById = function(reqId, ruleId, companyId, tenantId, callback)
 {
     try
@@ -1011,3 +1056,4 @@ module.exports.PickCallRuleOutbound = PickCallRuleOutbound;
 module.exports.PickCallRuleOutboundComplete = PickCallRuleOutboundComplete;
 module.exports.SetCallRuleAppDB = SetCallRuleAppDB;
 module.exports.PickClickToCallRuleInbound = PickClickToCallRuleInbound;
+module.exports.GetCallRulesByDirection = GetCallRulesByDirection;
