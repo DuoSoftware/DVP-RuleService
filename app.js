@@ -524,53 +524,10 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule/:ruleId/SetApplication/:appI
 
 });
 
-//server.post('/DVP/API/' + hostVersion + '/CallRule/AddOutboundRule', function(req, res, next)
-server.post('/DVP/API/:version/CallRuleApi/CallRule/Outbound', function(req, res, next)
-{
-    var reqId = uuid.v1();
-    try
-    {
-        var ruleInfo = req.body;
-
-        logger.debug('[DVP-RuleService.AddOutboundRule] - [%s] - HTTP Request Received - Req Body : %j', reqId, ruleInfo);
-
-        if(ruleInfo)
-        {
-            ruleBackendHandler.AddOutboundRule(reqId, ruleInfo, function(err, recordId, result){
-
-                if(err)
-                {
-                    logger.error('[DVP-RuleService.AddOutboundRule] - [%s] - Exception occurred on method ruleBackendHandler.AddOutboundRule', reqId, err);
-                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, recordId);
-                    res.end(jsonString);
-                }
-                else
-                {
-                    logger.debug('[DVP-RuleService.AddOutboundRule] - [%s] - add outbound rule success - Returned : %s', reqId, recordId);
-                    var jsonString = messageFormatter.FormatMessage(err, "Outbound Rule Added Successfully", result, recordId);
-                    res.end(jsonString);
-                }
-            })
-        }
-        else
-        {
-            throw new Error("Empty Body");
-        }
-    }
-    catch(ex)
-    {
-        logger.error('[DVP-RuleService.AddOutboundRule] - [%s] - Exception occurred', reqId, ex);
-        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, -1);
-        res.end(jsonString);
-    }
-
-    return next();
-
-});
 
 //{"CallRuleDescription": "ff", "ObjClass": "MM", "ObjType":"Inbound", "ObjCategory": "URL", "Enable":true, "CompanyId": 1, "TenantId": 3, "RegExPattern":"StartWith", "ANIRegExPattern": "StartWith", "DNIS": "123", "ANI":"", "Priority": 1, "TargetScript": "ppppp", "ScheduleId":2,                                        "ExtraData": "dfd"}
 //server.post('/DVP/API/' + hostVersion + '/CallRule/AddInboundRule', function(req, res, next)
-server.post('/DVP/API/:version/CallRuleApi/CallRule/Inbound', function(req, res, next)
+server.post('/DVP/API/:version/CallRuleApi/CallRule', function(req, res, next)
 {
     var reqId = uuid.v1();
     try
@@ -579,24 +536,46 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule/Inbound', function(req, res,
 
         logger.debug('[DVP-RuleService.AddInboundRule] - [%s] - HTTP Request Received - Req Body : %j', reqId, ruleInfo);
 
-        if(ruleInfo)
+        if(ruleInfo.Direction)
         {
+            if(ruleInfo.Direction == 'INBOUND')
+            {
+                ruleBackendHandler.AddInboundRule(reqId, ruleInfo, function(err, recordId, result){
 
-            ruleBackendHandler.AddInboundRule(reqId, ruleInfo, function(err, recordId, result){
+                    if(err)
+                    {
+                        logger.error('[DVP-RuleService.AddInboundRule] - [%s] - Exception occurred on method ruleBackendHandler.AddInboundRule', reqId, err);
+                        var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, recordId);
+                        res.end(jsonString);
+                    }
+                    else
+                    {
+                        logger.debug('[DVP-RuleService.AddInboundRule] - [%s] - add inbound rule success - Returned : %s', reqId, recordId);
+                        var jsonString = messageFormatter.FormatMessage(err, "Inbound Rule Added Successfully", result, recordId);
+                        res.end(jsonString);
+                    }
+                })
+            }
+            else
+            {
+                ruleBackendHandler.AddOutboundRule(reqId, ruleInfo, function(err, recordId, result){
 
-                if(err)
-                {
-                    logger.error('[DVP-RuleService.AddInboundRule] - [%s] - Exception occurred on method ruleBackendHandler.AddInboundRule', reqId, err);
-                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, recordId);
-                    res.end(jsonString);
-                }
-                else
-                {
-                    logger.debug('[DVP-RuleService.AddInboundRule] - [%s] - add inbound rule success - Returned : %s', reqId, recordId);
-                    var jsonString = messageFormatter.FormatMessage(err, "Inbound Rule Added Successfully", result, recordId);
-                    res.end(jsonString);
-                }
-            })
+                    if(err)
+                    {
+                        logger.error('[DVP-RuleService.AddOutboundRule] - [%s] - Exception occurred on method ruleBackendHandler.AddOutboundRule', reqId, err);
+                        var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, recordId);
+                        res.end(jsonString);
+                    }
+                    else
+                    {
+                        logger.debug('[DVP-RuleService.AddOutboundRule] - [%s] - add outbound rule success - Returned : %s', reqId, recordId);
+                        var jsonString = messageFormatter.FormatMessage(err, "Outbound Rule Added Successfully", result, recordId);
+                        res.end(jsonString);
+                    }
+                })
+            }
+
+
         }
         else
         {
