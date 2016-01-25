@@ -534,6 +534,9 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule', function(req, res, next)
     {
         var ruleInfo = req.body;
 
+        ruleInfo.CompanyId = 1;
+        ruleInfo.TenantId = 1;
+
         logger.debug('[DVP-RuleService.AddInboundRule] - [%s] - HTTP Request Received - Req Body : %j', reqId, ruleInfo);
 
         if(ruleInfo.Direction)
