@@ -1041,6 +1041,46 @@ var SetCallRuleANITranslation = function(reqId, ruleId, transId, companyId, tena
     }
 };
 
+var SetCallRuleTranslation = function(reqId, ruleId, transId, companyId, tenantId, callback)
+{
+    try
+    {
+        dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId}]}).then(function (ruleRec)
+        {
+
+            if(ruleRec)
+            {
+                //update attrib
+                logger.info('[DVP-RuleService.SetCallRuleTranslation] PGSQL Get call rule by id query success');
+                ruleRec.updateAttributes({TranslationId: transId}).then(function (upRes)
+                {
+                    logger.info('[DVP-RuleService.SetCallRuleTranslation] PGSQL Update call rule with translation query success');
+                    callback(undefined, true);
+
+                }).catch(function(err)
+                {
+                    logger.error('[DVP-RuleService.SetCallRuleTranslation] PGSQL Update call rule with translation query fail', err);
+                    callback(err, false);
+                });
+            }
+            else
+            {
+                logger.info('[DVP-RuleService.SetCallRuleTranslation] PGSQL Get call rule by id query success');
+                callback(new Error("Unable to find call rule for company"), false);
+            }
+
+        }).catch(function(err)
+        {
+            logger.error('[DVP-RuleService.SetCallRuleTranslation] PGSQL Get call rule by id query failed', err);
+            callback(err, false);
+        });
+    }
+    catch(ex)
+    {
+        callback(ex, false);
+    }
+};
+
 
 module.exports.AddOutboundRule = AddOutboundRule;
 module.exports.AddInboundRule = AddInboundRule;
