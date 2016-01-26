@@ -593,7 +593,8 @@ var AddOutboundRule = function(reqId, ruleInfo, callback)
                             Direction: ruleInfo.Direction,
                             TrunkId: num.TrunkId,
                             TrunkNumber: ruleInfo.TrunkNumber,
-                            PhoneNumId: num.id
+                            PhoneNumId: num.id,
+                            Context: ruleInfo.Context
                         });
 
                         rule
@@ -678,7 +679,8 @@ var AddInboundRule = function(reqId, ruleInfo, callback)
                 ScheduleId: ruleInfo.ScheduleId,
                 TranslationId: ruleInfo.TranslationId,
                 ExtraData: ruleInfo.ExtraData,
-                Direction: ruleInfo.Direction
+                Direction: ruleInfo.Direction,
+                Context: ruleInfo.Context
             });
 
             rule
