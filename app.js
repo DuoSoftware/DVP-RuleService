@@ -126,7 +126,7 @@ server.get('/DVP/API/:version/CallRuleApi/CallRule/:id', function(req, res, next
             }
             else
             {
-                logger.debug('[DVP-RuleService.GetCallRule] - [%s] - Get call rule by id success - Returned : %j', reqId, result);
+                logger.debug('[DVP-RuleService.GetCallRule] - [%s] - Get call rule by id success - Returned : %s', reqId, JSON.stringify(result));
                 var jsonString = messageFormatter.FormatMessage(err, "Get call rule success", true, result);
                 res.end(jsonString);
             }
