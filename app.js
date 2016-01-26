@@ -430,7 +430,7 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetSchedule/:scheduleId'
 });
 
 //server.post('/DVP/API/' + hostVersion + '/CallRule/SetCallRuleTranslation/:id/:transId/:companyId/:tenantId', function(req, res, next)
-server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetTranslation/:transId', function(req, res, next)
+server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetDNISTranslation/:transId', function(req, res, next)
 {
     var reqId = uuid.v1();
 
@@ -441,7 +441,7 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetTranslation/:transId'
         var companyId = 1;
         var tenantId = 1;
 
-        logger.debug('[DVP-RuleService.CallRuleSetTranslation] - [%s] - HTTP Request Received - Req Params : Id : %s, transId : %s', reqId, id, transId);
+        logger.debug('[DVP-RuleService.CallRuleSetDNISTranslation] - [%s] - HTTP Request Received - Req Params : Id : %s, transId : %s', reqId, id, transId);
 
         if(id)
         {
@@ -456,6 +456,53 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetTranslation/:transId'
                 else
                 {
                     logger.debug('[DVP-RuleService.CallRuleSetTranslation] - [%s] - set call rule translation success - Returned : %s', reqId, result);
+                    var jsonString = messageFormatter.FormatMessage(err, "Call rule translation set successfully", result, undefined);
+                    res.end(jsonString);
+                }
+            })
+        }
+        else
+        {
+            throw new Error("Empty id");
+        }
+    }
+    catch(ex)
+    {
+        logger.error('[DVP-RuleService.CallRuleSetTranslation] - [%s] - Exception occurred', reqId, ex);
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, undefined);
+        res.end(jsonString);
+    }
+
+    return next();
+
+});
+
+server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetANITranslation/:transId', function(req, res, next)
+{
+    var reqId = uuid.v1();
+
+    try
+    {
+        var id = req.params.id;
+        var transId = req.params.transId;
+        var companyId = 1;
+        var tenantId = 1;
+
+        logger.debug('[DVP-RuleService.CallRuleSetANITranslation] - [%s] - HTTP Request Received - Req Params : Id : %s, transId : %s', reqId, id, transId);
+
+        if(id)
+        {
+            ruleBackendHandler.SetCallRuleANITranslation(reqId, id, transId, companyId, tenantId, function(err, result){
+
+                if(err)
+                {
+                    logger.error('[DVP-RuleService.CallRuleSetANITranslation] - [%s] - Exception occurred on method SetCallRuleTranslation', reqId, err);
+                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, undefined);
+                    res.end(jsonString);
+                }
+                else
+                {
+                    logger.debug('[DVP-RuleService.CallRuleSetANITranslation] - [%s] - set call rule translation success - Returned : %s', reqId, result);
                     var jsonString = messageFormatter.FormatMessage(err, "Call rule translation set successfully", result, undefined);
                     res.end(jsonString);
                 }

@@ -1001,7 +1001,7 @@ var SetCallRuleSchedule = function(reqId, ruleId, scheduleId, companyId, tenantI
     }
 };
 
-var SetCallRuleTranslation = function(reqId, ruleId, transId, companyId, tenantId, callback)
+var SetCallRuleANITranslation = function(reqId, ruleId, transId, companyId, tenantId, callback)
 {
     try
     {
@@ -1011,27 +1011,27 @@ var SetCallRuleTranslation = function(reqId, ruleId, transId, companyId, tenantI
             if(ruleRec)
             {
                 //update attrib
-                logger.info('[DVP-RuleService.SetCallRuleTranslation] PGSQL Get call rule by id query success');
-                ruleRec.updateAttributes({TranslationId: transId}).then(function (upRes)
+                logger.info('[DVP-RuleService.SetCallRuleANITranslation] PGSQL Get call rule by id query success');
+                ruleRec.updateAttributes({ANITranslationId: transId}).then(function (upRes)
                 {
-                    logger.info('[DVP-RuleService.SetCallRuleTranslation] PGSQL Update call rule with translation query success');
+                    logger.info('[DVP-RuleService.SetCallRuleANITranslation] PGSQL Update call rule with translation query success');
                     callback(undefined, true);
 
                 }).catch(function(err)
                 {
-                    logger.error('[DVP-RuleService.SetCallRuleTranslation] PGSQL Update call rule with translation query fail', err);
+                    logger.error('[DVP-RuleService.SetCallRuleANITranslation] PGSQL Update call rule with translation query fail', err);
                     callback(err, false);
                 });
             }
             else
             {
-                logger.info('[DVP-RuleService.SetCallRuleTranslation] PGSQL Get call rule by id query success');
+                logger.info('[DVP-RuleService.SetCallRuleANITranslation] PGSQL Get call rule by id query success');
                 callback(new Error("Unable to find call rule for company"), false);
             }
 
         }).catch(function(err)
         {
-            logger.error('[DVP-RuleService.SetCallRuleTranslation] PGSQL Get call rule by id query failed', err);
+            logger.error('[DVP-RuleService.SetCallRuleANITranslation] PGSQL Get call rule by id query failed', err);
             callback(err, false);
         });
     }
@@ -1059,3 +1059,4 @@ module.exports.PickCallRuleOutboundComplete = PickCallRuleOutboundComplete;
 module.exports.SetCallRuleAppDB = SetCallRuleAppDB;
 module.exports.PickClickToCallRuleInbound = PickClickToCallRuleInbound;
 module.exports.GetCallRulesByDirection = GetCallRulesByDirection;
+module.exports.SetCallRuleANITranslation = SetCallRuleANITranslation;
