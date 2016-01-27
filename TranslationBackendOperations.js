@@ -16,8 +16,8 @@ function AddNewTranslation(reqId, transObj, callback)
                 RAdd: transObj.RAdd,
                 RRemove: transObj.RRemove,
                 Replace: transObj.Replace,
-                CompanyId: transObj.CompanyId,
-                TenantId: transObj.TenantId,
+                CompanyId: 1,
+                TenantId: 1,
                 ObjClass: transObj.ObjClass,
                 ObjType: transObj.ObjType,
                 ObjCategory: transObj.ObjCategory
