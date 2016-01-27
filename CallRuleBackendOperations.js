@@ -546,6 +546,162 @@ var SetOutboundRuleTrunkNumber = function(reqId, ruleId, companyId, tenantId, tr
 
 };
 
+var UpdateRule = function(reqId, ruleId, ruleInfo, companyId, tenantId, callback)
+{
+    try
+    {
+        if(ruleInfo.Direction === 'INBOUND')
+        {
+            dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId},{TenantId: tenantId},{Direction: 'INBOUND'}]})
+                .then(function (callRule)
+                {
+                    logger.info('[DVP-RuleService.UpdateRule] PGSQL Get call rule by id query success');
+
+                    if(callRule)
+                    {
+                        if(!ruleInfo.Context || ruleInfo.Context.toUpperCase() === "ANY")
+                        {
+                            ruleInfo.ContextRegExPattern = "ANY";
+                            ruleInfo.Context = "ANY";
+                        }
+                        else
+                        {
+                            ruleInfo.ContextRegExPattern = "EXACTMATCH";
+                        }
+
+                        callRule.updateAttributes({
+                            CallRuleDescription: ruleInfo.CallRuleDescription,
+                            ObjClass: 'DVP',
+                            ObjType: 'CALLRULE',
+                            ObjCategory: ruleInfo.ObjCategory,
+                            Enable: ruleInfo.Enable,
+                            CompanyId: ruleInfo.CompanyId,
+                            TenantId: ruleInfo.TenantId,
+                            DNISRegEx: regExHandler.GenerateRegEx(ruleInfo.DNIS, ruleInfo.RegExPattern),
+                            ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.ANIRegExPattern),
+                            ContextRegEx: regExHandler.GenerateRegEx(ruleInfo.Context, ruleInfo.ContextRegExPattern),
+                            RegExPattern: ruleInfo.RegExPattern,
+                            ANIRegExPattern: ruleInfo.ANIRegExPattern,
+                            DNIS: ruleInfo.DNIS,
+                            ANI: ruleInfo.ANI,
+                            Priority: ruleInfo.Priority,
+                            ScheduleId: ruleInfo.ScheduleId,
+                            ExtraData: ruleInfo.ExtraData,
+                            Direction: ruleInfo.Direction,
+                            Context: ruleInfo.Context
+                        }).then(function(updateResult)
+                        {
+                            logger.debug('[DVP-RuleService.UpdateRule] - [%s] - PGSQL UpdateRule query success', reqId);
+                            callback(undefined, true);
+                        }).catch(function(err)
+                        {
+                            logger.error('[DVP-RuleService.UpdateRule] - [%s] - PGSQL UpdateRule Failed', reqId, err);
+                            callback(err, false);
+                        });
+                    }
+                    else
+                    {
+                        callback(new Error('Unable to find a outbound call rule for company with given id'), false);
+                    }
+
+                }).catch(function(err)
+                {
+                    logger.error('[DVP-RuleService.UpdateRule] PGSQL Get call rule by id query failed', err);
+                    callback(err, undefined);
+                });
+
+        }
+        else
+        {
+            dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId},{TenantId: tenantId},{Direction: 'OUTBOUND'}]})
+                .then(function (callRule)
+                {
+                    logger.info('[DVP-RuleService.UpdateRule] PGSQL Get call rule by id query success');
+
+                    if(callRule)
+                    {
+                        if(!ruleInfo.Context || ruleInfo.Context.toUpperCase() === "ANY")
+                        {
+                            ruleInfo.ContextRegExPattern = "ANY";
+                            ruleInfo.Context = "ANY";
+                        }
+                        else
+                        {
+                            ruleInfo.ContextRegExPattern = "EXACTMATCH";
+                        }
+
+                        if (ruleInfo.TrunkNumber)
+                        {
+                            GetPhoneNumber(reqId, ruleInfo.TrunkNumber, companyId, tenantId, function (err, num)
+                            {
+                                if (err)
+                                {
+                                    callback(err, false);
+                                }
+                                else if (num)
+                                {
+                                    callRule.updateAttributes({
+                                        CallRuleDescription: ruleInfo.CallRuleDescription,
+                                        ObjClass: 'DVP',
+                                        ObjType: 'CALLRULE',
+                                        ObjCategory: '',
+                                        Enable: ruleInfo.Enable,
+                                        DNISRegEx: regExHandler.GenerateRegEx(ruleInfo.DNIS, ruleInfo.RegExPattern),
+                                        ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.ANIRegExPattern),
+                                        ContextRegEx: regExHandler.GenerateRegEx(ruleInfo.Context, ruleInfo.ContextRegExPattern),
+                                        RegExPattern: ruleInfo.RegExPattern,
+                                        ANIRegExPattern: ruleInfo.ANIRegExPattern,
+                                        DNIS: ruleInfo.DNIS,
+                                        ANI: ruleInfo.ANI,
+                                        Priority: ruleInfo.Priority,
+                                        ExtraData: ruleInfo.ExtraData,
+                                        TrunkId: num.TrunkId,
+                                        TrunkNumber: ruleInfo.TrunkNumber,
+                                        PhoneNumId: num.id,
+                                        Context: ruleInfo.Context
+
+                                    }).then(function(updateResult)
+                                    {
+                                        logger.debug('[DVP-RuleService.UpdateRule] - [%s] - PGSQL UpdateRule query success', reqId);
+                                        callback(undefined, true);
+                                    }).catch(function(err)
+                                    {
+                                        logger.error('[DVP-RuleService.UpdateRule] - [%s] - PGSQL UpdateRule Failed', reqId, err);
+                                        callback(err, false);
+                                    });
+
+
+                                }
+                                else
+                                {
+                                    callback(new Error('Trunk number is not valid for the company'), -1, false);
+                                }
+                            })
+                        }
+                        else
+                        {
+                            callback(new Error('Trunk number not given'), -1, false);
+                        }
+                    }
+                    else
+                    {
+                        callback(new Error('Unable to find a outbound call rule for company with given id'), false);
+                    }
+
+                }).catch(function(err)
+                {
+                    logger.error('[DVP-RuleService.UpdateRule] PGSQL Get call rule by id query failed', err);
+                    callback(err, undefined);
+                });
+
+        }
+    }
+    catch(ex)
+    {
+        callback(ex, undefined);
+    }
+};
+
 var AddOutboundRule = function(reqId, ruleInfo, callback)
 {
     try
@@ -677,7 +833,6 @@ var AddInboundRule = function(reqId, ruleInfo, callback)
                 ANI: ruleInfo.ANI,
                 Priority: ruleInfo.Priority,
                 ScheduleId: ruleInfo.ScheduleId,
-                TranslationId: ruleInfo.TranslationId,
                 ExtraData: ruleInfo.ExtraData,
                 Direction: ruleInfo.Direction,
                 Context: ruleInfo.Context
@@ -1100,3 +1255,4 @@ module.exports.SetCallRuleAppDB = SetCallRuleAppDB;
 module.exports.PickClickToCallRuleInbound = PickClickToCallRuleInbound;
 module.exports.GetCallRulesByDirection = GetCallRulesByDirection;
 module.exports.SetCallRuleANITranslation = SetCallRuleANITranslation;
+module.exports.UpdateRule = UpdateRule;

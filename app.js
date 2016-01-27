@@ -572,6 +572,61 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule/:ruleId/SetApplication/:appI
 });
 
 
+server.put('/DVP/API/:version/CallRuleApi/CallRule/:ruleId', function(req, res, next)
+{
+    var reqId = uuid.v1();
+    try
+    {
+        var securityToken = req.header('authorization');
+        var reqBody = req.body;
+        var ruleId = req.params.ruleId;
+
+        logger.debug('[DVP-RuleService.UpdateRule] - [%s] - HTTP Request Received - Req Body : ', reqId, reqBody);
+
+        if(reqBody && securityToken)
+        {
+
+            ruleBackendHandler.UpdateRule(reqId, ruleId, reqBody, 1, 1, function(err, updateResult)
+            {
+                if(err || !updateResult)
+                {
+                    var jsonString = messageFormatter.FormatMessage(err, "Update PBX User Failed", false, false);
+                    logger.debug('[DVP-RuleService.UpdateRule] - [%s] - API RESPONSE : %s', reqId, jsonString);
+                    res.end(jsonString);
+                }
+                else
+                {
+                    var jsonString = messageFormatter.FormatMessage(err, "Update PBX User Success", true, updateResult);
+                    logger.debug('[DVP-RuleService.UpdateRule] - [%s] - API RESPONSE : %s', reqId, jsonString);
+                    res.end(jsonString);
+                }
+
+            })
+        }
+        else
+        {
+            var jsonString = messageFormatter.FormatMessage(new Error('Empty request body or no authorization token set'), "Empty request body or no authorization token set", false, false);
+            logger.debug('[DVP-RuleService.UpdateRule] - [%s] - API RESPONSE : %s', reqId, jsonString);
+            res.end(jsonString);
+
+        }
+
+
+    }
+    catch(ex)
+    {
+        logger.error('[DVP-RuleService.UpdateRule] - [%s] - Exception Occurred', reqId, ex);
+        var jsonString = messageFormatter.FormatMessage(ex, "Exception occurred", false, false);
+        logger.debug('[DVP-RuleService.UpdateRule] - [%s] - API RESPONSE : %s', reqId, jsonString);
+        res.end(jsonString);
+
+    }
+
+    return next();
+
+});
+
+
 //{"CallRuleDescription": "ff", "ObjClass": "MM", "ObjType":"Inbound", "ObjCategory": "URL", "Enable":true, "CompanyId": 1, "TenantId": 3, "RegExPattern":"StartWith", "ANIRegExPattern": "StartWith", "DNIS": "123", "ANI":"", "Priority": 1, "TargetScript": "ppppp", "ScheduleId":2,                                        "ExtraData": "dfd"}
 //server.post('/DVP/API/' + hostVersion + '/CallRule/AddInboundRule', function(req, res, next)
 server.post('/DVP/API/:version/CallRuleApi/CallRule', function(req, res, next)
