@@ -714,18 +714,18 @@ server.del('/DVP/API/:version/CallRuleApi/CallRule/:id', function(req, res, next
 
         if(intId != NaN)
         {
-            ruleBackendHandler.DeleteCallRule(reqId, id, companyId, tenantId, function(err, recordId, result){
+            ruleBackendHandler.DeleteCallRule(reqId, id, companyId, tenantId, function(err, result){
 
                 if(err)
                 {
                     logger.error('[DVP-RuleService.DeleteCallRule] - [%s] - Exception occurred on method ruleBackendHandler.AddInboundRule', reqId, err);
-                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, recordId);
+                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, result);
                     res.end(jsonString);
                 }
                 else
                 {
-                    logger.debug('[DVP-RuleService.DeleteCallRule] - [%s] - delete call rule success - Returned : %s', reqId, recordId);
-                    var jsonString = messageFormatter.FormatMessage(err, "Rule Deleted Successfully", result, recordId);
+                    logger.debug('[DVP-RuleService.DeleteCallRule] - [%s] - delete call rule success - Returned : %s', reqId, result);
+                    var jsonString = messageFormatter.FormatMessage(err, "Rule Deleted Successfully", result, result);
                     res.end(jsonString);
                 }
             })
@@ -738,7 +738,54 @@ server.del('/DVP/API/:version/CallRuleApi/CallRule/:id', function(req, res, next
     catch(ex)
     {
         logger.error('[DVP-RuleService.DeleteCallRule] - [%s] - Exception occurred', reqId, ex);
-        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, -1);
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, false);
+        res.end(jsonString);
+    }
+
+    return next();
+
+});
+
+server.del('/DVP/API/:version/CallRuleApi/Translation/:id', function(req, res, next)
+{
+    var reqId = uuid.v1();
+    try
+    {
+        var id = req.params.id;
+        var companyId = 1;
+        var tenantId = 1;
+
+        logger.debug('[DVP-RuleService.DeleteTranslation] - [%s] - HTTP Request Received - Req Params - Id : %s', reqId);
+
+        intId = parseInt(id);
+
+        if(intId != NaN)
+        {
+            ruleBackendHandler.DeleteTranslation(reqId, id, companyId, tenantId, function(err, result){
+
+                if(err)
+                {
+                    logger.error('[DVP-RuleService.DeleteCallRule] - [%s] - Exception occurred on method ruleBackendHandler.AddInboundRule', reqId, err);
+                    var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, false);
+                    res.end(jsonString);
+                }
+                else
+                {
+                    logger.debug('[DVP-RuleService.DeleteCallRule] - [%s] - delete call rule success - Returned : %s', reqId, result);
+                    var jsonString = messageFormatter.FormatMessage(err, "Rule Deleted Successfully", result, result);
+                    res.end(jsonString);
+                }
+            })
+        }
+        else
+        {
+            throw new Error("Rule Id need to be an integer");
+        }
+    }
+    catch(ex)
+    {
+        logger.error('[DVP-RuleService.DeleteCallRule] - [%s] - Exception occurred', reqId, ex);
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, false);
         res.end(jsonString);
     }
 

@@ -1073,13 +1073,12 @@ var DeleteCallRule = function(reqId, ruleId, companyId, tenantId, callback)
 {
     try
     {
-        dbModel.CallRule.find({where: [{id: ruleId}]}).then(function (ruleRec)
+        dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId},{TenantId: tenantId}]}).then(function (ruleRec)
         {
             if (ruleRec)
             {
                 logger.info('[DVP-RuleService.DeleteCallRule] PGSQL Get call rule by id query success');
-                if(ruleRec.CompanyId == companyId)
-                {
+
                     ruleRec.destroy().then(function (result)
                     {
                         logger.info('[DVP-RuleService.DeleteCallRule] PGSQL Delete call rule query success');
@@ -1090,22 +1089,57 @@ var DeleteCallRule = function(reqId, ruleId, companyId, tenantId, callback)
                         logger.error('[DVP-RuleService.DeleteCallRule] PGSQL Delete call rule query failed', err);
                         callback(err, false);
                     });
-                }
-                else
-                {
-                    callback(new Error('Rule belongs to a different company'))
-                }
 
             }
             else
             {
-                logger.error('[DVP-RuleService.DeleteCallRule] PGSQL Get call rule by id query failed', err);
-                callback(undefined, false);
+                logger.error('[DVP-RuleService.DeleteCallRule] Call rule not found for given id');
+                callback(new Error('Call rule not found for given id'), false);
             }
 
         }).catch(function(err)
         {
             logger.error('[DVP-RuleService.DeleteCallRule] PGSQL Get call rule by id query failed', err);
+            callback(err, false);
+        })
+    }
+    catch(ex)
+    {
+        callback(ex, false);
+    }
+
+};
+
+var DeleteTranslation = function(reqId, transId, companyId, tenantId, callback)
+{
+    try
+    {
+        dbModel.Translation.find({where: [{id: transId},{CompanyId: companyId},{TenantId: tenantId}]}).then(function (transRec)
+        {
+            if (transRec)
+            {
+                logger.info('[DVP-RuleService.DeleteTranslation] PGSQL Get translation by id query success');
+
+                transRec.destroy().then(function (result)
+                {
+                    logger.info('[DVP-RuleService.DeleteTranslation] PGSQL Delete translation query success');
+                    callback(undefined, true);
+
+                }).catch(function (err) {
+                    logger.error('[DVP-RuleService.DeleteTranslation] PGSQL Delete translation query failed', err);
+                    callback(err, false);
+                });
+
+            }
+            else
+            {
+                logger.error('[DVP-RuleService.DeleteTranslation] Translation record not found for given id');
+                callback(new Error('Translation record not found for given id'), false);
+            }
+
+        }).catch(function(err)
+        {
+            logger.error('[DVP-RuleService.DeleteTranslation] PGSQL Get translation by id query failed', err);
             callback(err, false);
         })
     }
@@ -1256,3 +1290,4 @@ module.exports.PickClickToCallRuleInbound = PickClickToCallRuleInbound;
 module.exports.GetCallRulesByDirection = GetCallRulesByDirection;
 module.exports.SetCallRuleANITranslation = SetCallRuleANITranslation;
 module.exports.UpdateRule = UpdateRule;
+module.exports.DeleteTranslation = DeleteTranslation;
