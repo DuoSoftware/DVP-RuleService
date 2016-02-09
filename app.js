@@ -905,7 +905,7 @@ server.post('/DVP/API/:version/CallRuleApi/Translation', function(req, res, next
 
 });
 
-server.post('/DVP/API/:version/CallRuleApi/ExistingTranslation/:id', function(req, res, next)
+server.put('/DVP/API/:version/CallRuleApi/Translation/:id', function(req, res, next)
 {
     var reqId = uuid.v1();
     try
