@@ -702,7 +702,7 @@ var UpdateRule = function(reqId, ruleId, ruleInfo, companyId, tenantId, callback
     }
 };
 
-var AddOutboundRule = function(reqId, ruleInfo, callback)
+var AddOutboundRule = function(reqId, ruleInfo, companyId, tenantId, callback)
 {
     try
     {
@@ -721,7 +721,7 @@ var AddOutboundRule = function(reqId, ruleInfo, callback)
 
             if (ruleInfo.TrunkNumber)
             {
-                GetPhoneNumber(reqId, ruleInfo.TrunkNumber, ruleInfo.CompanyId, ruleInfo.TenantId, function (err, num)
+                GetPhoneNumber(reqId, ruleInfo.TrunkNumber, companyId, tenantId, function (err, num)
                 {
                     if (err)
                     {
@@ -735,8 +735,8 @@ var AddOutboundRule = function(reqId, ruleInfo, callback)
                             ObjType: 'CALLRULE',
                             ObjCategory: '',
                             Enable: ruleInfo.Enable,
-                            CompanyId: ruleInfo.CompanyId,
-                            TenantId: ruleInfo.TenantId,
+                            CompanyId: companyId,
+                            TenantId: tenantId,
                             DNISRegEx: regExHandler.GenerateRegEx(ruleInfo.DNIS, ruleInfo.RegExPattern),
                             ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.ANIRegExPattern),
                             ContextRegEx: regExHandler.GenerateRegEx(ruleInfo.Context, ruleInfo.ContextRegExPattern),
@@ -798,7 +798,7 @@ var AddOutboundRule = function(reqId, ruleInfo, callback)
     }
 };
 
-var AddInboundRule = function(reqId, ruleInfo, callback)
+var AddInboundRule = function(reqId, ruleInfo, companyId, tenantId, callback)
 {
     try
     {
@@ -822,8 +822,8 @@ var AddInboundRule = function(reqId, ruleInfo, callback)
                 ObjType: 'CALLRULE',
                 ObjCategory: ruleInfo.ObjCategory,
                 Enable: ruleInfo.Enable,
-                CompanyId: ruleInfo.CompanyId,
-                TenantId: ruleInfo.TenantId,
+                CompanyId: companyId,
+                TenantId: tenantId,
                 DNISRegEx: regExHandler.GenerateRegEx(ruleInfo.DNIS, ruleInfo.RegExPattern),
                 ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.ANIRegExPattern),
                 ContextRegEx: regExHandler.GenerateRegEx(ruleInfo.Context, ruleInfo.ContextRegExPattern),

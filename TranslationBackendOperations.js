@@ -1,7 +1,7 @@
 var DbConn = require('dvp-dbmodels');
 var logger = require('dvp-common/LogHandler/CommonLogHandler.js').logger;
 
-function AddNewTranslation(reqId, transObj, callback)
+function AddNewTranslation(reqId, transObj, companyId, tenantId, callback)
 {
     try
     {
@@ -16,8 +16,8 @@ function AddNewTranslation(reqId, transObj, callback)
                 RAdd: transObj.RAdd,
                 RRemove: transObj.RRemove,
                 Replace: transObj.Replace,
-                CompanyId: 1,
-                TenantId: 1,
+                CompanyId: companyId,
+                TenantId: tenantId,
                 ObjClass: transObj.ObjClass,
                 ObjType: transObj.ObjType,
                 ObjCategory: transObj.ObjCategory
@@ -40,11 +40,11 @@ function AddNewTranslation(reqId, transObj, callback)
     }
 }
 
-function UpdateTranslation(reqId, transId, obj, callback)
+function UpdateTranslation(reqId, transId, obj, companyId, tenantId, callback)
 {
     try
     {
-        DbConn.Translation.find({where: [{id: transId},{CompanyId: obj.CompanyId}]}).then(function (transObj)
+        DbConn.Translation.find({where: [{id: transId},{CompanyId: companyId},{TenantId: tenantId}]}).then(function (transObj)
         {
             if (transObj)
             {
@@ -116,12 +116,12 @@ function GetTranslationById(reqId, transId, companyId, callback)
     }
 }
 
-function GetAllTranslationsForCompany(reqId, companyId, callback)
+function GetAllTranslationsForCompany(reqId, companyId, tenantId, callback)
 {
     var emptyArr = [];
     try
     {
-        DbConn.Translation.findAll({where: [{CompanyId: companyId}]}).then(function (transList)
+        DbConn.Translation.findAll({where: [{CompanyId: companyId},{TenantIdId: tenantId}]}).then(function (transList)
         {
             logger.info('[DVP-RuleService.GetAllTranslationsForCompany] PGSQL Get translations for company query success');
 
