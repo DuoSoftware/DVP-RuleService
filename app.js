@@ -27,7 +27,7 @@ server.use(restify.fullResponse());
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
-server.use(jwt({secret: secret.Secret}));
+
 
 
 //server.get('/DVP/API/' + hostVersion + '/CallRule/GetCallRules/:companyId/:tenantId', function(req, res, next)
@@ -154,7 +154,6 @@ server.get('/DVP/API/:version/CallRuleApi/CallRule/:id', authorization({resource
             }
         });
 
-
     }
     catch(ex)
     {
@@ -170,7 +169,8 @@ server.get('/DVP/API/:version/CallRuleApi/CallRule/:id', authorization({resource
 server.get('/DVP/API/:version/CallRuleApi/CallRule/Outbound/ANI/:ani/DNIS/:dnis', authorization({resource:"callrule", action:"read"}), function(req, res, next)
 {
     var reqId = uuid.v1();
-    try {
+    try
+    {
         var ani = req.params.ani;
         var dnis = req.params.dnis;
 
@@ -990,7 +990,7 @@ server.get('/DVP/API/:version/CallRuleApi/Translation/:id', authorization({resou
 
 });
 
-server.post('/DVP/API/:version/CallRuleApi/Translation', authorization({resource:"callrule", action:"write"}), function(req, res, next)
+server.post('/DVP/API/:version/CallRuleApi/Translation', function(req, res, next)
 {
     var reqId = uuid.v1();
     try
@@ -998,13 +998,10 @@ server.post('/DVP/API/:version/CallRuleApi/Translation', authorization({resource
         logger.debug('[DVP-RuleService.SaveTranslation] - [%s] - HTTP Request Received', reqId);
 
         var transObj = req.body;
-        var companyId = req.user.company;
-        var tenantId = req.user.tenant;
+        var companyId = 1;
+        var tenantId = 1;
 
-        if (!companyId || !tenantId)
-        {
-            throw new Error("Invalid company or tenant");
-        }
+
 
         transBackendHandler.AddNewTranslation(reqId, transObj, companyId, tenantId, function (err, transId, result)
         {
