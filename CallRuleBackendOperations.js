@@ -417,7 +417,7 @@ var PickClickToCallRuleInbound = function(reqId, aniNum, dnisNum, context, compa
     }
 };
 
-var PickCallRuleInbound = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, callback)
+var PickCallRuleInbound = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, data, callback)
 {
     try
     {
