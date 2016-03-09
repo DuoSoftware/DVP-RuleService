@@ -48,9 +48,9 @@ var PickCallRuleInbound = function(reqId, aniNum, dnisNum, domain, context, comp
 
                     var crInfo = callRulePicked;
 
-                    if(data.Application && callRulePicked.ApplicationId)
+                    if(data.Application && callRulePicked.AppId)
                     {
-                        var app = data.Application[callRulePicked.ApplicationId];
+                        var app = data.Application[callRulePicked.AppId];
 
                         if(app)
                         {
