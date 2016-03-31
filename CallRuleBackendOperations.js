@@ -119,7 +119,7 @@ var GetCallRuleById = function(reqId, ruleId, companyId, tenantId, callback)
     }
 };
 
-var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, callback)
+var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, data, callback)
 {
     try
     {
@@ -240,7 +240,7 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
     }
 };
 
-var PickCallRuleOutbound = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, callback)
+var PickCallRuleOutbound = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, data, callback)
 {
     try
     {

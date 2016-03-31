@@ -184,7 +184,7 @@ server.get('/DVP/API/:version/CallRuleApi/CallRule/Outbound/ANI/:ani/DNIS/:dnis'
             throw new Error("Invalid company or tenant");
         }
 
-        ruleBackendHandler.PickCallRuleOutboundComplete(reqId, ani, dnis, '', '', companyId, tenantId, false, function (err, result)
+        ruleBackendHandler.PickCallRuleOutboundComplete(reqId, ani, dnis, '', '', companyId, tenantId, false, null, function (err, result)
         {
             if (err)
             {
