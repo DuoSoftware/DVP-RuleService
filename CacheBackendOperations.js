@@ -2,6 +2,7 @@
  * Created by dinusha on 3/8/2016.
  */
 var underscore = require('underscore');
+var redisHandler = require('./RedisHandler.js');
 
 var PickCallRuleInbound = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, data, callback)
 {
@@ -369,6 +370,8 @@ var PickCallRuleOutbound = function(reqId, aniNum, dnisNum, domain, context, com
                         }
 
                     }
+
+                    callback(null, crInfo);
 
                 }
                 else

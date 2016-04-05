@@ -16,5 +16,11 @@ module.exports = {
     "Host":{
         "Port":"HOST_RULESERVICE_PORT",
         "Version":"HOST_VERSION"
-    }
+    },
+
+    "Redis": {
+        "IpAddress":"127.0.0.1",
+        "Port":"6379",
+        "Password": "123"
+    },
 };
