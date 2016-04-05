@@ -8,6 +8,7 @@
 #EXPOSE 8817
 
 FROM node:argon
+RUN npm install npm -g
 RUN git clone git://github.com/DuoSoftware/DVP-RuleService.git /usr/local/src/ruleservice
 RUN cd /usr/local/src/ruleservice;
 WORKDIR /usr/local/src/ruleservice
