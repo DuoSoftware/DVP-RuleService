@@ -23,4 +23,13 @@ module.exports = {
         "Port":"6379",
         "Password": "123"
     },
+
+    "Security":
+    {
+        "ip": "SYS_REDIS_HOST",
+        "port": "SYS_REDIS_PORT",
+        "user": "SYS_REDIS_USER",
+        "password": "SYS_REDIS_PASSWORD"
+
+    }
 };
