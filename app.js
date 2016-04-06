@@ -999,10 +999,13 @@ server.post('/DVP/API/:version/CallRuleApi/Translation', function(req, res, next
         logger.debug('[DVP-RuleService.SaveTranslation] - [%s] - HTTP Request Received', reqId);
 
         var transObj = req.body;
-        var companyId = 1;
-        var tenantId = 1;
+        var companyId = req.user.company;
+        var tenantId = req.user.tenant;
 
-
+        if (!companyId || !tenantId)
+        {
+            throw new Error("Invalid company or tenant");
+        }
 
         transBackendHandler.AddNewTranslation(reqId, transObj, companyId, tenantId, function (err, transId, result)
         {
