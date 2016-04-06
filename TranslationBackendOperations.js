@@ -121,7 +121,7 @@ function GetAllTranslationsForCompany(reqId, companyId, tenantId, callback)
     var emptyArr = [];
     try
     {
-        DbConn.Translation.findAll({where: [{CompanyId: companyId},{TenantIdId: tenantId}]}).then(function (transList)
+        DbConn.Translation.findAll({where: [{CompanyId: companyId},{TenantId: tenantId}]}).then(function (transList)
         {
             logger.info('[DVP-RuleService.GetAllTranslationsForCompany] PGSQL Get translations for company query success');
 
