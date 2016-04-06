@@ -6,21 +6,21 @@ module.exports = {
     "Password":"DuoS123",
     "Port":5432,
     "Host":"104.236.231.11",
-    "Database":"dvpdb"
+    "Database":"duo"
   },
 
   "Security":
   {
     "ip" : "45.55.142.207",
-    "port": 6379,
+    "port": 6389,
     "user": "45.55.142.207",
-    "password": "123"
+    "password": "DuoS123"
   },
 
   "Redis": {
     "IpAddress":"127.0.0.1",
-    "Port":"6379",
-    "Password":"123"
+    "Port":"6389",
+    "Password":"DuoS123"
   },
 
   "Host":{
