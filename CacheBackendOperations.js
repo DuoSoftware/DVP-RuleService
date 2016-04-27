@@ -360,18 +360,18 @@ var PickCallRuleOutbound = function(reqId, aniNum, dnisNum, domain, context, com
 
                     }
 
-                    if(data.TrunkPhoneNumber && callRulePicked.PhoneNumId)
+                    redisHandler.GetObject(null, 'TRUNKNUMBERBYID:' + callRulePicked.TenantId + ':' + callRulePicked.CompanyId + ':' + phnNumTrunkInfo.PhoneNumId, function(err, trNum)
                     {
-                        var phnNum = data.TrunkPhoneNumber[callRulePicked.PhoneNumId];
-
-                        if(phnNum)
+                        if(trNum)
                         {
                             crInfo.TrunkPhoneNumber = phnNum;
                         }
 
-                    }
+                        callback(null, crInfo);
 
-                    callback(null, crInfo);
+                    });
+
+
 
                 }
                 else

@@ -44,13 +44,10 @@ var GetObject = function(reqId, key, callback)
     {
         logger.debug('[DVP-DynamicConfigurationGenerator.GetObject] - [%s] - Method Params - key : %s', reqId, key);
 
-        var start = new Date().getTime();
+
         client.get(key, function(err, response)
         {
-            var end = new Date().getTime();
-            var time = end - start;
 
-            console.log("Redis Time : " + time);
             if(err)
             {
                 logger.error('[DVP-DynamicConfigurationGenerator.GetObject] - [%s] - REDIS GET failed', reqId, err);
