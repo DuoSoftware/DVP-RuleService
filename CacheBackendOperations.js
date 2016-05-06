@@ -256,6 +256,10 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
                     });
 
                 }
+                else
+                {
+                    callback(new Error('Trunk number not found for r'), undefined);
+                }
 
             }
             else
@@ -360,11 +364,11 @@ var PickCallRuleOutbound = function(reqId, aniNum, dnisNum, domain, context, com
 
                     }
 
-                    redisHandler.GetObject(null, 'TRUNKNUMBERBYID:' + callRulePicked.TenantId + ':' + callRulePicked.CompanyId + ':' + phnNumTrunkInfo.PhoneNumId, function(err, trNum)
+                    redisHandler.GetObject(null, 'TRUNKNUMBERBYID:' + callRulePicked.TenantId + ':' + callRulePicked.CompanyId + ':' + callRulePicked.PhoneNumId, function(err, trNum)
                     {
                         if(trNum)
                         {
-                            crInfo.TrunkPhoneNumber = phnNum;
+                            crInfo.TrunkPhoneNumber = trNum;
                         }
 
                         callback(null, crInfo);
