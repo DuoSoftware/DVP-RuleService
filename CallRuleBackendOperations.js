@@ -337,7 +337,7 @@ var PickCallRuleOutbound = function(reqId, aniNum, dnisNum, domain, context, com
     }
 };
 
-var PickCallRuleInboundByCat = function(reqId, aniNum, dnisNum, context, category, companyId, tenantId, callback)
+var PickCallRuleInboundByCat = function(reqId, aniNum, dnisNum, context, category, companyId, tenantId, data, callback)
 {
     try
     {
