@@ -32,7 +32,7 @@ var GetCallRulesForCompany = function(reqId, companyId, tenantId, callback)
     try
     {
 
-        dbModel.CallRule.findAll({where: [{CompanyId: companyId},{TenantId: tenantId}]})
+        dbModel.CallRule.findAll({where: [{CompanyId: companyId},{TenantId: tenantId}],include: [{model: dbModel.Application, as: "Application"}]})
             .then(function (callRules)
             {
                 logger.info('[DVP-RuleService.GetCallRulesForCompany] PGSQL Get call rules query success');
