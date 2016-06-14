@@ -337,12 +337,12 @@ var PickCallRuleOutbound = function(reqId, aniNum, dnisNum, domain, context, com
     }
 };
 
-var PickClickToCallRuleInbound = function(reqId, aniNum, dnisNum, context, companyId, tenantId, callback)
+var PickCallRuleInboundByCat = function(reqId, aniNum, dnisNum, context, category, companyId, tenantId, callback)
 {
     try
     {
         dbModel.CallRule
-            .findAll({where :[{CompanyId: companyId},{TenantId: tenantId},{Enable: true}, {Direction: 'INBOUND'}, {ObjCategory: 'C2C'}], order: ['Priority']})
+            .findAll({where :[{CompanyId: companyId},{TenantId: tenantId},{Enable: true}, {Direction: 'INBOUND'}, {ObjCategory: category}], order: ['Priority']})
             .then(function (crList)
             {
 
@@ -1291,7 +1291,7 @@ module.exports.PickCallRuleInbound = PickCallRuleInbound;
 module.exports.PickCallRuleOutbound = PickCallRuleOutbound;
 module.exports.PickCallRuleOutboundComplete = PickCallRuleOutboundComplete;
 module.exports.SetCallRuleAppDB = SetCallRuleAppDB;
-module.exports.PickClickToCallRuleInbound = PickClickToCallRuleInbound;
+module.exports.PickCallRuleInboundByCat = PickCallRuleInboundByCat;
 module.exports.GetCallRulesByDirection = GetCallRulesByDirection;
 module.exports.SetCallRuleANITranslation = SetCallRuleANITranslation;
 module.exports.UpdateRule = UpdateRule;
