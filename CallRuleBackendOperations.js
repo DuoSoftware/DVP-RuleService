@@ -362,7 +362,7 @@ var PickCallRuleInboundByCat = function(reqId, aniNum, dnisNum, extraData, conte
                                 var contextRegEx = new RegExp(crList[i].ContextRegEx);
                                 var customRegEx = null;
 
-                                if(crList[i].ContextRegEx.CustomRegEx)
+                                if(crList[i].CustomRegEx)
                                 {
                                     customRegEx = new RegExp(crList[i].CustomRegEx);
                                 }
