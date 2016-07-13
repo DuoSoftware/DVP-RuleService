@@ -437,12 +437,12 @@ var PickCallRuleInboundByCat = function(reqId, aniNum, dnisNum, extraData, conte
     }
 };
 
-var PickCallRuleInbound = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, data, callback)
+var PickCallRuleInbound = function(reqId, aniNum, dnisNum, extraData, domain, context, category, companyId, tenantId, data, callback)
 {
     try
     {
         dbModel.CallRule
-            .findAll({where :[{CompanyId: companyId},{TenantId: tenantId},{Enable: true}, {Direction: 'INBOUND'}], order: ['Priority']})
+            .findAll({where :[{CompanyId: companyId},{TenantId: tenantId},{Enable: true}, {ObjCategory: category}, {Direction: 'INBOUND'}], order: ['Priority']})
             .then(function (crList)
             {
 
@@ -460,12 +460,30 @@ var PickCallRuleInbound = function(reqId, aniNum, dnisNum, domain, context, comp
                                 var dnisRegExPattern = new RegExp(crList[i].DNISRegEx);
                                 var aniRegExPattern = new RegExp(crList[i].ANIRegEx);
                                 var contextRegEx = new RegExp(crList[i].ContextRegEx);
+                                var customRegEx = null;
 
-                                if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context))
+                                if(crList[i].CustomRegEx)
                                 {
-                                    //pick call rule and break op
-                                    callRulePicked = crList[i];
-                                    break;
+                                    customRegEx = new RegExp(crList[i].CustomRegEx);
+                                }
+
+                                if(customRegEx && extraData)
+                                {
+                                    if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context) && customRegEx.test(extraData))
+                                    {
+                                        //pick call rule and break op
+                                        callRulePicked = crList[i];
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context))
+                                    {
+                                        //pick call rule and break op
+                                        callRulePicked = crList[i];
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -613,7 +631,8 @@ var UpdateRule = function(reqId, ruleId, ruleInfo, companyId, tenantId, callback
                             ScheduleId: ruleInfo.ScheduleId,
                             ExtraData: ruleInfo.ExtraData,
                             Direction: ruleInfo.Direction,
-                            Context: ruleInfo.Context
+                            Context: ruleInfo.Context,
+                            CustomRegEx: ruleInfo.CustomRegEx
                         }).then(function(updateResult)
                         {
                             logger.debug('[DVP-RuleService.UpdateRule] - [%s] - PGSQL UpdateRule query success', reqId);
@@ -669,7 +688,7 @@ var UpdateRule = function(reqId, ruleId, ruleInfo, companyId, tenantId, callback
                                         CallRuleDescription: ruleInfo.CallRuleDescription,
                                         ObjClass: 'DVP',
                                         ObjType: 'CALLRULE',
-                                        ObjCategory: '',
+                                        ObjCategory: ruleInfo.ObjCategory,
                                         Enable: ruleInfo.Enable,
                                         DNISRegEx: regExHandler.GenerateRegEx(ruleInfo.DNIS, ruleInfo.RegExPattern),
                                         ANIRegEx: regExHandler.GenerateRegEx(ruleInfo.ANI, ruleInfo.ANIRegExPattern),
@@ -683,7 +702,8 @@ var UpdateRule = function(reqId, ruleId, ruleInfo, companyId, tenantId, callback
                                         TrunkId: num.TrunkId,
                                         TrunkNumber: ruleInfo.TrunkNumber,
                                         PhoneNumId: num.id,
-                                        Context: ruleInfo.Context
+                                        Context: ruleInfo.Context,
+                                        CustomRegEx: ruleInfo.CustomRegEx
 
                                     }).then(function(updateResult)
                                     {
@@ -758,7 +778,7 @@ var AddOutboundRule = function(reqId, ruleInfo, companyId, tenantId, callback)
                             CallRuleDescription: ruleInfo.CallRuleDescription,
                             ObjClass: 'DVP',
                             ObjType: 'CALLRULE',
-                            ObjCategory: '',
+                            ObjCategory: ruleInfo.ObjCategory,
                             Enable: ruleInfo.Enable,
                             CompanyId: companyId,
                             TenantId: tenantId,
@@ -775,7 +795,8 @@ var AddOutboundRule = function(reqId, ruleInfo, companyId, tenantId, callback)
                             TrunkId: num.TrunkId,
                             TrunkNumber: ruleInfo.TrunkNumber,
                             PhoneNumId: num.id,
-                            Context: ruleInfo.Context
+                            Context: ruleInfo.Context,
+                            CustomRegEx: ruleInfo.CustomRegEx
                         });
 
                         rule
@@ -860,7 +881,8 @@ var AddInboundRule = function(reqId, ruleInfo, companyId, tenantId, callback)
                 ScheduleId: ruleInfo.ScheduleId,
                 ExtraData: ruleInfo.ExtraData,
                 Direction: ruleInfo.Direction,
-                Context: ruleInfo.Context
+                Context: ruleInfo.Context,
+                CustomRegEx: ruleInfo.CustomRegEx
             });
 
             rule

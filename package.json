@@ -1,6 +1,6 @@
 {
   "name": "dvp-ruleservice",
-  "version": "1.0.22",
+  "version": "1.0.24",
   "description": "DVP-RuleService\r ===============",
   "main": "CallRuleBackendOperations.js",
   "dependencies": {

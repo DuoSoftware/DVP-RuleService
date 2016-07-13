@@ -4,7 +4,7 @@
 var underscore = require('underscore');
 var redisHandler = require('./RedisHandler.js');
 
-var PickCallRuleInbound = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, data, callback)
+var PickCallRuleInbound = function(reqId, aniNum, dnisNum, extraData, domain, context, category, companyId, tenantId, data, callback)
 {
     try
     {
@@ -12,7 +12,7 @@ var PickCallRuleInbound = function(reqId, aniNum, dnisNum, domain, context, comp
         {
             var rules = underscore.filter(data.CallRule, function(rule)
             {
-                return rule.Enable === true && rule.Direction === 'INBOUND'
+                return rule.Enable === true && rule.Direction === 'INBOUND' && rule.ObjCategory === category
             });
 
             var crList = underscore.sortBy(rules, function(filteredRule)
@@ -41,7 +41,7 @@ var PickCallRuleInbound = function(reqId, aniNum, dnisNum, domain, context, comp
                             customRegEx = new RegExp(crList[i].CustomRegEx);
                         }
 
-                        if(customRegEx)
+                        if(customRegEx && extraData)
                         {
                             if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context) && customRegEx.test(extraData))
                             {
