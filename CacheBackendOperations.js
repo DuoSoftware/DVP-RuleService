@@ -34,11 +34,30 @@ var PickCallRuleInbound = function(reqId, aniNum, dnisNum, domain, context, comp
                         var aniRegExPattern = new RegExp(crList[i].ANIRegEx);
                         var contextRegEx = new RegExp(crList[i].ContextRegEx);
 
-                        if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context))
+                        var customRegEx = null;
+
+                        if(crList[i].CustomRegEx)
                         {
-                            //pick call rule and break op
-                            callRulePicked = crList[i];
-                            break;
+                            customRegEx = new RegExp(crList[i].CustomRegEx);
+                        }
+
+                        if(customRegEx)
+                        {
+                            if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context) && customRegEx.test(extraData))
+                            {
+                                //pick call rule and break op
+                                callRulePicked = crList[i];
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context))
+                            {
+                                //pick call rule and break op
+                                callRulePicked = crList[i];
+                                break;
+                            }
                         }
                     }
                 }
