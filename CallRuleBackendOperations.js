@@ -337,7 +337,7 @@ var PickCallRuleOutbound = function(reqId, aniNum, dnisNum, domain, context, com
     }
 };
 
-var PickCallRuleInboundByCat = function(reqId, aniNum, dnisNum, context, category, companyId, tenantId, data, callback)
+var PickCallRuleInboundByCat = function(reqId, aniNum, dnisNum, extraData, context, category, companyId, tenantId, data, callback)
 {
     try
     {
@@ -360,13 +360,33 @@ var PickCallRuleInboundByCat = function(reqId, aniNum, dnisNum, context, categor
                                 var dnisRegExPattern = new RegExp(crList[i].DNISRegEx);
                                 var aniRegExPattern = new RegExp(crList[i].ANIRegEx);
                                 var contextRegEx = new RegExp(crList[i].ContextRegEx);
+                                var customRegEx = null;
 
-                                if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context))
+                                if(crList[i].ContextRegEx.CustomRegEx)
                                 {
-                                    //pick call rule and break op
-                                    callRulePicked = crList[i];
-                                    break;
+                                    customRegEx = new RegExp(crList[i].CustomRegEx);
                                 }
+
+                                if(customRegEx)
+                                {
+                                    if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context) && customRegEx.test(extraData))
+                                    {
+                                        //pick call rule and break op
+                                        callRulePicked = crList[i];
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context))
+                                    {
+                                        //pick call rule and break op
+                                        callRulePicked = crList[i];
+                                        break;
+                                    }
+                                }
+
+
                             }
                         }
 
