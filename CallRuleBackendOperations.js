@@ -2,6 +2,7 @@ var dbModel = require('dvp-dbmodels');
 var regExHandler = require('./RegExHandler.js');
 var transHandler = require('./TranslationHandler.js');
 var logger = require('dvp-common/LogHandler/CommonLogHandler.js').logger;
+var scheduleHandler = require('dvp-common/ScheduleValidator/ScheduleHandler.js');
 
 var GetPhoneNumber = function(reqId, phoneNumber, companyId, tenantId, callback)
 {
@@ -495,9 +496,35 @@ var PickCallRuleInbound = function(reqId, aniNum, dnisNum, extraData, domain, co
                                 .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Application, as: "Application", include : [{model: dbModel.Application, as: "MasterApplication"}]},{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"}]})
                                 .then(function (crInfo)
                                 {
-                                    logger.info('[DVP-RuleService.PickCallRuleInbound] PGSQL Get schedules translations for inbound rule query success');
+                                    if(crInfo && crInfo.Schedule && crInfo.Schedule.Appointment)
+                                    {
+                                        var pickedAppointment = scheduleHandler.CheckScheduleValidity(crInfo.Schedule);
 
-                                    callback(undefined, crInfo);
+                                        if(pickedAppointment && pickedAppointment.Action)
+                                        {
+                                            dbModel.Application
+                                                .find({where :[{id: pickedAppointment.Action, CompanyId: companyId, TenantId: tenantId}], include: [{model: dbModel.Application, as: "MasterApplication"}]})
+                                                .then(function (appInfo)
+                                                {
+                                                    crInfo.Application = appInfo;
+                                                    callback(undefined, crInfo);
+
+                                                }).catch(function(err)
+                                                {
+                                                    callback(err, null);
+                                                })
+                                        }
+                                        else
+                                        {
+                                            callback(new Error('No appointment found or action not set'), null);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        callback(null, crInfo);
+                                    }
+
+
 
                                 }).catch(function(err)
                                 {

@@ -3,6 +3,7 @@
  */
 var underscore = require('underscore');
 var redisHandler = require('./RedisHandler.js');
+var scheduleHandler = require('dvp-common/ScheduleValidator/ScheduleHandler.js');
 
 var PickCallRuleInbound = function(reqId, aniNum, dnisNum, extraData, domain, context, category, companyId, tenantId, data, callback)
 {
@@ -68,27 +69,66 @@ var PickCallRuleInbound = function(reqId, aniNum, dnisNum, extraData, domain, co
 
                     var crInfo = callRulePicked;
 
-                    if(data.Application && callRulePicked.AppId)
+                    if(data.Schedule && callRulePicked.ScheduleId)
                     {
-                        var app = data.Application[callRulePicked.AppId];
+                        var schedule = data.Schedule[callRulePicked.ScheduleId];
 
-                        if(app)
+                        if(schedule && schedule.Appointment)
                         {
-                            crInfo.Application = app;
+                            var pickedAppointment = scheduleHandler.CheckScheduleValidity(schedule);
 
-                            if(app.MasterApplicationId)
+                            if(pickedAppointment && pickedAppointment.Action)
                             {
-                                var masterApp = data.Application[app.MasterApplicationId];
-
-                                if(masterApp)
+                                if(data.Application)
                                 {
-                                    app.MasterApplication = masterApp
+                                    var app = data.Application[pickedAppointment.Action];
+
+                                    if(app)
+                                    {
+                                        crInfo.Application = app;
+
+                                        if(app.MasterApplicationId)
+                                        {
+                                            var masterApp = data.Application[app.MasterApplicationId];
+
+                                            if(masterApp)
+                                            {
+                                                app.MasterApplication = masterApp
+                                            }
+                                        }
+
+
+                                    }
                                 }
                             }
-
-
                         }
                     }
+                    else
+                    {
+                        if(data.Application && callRulePicked.AppId)
+                        {
+                            var app = data.Application[callRulePicked.AppId];
+
+                            if(app)
+                            {
+                                crInfo.Application = app;
+
+                                if(app.MasterApplicationId)
+                                {
+                                    var masterApp = data.Application[app.MasterApplicationId];
+
+                                    if(masterApp)
+                                    {
+                                        app.MasterApplication = masterApp
+                                    }
+                                }
+
+
+                            }
+                        }
+                    }
+
+
 
                     if(data.Translation && callRulePicked.TranslationId)
                     {
