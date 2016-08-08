@@ -69,39 +69,73 @@ var PickCallRuleInbound = function(reqId, aniNum, dnisNum, extraData, domain, co
 
                     var crInfo = callRulePicked;
 
-                    if(data.Schedule && callRulePicked.ScheduleId)
+                    if(data.Translation && callRulePicked.TranslationId)
                     {
-                        var schedule = data.Schedule[callRulePicked.ScheduleId];
+                        var dnisTrans = data.Translation[callRulePicked.TranslationId];
 
-                        if(schedule && schedule.Appointment)
+                        if(dnisTrans)
                         {
-                            var pickedAppointment = scheduleHandler.CheckScheduleValidity(schedule);
+                            crInfo.Translation = dnisTrans;
+                        }
 
-                            if(pickedAppointment && pickedAppointment.Action)
+                    }
+
+                    if(data.Translation && callRulePicked.ANITranslationId)
+                    {
+                        var aniTrans = data.Translation[callRulePicked.ANITranslationId];
+
+                        if(aniTrans)
+                        {
+                            crInfo.ANITranslation = aniTrans;
+                        }
+
+                    }
+
+                    if(callRulePicked.ScheduleId)
+                    {
+
+                        //get schedule from redis
+
+                        redisHandler.GetObject(reqId, 'SCHEDULE:' + tenantId + ':' + companyId + ':' + callRulePicked.ScheduleId, function(err, scheduleObj)
+                        {
+                            var schedule = scheduleObj;
+
+                            if(schedule && schedule.Appointment)
                             {
-                                if(data.Application)
+                                var pickedAppointment = scheduleHandler.CheckScheduleValidity(schedule);
+
+                                if(pickedAppointment && pickedAppointment.Action)
                                 {
-                                    var app = data.Application[pickedAppointment.Action];
-
-                                    if(app)
+                                    if(data.Application)
                                     {
-                                        crInfo.Application = app;
+                                        var app = data.Application[pickedAppointment.Action];
 
-                                        if(app.MasterApplicationId)
+                                        if(app)
                                         {
-                                            var masterApp = data.Application[app.MasterApplicationId];
+                                            crInfo.Application = app;
 
-                                            if(masterApp)
+                                            if(app.MasterApplicationId)
                                             {
-                                                app.MasterApplication = masterApp
+                                                var masterApp = data.Application[app.MasterApplicationId];
+
+                                                if(masterApp)
+                                                {
+                                                    app.MasterApplication = masterApp
+                                                }
                                             }
+
+
                                         }
-
-
                                     }
                                 }
                             }
-                        }
+
+                            callback(undefined, crInfo);
+                        });
+
+
+
+
                     }
                     else
                     {
@@ -126,33 +160,15 @@ var PickCallRuleInbound = function(reqId, aniNum, dnisNum, extraData, domain, co
 
                             }
                         }
+
+                        callback(undefined, crInfo);
                     }
 
 
 
-                    if(data.Translation && callRulePicked.TranslationId)
-                    {
-                        var dnisTrans = data.Translation[callRulePicked.TranslationId];
 
-                        if(dnisTrans)
-                        {
-                            crInfo.Translation = dnisTrans;
-                        }
 
-                    }
 
-                    if(data.Translation && callRulePicked.ANITranslationId)
-                    {
-                        var aniTrans = data.Translation[callRulePicked.ANITranslationId];
-
-                        if(aniTrans)
-                        {
-                            crInfo.ANITranslation = aniTrans;
-                        }
-
-                    }
-
-                    callback(undefined, crInfo);
 
                 }
                 else

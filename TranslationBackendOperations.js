@@ -1,5 +1,6 @@
 var DbConn = require('dvp-dbmodels');
 var logger = require('dvp-common/LogHandler/CommonLogHandler.js').logger;
+var redisCacheHandler = require('dvp-common/CSConfigRedisCaching/RedisHandler.js');
 
 function AddNewTranslation(reqId, transObj, companyId, tenantId, callback)
 {
@@ -25,6 +26,7 @@ function AddNewTranslation(reqId, transObj, companyId, tenantId, callback)
         );
         trans.save().then(function (saveRes)
         {
+            redisCacheHandler.addTranslationToCompanyObj(saveRes, saveRes.TenantId, saveRes.CompanyId);
             logger.info('[DVP-RuleService.AddNewTranslation] PGSQL Insert translation query success');
             callback(undefined, trans.id, true);
 
@@ -66,6 +68,7 @@ function UpdateTranslation(reqId, transId, obj, companyId, tenantId, callback)
                     }
                 ).then(function (updtRes)
                     {
+                        redisCacheHandler.addTranslationToCompanyObj(updtRes, updtRes.TenantId, updtRes.CompanyId);
 
                         logger.info('[DVP-RuleService.UpdateTranslation] PGSQL Update translation with all attributes query success');
                         callback(undefined, true);

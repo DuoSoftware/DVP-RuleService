@@ -17,10 +17,12 @@ module.exports = {
     "password": "DuoS123"
   },
 
-  "Redis": {
-    "IpAddress":"127.0.0.1",
-    "Port":"6379",
-    "Password":"123"
+  "Redis":
+  {
+    "ip": "45.55.142.207",
+    "port": 6389,
+    "password":"DuoS123"
+
   },
 
   "Host":{
