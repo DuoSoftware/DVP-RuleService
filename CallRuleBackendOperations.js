@@ -163,7 +163,7 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
                                     if(callRule.Translation)
                                     {
                                         //Translate ANI And DNIS
-                                        tempDestination = transHandler.TranslateHandler(callRule.Transaction, tempDestination);
+                                        tempDestination = transHandler.TranslateHandler(callRule.Translation, tempDestination);
                                     }
                                     if(callRule.ANITranslation)
                                     {
