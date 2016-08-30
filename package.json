@@ -1,12 +1,12 @@
 {
   "name": "dvp-ruleservice",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "DVP-RuleService\r ===============",
   "main": "app.js",
   "dependencies": {
     "config": "^1.14.0",
-    "dvp-common": "^0.3.4",
-    "dvp-dbmodels": "^0.3.4",
+    "dvp-common": "^0.4.5",
+    "dvp-dbmodels": "^0.4.3",
     "node-uuid": "^1.4.3",
     "redis": "^2.6.2",
     "restify": "^3.0.3",
