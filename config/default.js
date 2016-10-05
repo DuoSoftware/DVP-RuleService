@@ -21,7 +21,8 @@ module.exports = {
   {
     "ip": "45.55.142.207",
     "port": 6389,
-    "password":"DuoS123"
+    "password":"DuoS123",
+    "db": 9
 
   },
 
