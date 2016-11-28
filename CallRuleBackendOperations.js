@@ -517,7 +517,7 @@ var PickCallRuleInbound = function(reqId, aniNum, dnisNum, extraData, domain, co
                                         }
                                         else
                                         {
-                                            callback(new Error('No appointment found or action not set'), null);
+                                            callback(null, crInfo);
                                         }
                                     }
                                     else
