@@ -133,7 +133,7 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
             }
             else if(callRule)
             {
-                dbModel.TrunkPhoneNumber.find({where: [{PhoneNumber: callRule.TrunkNumber}, {TenantId: tenantId}], include: [{model: dbModel.LimitInfo, as: 'LimitInfoOutbound'},{model: dbModel.LimitInfo, as: 'LimitInfoBoth'},{model: dbModel.Trunk, as: 'Trunk', include: [{model: dbModel.Translation, as: "Translation"}, {model: dbModel.TrunkOperator, as: "TrunkOperator"}]}]})
+                dbModel.TrunkPhoneNumber.find({where: [{PhoneNumber: callRule.TrunkNumber}, {TenantId: tenantId}, {CompanyId: companyId}], include: [{model: dbModel.LimitInfo, as: 'LimitInfoOutbound'},{model: dbModel.LimitInfo, as: 'LimitInfoBoth'},{model: dbModel.Trunk, as: 'Trunk', include: [{model: dbModel.Translation, as: "Translation"}, {model: dbModel.TrunkOperator, as: "TrunkOperator"}]}]})
                     .then(function (phnNumTrunkInfo)
                     {
                         if(phnNumTrunkInfo)
@@ -192,9 +192,9 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
                                         CheckLimit : true
                                     };
 
-                                    if(phnNumTrunkInfo.Trunk.Operator)
+                                    if(phnNumTrunkInfo.Trunk.TrunkOperator)
                                     {
-                                        outrule.Operator = phnNumTrunkInfo.Trunk.Operator.OperatorCode;
+                                        outrule.Operator = phnNumTrunkInfo.Trunk.TrunkOperator.OperatorCode;
                                     }
 
                                     if(phnNumTrunkInfo.Trunk.LoadBalancerId)
