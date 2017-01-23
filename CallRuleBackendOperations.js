@@ -499,7 +499,7 @@ var PickCallRuleInbound = function(reqId, aniNum, dnisNum, extraData, domain, co
                         {
                             //get application, get schedule, get translations
                             dbModel.CallRule
-                                .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Application, as: "Application", include : [{model: dbModel.Application, as: "MasterApplication"}]},{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"}]})
+                                .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Application, as: "Application", include : [{model: dbModel.Application, as: "MasterApplication"}]},{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"}, {model: dbModel.Translation, as: "ANITranslation"}]})
                                 .then(function (crInfo)
                                 {
                                     if(crInfo && crInfo.Schedule && crInfo.Schedule.Appointment)
