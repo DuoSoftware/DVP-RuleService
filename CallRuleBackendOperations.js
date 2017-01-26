@@ -667,7 +667,13 @@ var UpdateRule = function(reqId, ruleId, ruleInfo, companyId, tenantId, callback
                             ExtraData: ruleInfo.ExtraData,
                             Direction: ruleInfo.Direction,
                             Context: ruleInfo.Context,
-                            CustomRegEx: ruleInfo.CustomRegEx
+                            CustomRegEx: ruleInfo.CustomRegEx,
+                            AppId:ruleInfo.AppId,
+                            TranslationId:ruleInfo.TranslationId,
+                            ANITranslationId:ruleInfo.ANITranslationId
+
+
+
                         }).then(function(updateResult)
                         {
                             redisCacheHandler.addCallRuleToCompanyObj(updateResult, updateResult.TenantId, updateResult.CompanyId);
@@ -739,7 +745,11 @@ var UpdateRule = function(reqId, ruleId, ruleInfo, companyId, tenantId, callback
                                         TrunkNumber: ruleInfo.TrunkNumber,
                                         PhoneNumId: num.id,
                                         Context: ruleInfo.Context,
-                                        CustomRegEx: ruleInfo.CustomRegEx
+                                        CustomRegEx: ruleInfo.CustomRegEx,
+                                        TranslationId:ruleInfo.TranslationId,
+                                        ANITranslationId:ruleInfo.ANITranslationId,
+                                        ScheduleId: ruleInfo.ScheduleId
+
 
                                     }).then(function(updateResult)
                                     {
