@@ -133,7 +133,7 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
             }
             else if(callRule)
             {
-                dbModel.TrunkPhoneNumber.find({where: [{PhoneNumber: callRule.TrunkNumber}, {TenantId: tenantId}], include: [{model: dbModel.LimitInfo, as: 'LimitInfoOutbound'},{model: dbModel.LimitInfo, as: 'LimitInfoBoth'},{model: dbModel.Trunk, as: 'Trunk', include: [{model: dbModel.Translation, as: "Translation"}]}]})
+                dbModel.TrunkPhoneNumber.find({where: [{PhoneNumber: callRule.TrunkNumber}, {TenantId: tenantId}, {CompanyId: companyId}], include: [{model: dbModel.LimitInfo, as: 'LimitInfoOutbound'},{model: dbModel.LimitInfo, as: 'LimitInfoBoth'},{model: dbModel.Trunk, as: 'Trunk', include: [{model: dbModel.Translation, as: "Translation"}, {model: dbModel.TrunkOperator, as: "TrunkOperator"}]}]})
                     .then(function (phnNumTrunkInfo)
                     {
                         if(phnNumTrunkInfo)
@@ -191,6 +191,11 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
                                         TenantId : callRule.TenantId,
                                         CheckLimit : true
                                     };
+
+                                    if(phnNumTrunkInfo.Trunk.TrunkOperator)
+                                    {
+                                        outrule.Operator = phnNumTrunkInfo.Trunk.TrunkOperator.OperatorCode;
+                                    }
 
                                     if(phnNumTrunkInfo.Trunk.LoadBalancerId)
                                     {
@@ -494,7 +499,7 @@ var PickCallRuleInbound = function(reqId, aniNum, dnisNum, extraData, domain, co
                         {
                             //get application, get schedule, get translations
                             dbModel.CallRule
-                                .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Application, as: "Application", include : [{model: dbModel.Application, as: "MasterApplication"}]},{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"}]})
+                                .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Application, as: "Application", include : [{model: dbModel.Application, as: "MasterApplication"}]},{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"}, {model: dbModel.Translation, as: "ANITranslation"}]})
                                 .then(function (crInfo)
                                 {
                                     if(crInfo && crInfo.Schedule && crInfo.Schedule.Appointment)
@@ -662,7 +667,13 @@ var UpdateRule = function(reqId, ruleId, ruleInfo, companyId, tenantId, callback
                             ExtraData: ruleInfo.ExtraData,
                             Direction: ruleInfo.Direction,
                             Context: ruleInfo.Context,
-                            CustomRegEx: ruleInfo.CustomRegEx
+                            CustomRegEx: ruleInfo.CustomRegEx,
+                            AppId:ruleInfo.AppId,
+                            TranslationId:ruleInfo.TranslationId,
+                            ANITranslationId:ruleInfo.ANITranslationId
+
+
+
                         }).then(function(updateResult)
                         {
                             redisCacheHandler.addCallRuleToCompanyObj(updateResult, updateResult.TenantId, updateResult.CompanyId);
@@ -734,7 +745,11 @@ var UpdateRule = function(reqId, ruleId, ruleInfo, companyId, tenantId, callback
                                         TrunkNumber: ruleInfo.TrunkNumber,
                                         PhoneNumId: num.id,
                                         Context: ruleInfo.Context,
-                                        CustomRegEx: ruleInfo.CustomRegEx
+                                        CustomRegEx: ruleInfo.CustomRegEx,
+                                        TranslationId:ruleInfo.TranslationId,
+                                        ANITranslationId:ruleInfo.ANITranslationId,
+                                        ScheduleId: ruleInfo.ScheduleId
+
 
                                     }).then(function(updateResult)
                                     {
