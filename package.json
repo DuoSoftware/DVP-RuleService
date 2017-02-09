@@ -1,22 +1,21 @@
 {
   "name": "dvp-ruleservice",
-  "version": "1.1.1",
+  "version": "1.2.2",
   "description": "DVP-RuleService\r ===============",
-  "main": "CallRuleBackendOperations.js",
+  "main": "app.js",
   "dependencies": {
-    "config": "^1.15.0",
-    "dvp-common": "^0.1.4",
-    "dvp-dbmodels": "^0.2.5",
+    "config": "^1.14.0",
+    "dvp-common": "^0.6.7",
+    "dvp-dbmodels": "^0.6.7",
     "node-uuid": "^1.4.3",
-    "redis": "^0.12.1",
-    "request": "^2.60.0",
-    "restify": "^2.8.5",
+    "redis": "^2.6.2",
+    "restify": "^3.0.3",
     "restify-jwt": "^0.4.0",
     "stringformat": "^0.0.5",
     "stringify": "^3.1.0",
     "underscore": "^1.8.3",
-    "winston": "^0.9.0",
-    "xmlbuilder": "^2.6.4"
+    "util": "^0.10.3",
+    "winston": "^0.9.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -24,12 +23,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DuoSoftware/DVP-RuleService.git"
+    "url": "https://github.com/DuoSoftware/DVP-RuleService.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/DuoSoftware/DVP-RuleService/issues"
   },
-  "homepage": "https://github.com/DuoSoftware/DVP-RuleService#readme"
+  "homepage": "https://github.com/DuoSoftware/DVP-RuleService"
 }

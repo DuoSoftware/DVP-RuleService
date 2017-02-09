@@ -3,6 +3,7 @@ var regExHandler = require('./RegExHandler.js');
 var transHandler = require('./TranslationHandler.js');
 var logger = require('dvp-common/LogHandler/CommonLogHandler.js').logger;
 var scheduleHandler = require('dvp-common/ScheduleValidator/ScheduleHandler.js');
+var redisCacheHandler = require('dvp-common/CSConfigRedisCaching/RedisHandler.js');
 
 var GetPhoneNumber = function(reqId, phoneNumber, companyId, tenantId, callback)
 {
@@ -132,7 +133,7 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
             }
             else if(callRule)
             {
-                dbModel.TrunkPhoneNumber.find({where: [{PhoneNumber: callRule.TrunkNumber}, {TenantId: tenantId}], include: [{model: dbModel.LimitInfo, as: 'LimitInfoOutbound'},{model: dbModel.LimitInfo, as: 'LimitInfoBoth'},{model: dbModel.Trunk, as: 'Trunk', include: [{model: dbModel.Translation, as: "Translation"}]}]})
+                dbModel.TrunkPhoneNumber.find({where: [{PhoneNumber: callRule.TrunkNumber}, {TenantId: tenantId}, {CompanyId: companyId}], include: [{model: dbModel.LimitInfo, as: 'LimitInfoOutbound'},{model: dbModel.LimitInfo, as: 'LimitInfoBoth'},{model: dbModel.Trunk, as: 'Trunk', include: [{model: dbModel.Translation, as: "Translation"}, {model: dbModel.TrunkOperator, as: "TrunkOperator"}]}]})
                     .then(function (phnNumTrunkInfo)
                     {
                         if(phnNumTrunkInfo)
@@ -162,7 +163,7 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
                                     if(callRule.Translation)
                                     {
                                         //Translate ANI And DNIS
-                                        tempDestination = transHandler.TranslateHandler(callRule.Transaction, tempDestination);
+                                        tempDestination = transHandler.TranslateHandler(callRule.Translation, tempDestination);
                                     }
                                     if(callRule.ANITranslation)
                                     {
@@ -190,6 +191,11 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
                                         TenantId : callRule.TenantId,
                                         CheckLimit : true
                                     };
+
+                                    if(phnNumTrunkInfo.Trunk.TrunkOperator)
+                                    {
+                                        outrule.Operator = phnNumTrunkInfo.Trunk.TrunkOperator.OperatorCode;
+                                    }
 
                                     if(phnNumTrunkInfo.Trunk.LoadBalancerId)
                                     {
@@ -493,7 +499,7 @@ var PickCallRuleInbound = function(reqId, aniNum, dnisNum, extraData, domain, co
                         {
                             //get application, get schedule, get translations
                             dbModel.CallRule
-                                .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Application, as: "Application", include : [{model: dbModel.Application, as: "MasterApplication"}]},{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"}]})
+                                .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Application, as: "Application", include : [{model: dbModel.Application, as: "MasterApplication"}]},{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"}, {model: dbModel.Translation, as: "ANITranslation"}]})
                                 .then(function (crInfo)
                                 {
                                     if(crInfo && crInfo.Schedule && crInfo.Schedule.Appointment)
@@ -516,7 +522,7 @@ var PickCallRuleInbound = function(reqId, aniNum, dnisNum, extraData, domain, co
                                         }
                                         else
                                         {
-                                            callback(new Error('No appointment found or action not set'), null);
+                                            callback(null, crInfo);
                                         }
                                     }
                                     else
@@ -582,6 +588,8 @@ var SetOutboundRuleTrunkNumber = function(reqId, ruleId, companyId, tenantId, tr
                             {
                                 callRule.updateAttributes({TrunkId: num.TrunkId, TrunkNumber: trunkNum, PhoneNumId: num.id}).then(function (updtRes)
                                 {
+                                    redisCacheHandler.addCallRuleToCompanyObj(updtRes, updtRes.TenantId, updtRes.CompanyId);
+
                                     logger.info('[DVP-RuleService.SetOutboundRuleTrunkNumber] PGSQL Update call rule with trunk number query success');
                                     callback(undefined, true);
 
@@ -659,9 +667,16 @@ var UpdateRule = function(reqId, ruleId, ruleInfo, companyId, tenantId, callback
                             ExtraData: ruleInfo.ExtraData,
                             Direction: ruleInfo.Direction,
                             Context: ruleInfo.Context,
-                            CustomRegEx: ruleInfo.CustomRegEx
+                            CustomRegEx: ruleInfo.CustomRegEx,
+                            AppId:ruleInfo.AppId,
+                            TranslationId:ruleInfo.TranslationId,
+                            ANITranslationId:ruleInfo.ANITranslationId
+
+
+
                         }).then(function(updateResult)
                         {
+                            redisCacheHandler.addCallRuleToCompanyObj(updateResult, updateResult.TenantId, updateResult.CompanyId);
                             logger.debug('[DVP-RuleService.UpdateRule] - [%s] - PGSQL UpdateRule query success', reqId);
                             callback(undefined, true);
                         }).catch(function(err)
@@ -730,10 +745,15 @@ var UpdateRule = function(reqId, ruleId, ruleInfo, companyId, tenantId, callback
                                         TrunkNumber: ruleInfo.TrunkNumber,
                                         PhoneNumId: num.id,
                                         Context: ruleInfo.Context,
-                                        CustomRegEx: ruleInfo.CustomRegEx
+                                        CustomRegEx: ruleInfo.CustomRegEx,
+                                        TranslationId:ruleInfo.TranslationId,
+                                        ANITranslationId:ruleInfo.ANITranslationId,
+                                        ScheduleId: ruleInfo.ScheduleId
+
 
                                     }).then(function(updateResult)
                                     {
+                                        redisCacheHandler.addCallRuleToCompanyObj(updateResult, updateResult.TenantId, updateResult.CompanyId);
                                         logger.debug('[DVP-RuleService.UpdateRule] - [%s] - PGSQL UpdateRule query success', reqId);
                                         callback(undefined, true);
                                     }).catch(function(err)
@@ -830,6 +850,7 @@ var AddOutboundRule = function(reqId, ruleInfo, companyId, tenantId, callback)
                             .save()
                             .then(function (saveRes)
                             {
+                                redisCacheHandler.addCallRuleToCompanyObj(saveRes, saveRes.TenantId, saveRes.CompanyId);
                                 try
                                 {
                                         logger.info('[DVP-RuleService.AddOutboundRule] PGSQL Insert outbound call rule with all attributes query success');
@@ -916,6 +937,7 @@ var AddInboundRule = function(reqId, ruleInfo, companyId, tenantId, callback)
                 .save()
                 .then(function (saveRes)
                 {
+                    redisCacheHandler.addCallRuleToCompanyObj(saveRes, saveRes.TenantId, saveRes.CompanyId);
                     try
                     {
 
@@ -962,6 +984,7 @@ var SetCallRuleAvailability = function(reqId, ruleId, enable, companyId, tenantI
                 logger.info('[DVP-RuleService.AddInboundRule] PGSQL Get call rule by id query success');
                 ruleRec.updateAttributes({Enable: enable}).then(function (upRes)
                 {
+                    redisCacheHandler.addCallRuleToCompanyObj(upRes, upRes.TenantId, upRes.CompanyId);
                     logger.info('[DVP-RuleService.AddInboundRule] PGSQL Update call rule with availability query success');
                     callback(undefined, true);
 
@@ -1011,6 +1034,7 @@ var SetCallRuleRegEx = function(reqId, ruleId, DNISRegExMethod, ANIRegExMethod, 
                         ANI: ANI
                     }).then(function (updtRes)
                     {
+                        redisCacheHandler.addCallRuleToCompanyObj(updtRes, updtRes.TenantId, updtRes.CompanyId);
 
                             logger.info('[DVP-RuleService.SetCallRuleRegEx] PGSQL Update call rule with regular expressions query success');
                             callback(undefined, true);
@@ -1055,6 +1079,7 @@ var SetCallRulePriority = function(reqId, ruleId, priority, companyId, tenantId,
                 logger.info('[DVP-RuleService.SetCallRulePriority] PGSQL Get call rule by id query success');
                 ruleRec.updateAttributes({Priority: priority}).then(function (updtRes)
                 {
+                    redisCacheHandler.addCallRuleToCompanyObj(updtRes, updtRes.TenantId, updtRes.CompanyId);
                     logger.info('[DVP-RuleService.SetCallRulePriority] PGSQL Update call rule with priority query success');
                     callback(undefined, true);
 
@@ -1100,6 +1125,7 @@ var SetCallRuleAppDB = function(reqId, ruleId, appId, companyId, tenantId, callb
                         logger.debug('[DVP-RuleService.SetCallRuleAppDB] PGSQL Get app query success');
                         ruleRec.setApplication(appRec).then(function (result)
                         {
+                            redisCacheHandler.addCallRuleToCompanyObj(result, result.TenantId, result.CompanyId);
                             logger.debug('[DVP-RuleService.SetCallRuleAppDB] - [%s] - update rule with application PGSQL query success', reqId);
                             callback(undefined, true);
 
@@ -1155,6 +1181,7 @@ var DeleteCallRule = function(reqId, ruleId, companyId, tenantId, callback)
 
                     ruleRec.destroy().then(function (result)
                     {
+                        redisCacheHandler.removeCallRuleFromCompanyObj(ruleId, tenantId, companyId);
                         logger.info('[DVP-RuleService.DeleteCallRule] PGSQL Delete call rule query success');
                         callback(undefined, true);
 
@@ -1196,6 +1223,7 @@ var DeleteTranslation = function(reqId, transId, companyId, tenantId, callback)
 
                 transRec.destroy().then(function (result)
                 {
+                    redisCacheHandler.removeTranslationFromCompanyObj(transId, tenantId, companyId);
                     logger.info('[DVP-RuleService.DeleteTranslation] PGSQL Delete translation query success');
                     callback(undefined, true);
 
@@ -1237,6 +1265,7 @@ var SetCallRuleSchedule = function(reqId, ruleId, scheduleId, companyId, tenantI
                 //update attrib
                 ruleRec.updateAttributes({ScheduleId: scheduleId}).then(function (updtRes)
                 {
+                    redisCacheHandler.addCallRuleToCompanyObj(updtRes, updtRes.TenantId, updtRes.CompanyId);
                     logger.info('[DVP-RuleService.SetCallRuleSchedule] PGSQL Update call rule with schedule query success');
                     callback(undefined, true);
 
@@ -1277,6 +1306,7 @@ var SetCallRuleANITranslation = function(reqId, ruleId, transId, companyId, tena
                 logger.info('[DVP-RuleService.SetCallRuleANITranslation] PGSQL Get call rule by id query success');
                 ruleRec.updateAttributes({ANITranslationId: transId}).then(function (upRes)
                 {
+                    redisCacheHandler.addCallRuleToCompanyObj(upRes, upRes.TenantId, upRes.CompanyId);
                     logger.info('[DVP-RuleService.SetCallRuleANITranslation] PGSQL Update call rule with translation query success');
                     callback(undefined, true);
 
@@ -1317,6 +1347,7 @@ var SetCallRuleTranslation = function(reqId, ruleId, transId, companyId, tenantI
                 logger.info('[DVP-RuleService.SetCallRuleTranslation] PGSQL Get call rule by id query success');
                 ruleRec.updateAttributes({TranslationId: transId}).then(function (upRes)
                 {
+                    redisCacheHandler.addCallRuleToCompanyObj(upRes, upRes.TenantId, upRes.CompanyId);
                     logger.info('[DVP-RuleService.SetCallRuleTranslation] PGSQL Update call rule with translation query success');
                     callback(undefined, true);
 
