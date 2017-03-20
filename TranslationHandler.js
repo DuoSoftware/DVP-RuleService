@@ -6,11 +6,7 @@ function TranslateHandler(obj, Tstring)
     {
         if(Tstring!=null)
         {
-            var Lrem=LRemove(Tstring,obj.LRemove);
-            var Rrem=RRemove(Lrem,obj.RRemove);
-            var Ladd=LAdd(Rrem,obj.LAdd);
-            var Radd=RAdd(Ladd,obj.RAdd);
-            var Rep=Replace(Radd,obj.Replace);
+            var Rep=Replace(Tstring,obj.Replace);
 
             var ghostNumArray = [];
 
@@ -21,7 +17,15 @@ function TranslateHandler(obj, Tstring)
 
             var Rand = Randomize(Rep, ghostNumArray);
 
-            return Rand;
+            var Lrem=LRemove(Rand,obj.LRemove);
+            var Rrem=RRemove(Lrem,obj.RRemove);
+            var Ladd=LAdd(Rrem,obj.LAdd);
+            var Radd=RAdd(Ladd,obj.RAdd);
+
+
+
+
+            return Radd;
 
         }
         else
