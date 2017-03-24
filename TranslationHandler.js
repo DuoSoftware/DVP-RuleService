@@ -12,7 +12,7 @@ function TranslateHandler(obj, Tstring)
 
             if(obj.GhostNumbers)
             {
-                ghostNumArray = JSON.parse(obj.GhostNumber);
+                ghostNumArray = JSON.parse(obj.GhostNumbers);
             }
 
             var Rand = Randomize(Rep, ghostNumArray);
