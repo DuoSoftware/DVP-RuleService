@@ -6,13 +6,26 @@ function TranslateHandler(obj, Tstring)
     {
         if(Tstring!=null)
         {
-            var Lrem=LRemove(Tstring,obj.LRemove);
+            var Rep=Replace(Tstring,obj.Replace);
+
+            var ghostNumArray = [];
+
+            if(obj.GhostNumbers)
+            {
+                ghostNumArray = JSON.parse(obj.GhostNumbers);
+            }
+
+            var Rand = Randomize(Rep, ghostNumArray);
+
+            var Lrem=LRemove(Rand,obj.LRemove);
             var Rrem=RRemove(Lrem,obj.RRemove);
             var Ladd=LAdd(Rrem,obj.LAdd);
             var Radd=RAdd(Ladd,obj.RAdd);
-            var Rep=Replace(Radd,obj.Replace);
 
-            return Rep;
+
+
+
+            return Radd;
 
         }
         else
@@ -94,6 +107,19 @@ function Replace(Tstring,Nstring)
     if(Nstring!=null)
     {
         Tstring=Nstring;
+        return Tstring;
+    }
+    else
+    {
+        return Tstring;
+    }
+}
+
+function Randomize(Tstring, randomizeArr)
+{
+    if(randomizeArr && randomizeArr.length > 0)
+    {
+        Tstring=randomizeArr[Math.floor(Math.random()*randomizeArr.length)];
         return Tstring;
     }
     else
