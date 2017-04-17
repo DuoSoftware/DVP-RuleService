@@ -6,12 +6,26 @@ function AddNewTranslation(reqId, transObj, companyId, tenantId, callback)
 {
     try
     {
+        var ghostNumbers = null;
+
+        if(transObj.GhostNumbers && transObj.GhostNumbers.length > 0)
+        {
+            ghostNumbers = JSON.stringify(transObj.GhostNumbers);
+        }
+
+        var enabled = false;
+
+        if(transObj.Enabled)
+        {
+            enabled = transObj.Enabled;
+        }
+
         var trans = DbConn.Translation
             .build(
             {
                 TransName: transObj.TransName,
                 TransDescription: transObj.TransDescription,
-                Enabled: transObj.Enabled.toString(),
+                Enabled: enabled,
                 LAdd: transObj.LAdd,
                 LRemove: transObj.LRemove,
                 RAdd: transObj.RAdd,
@@ -21,7 +35,8 @@ function AddNewTranslation(reqId, transObj, companyId, tenantId, callback)
                 TenantId: tenantId,
                 ObjClass: transObj.ObjClass,
                 ObjType: transObj.ObjType,
-                ObjCategory: transObj.ObjCategory
+                ObjCategory: transObj.ObjCategory,
+                GhostNumbers: ghostNumbers
             }
         );
         trans.save().then(function (saveRes)
@@ -50,6 +65,13 @@ function UpdateTranslation(reqId, transId, obj, companyId, tenantId, callback)
         {
             if (transObj)
             {
+                var ghostNumbers = null;
+
+                if(obj.GhostNumbers && obj.GhostNumbers.length > 0)
+                {
+                    ghostNumbers = JSON.stringify(obj.GhostNumbers);
+                }
+
                 //update
                 logger.info('[DVP-RuleService.UpdateTranslation] PGSQL Get translation by id query success');
                 transObj.updateAttributes(
@@ -64,7 +86,8 @@ function UpdateTranslation(reqId, transId, obj, companyId, tenantId, callback)
                         Replace: obj.Replace,
                         ObjClass: obj.ObjClass,
                         ObjType: obj.ObjType,
-                        ObjCategory: obj.ObjCategory
+                        ObjCategory: obj.ObjCategory,
+                        GhostNumbers: ghostNumbers
                     }
                 ).then(function (updtRes)
                     {
@@ -128,7 +151,17 @@ function GetAllTranslationsForCompany(reqId, companyId, tenantId, callback)
         {
             logger.info('[DVP-RuleService.GetAllTranslationsForCompany] PGSQL Get translations for company query success');
 
-            callback(undefined, transList);
+            var newTransList = transList.map(function(trans)
+            {
+                if (trans.GhostNumbers)
+                {
+                    trans.GhostNumbers = JSON.parse(trans.GhostNumbers);
+                }
+
+                return trans;
+            });
+
+            callback(undefined, newTransList);
 
         }).catch(function(err)
         {
