@@ -247,6 +247,103 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
     }
 };
 
+var PickCallRuleOutboundByCat = function(reqId, aniNum, dnisNum, category, domain, context, companyId, tenantId, matchContext, data, callback)
+{
+    try
+    {
+        dbModel.CallRule
+            .findAll({where :[{CompanyId: companyId},{TenantId: tenantId},{Enable: true}, {Direction: 'OUTBOUND'}, {ObjCategory: category}], order: ['Priority']})
+            .then(function (crList)
+            {
+
+                logger.info('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get outbound rules query success');
+                var callRulePicked = undefined;
+
+                try
+                {
+                    var crCount = crList.length;
+
+                    for (i = 0; i < crCount; i++)
+                    {
+                        if(crList[i].DNISRegEx && crList[i].ANIRegEx)
+                        {
+                            var dnisRegExPattern = new RegExp(crList[i].DNISRegEx);
+                            var aniRegExPattern = new RegExp(crList[i].ANIRegEx);
+                            var contextRegEx = undefined;
+                            if(matchContext)
+                            {
+                                if(crList[i].ContextRegEx)
+                                {
+                                    contextRegEx = new RegExp(crList[i].ContextRegEx);
+
+                                    if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context))
+                                    {
+                                        //pick call rule and break op
+                                        callRulePicked = crList[i];
+                                        break;
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum))
+                                {
+                                    //pick call rule and break op
+                                    callRulePicked = crList[i];
+                                    break;
+                                }
+                            }
+
+
+                        }
+                    }
+
+                    if(callRulePicked)
+                    {
+                        //get application, get schedule, get translations
+                        dbModel.CallRule
+                            .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"},{model: dbModel.Translation, as: "ANITranslation"}, {model: dbModel.TrunkPhoneNumber, as: "TrunkPhoneNumber"}]})
+                            .then(function (crInfo)
+                            {
+                                logger.info('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get schedules translations for outbound rule query success');
+
+                                callback(undefined, crInfo);
+
+                            }).catch(function(err)
+                            {
+                                logger.error('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get schedules translations for outbound rule query failed', err);
+                                callback(err, undefined);
+                            });
+
+                    }
+                    else
+                    {
+                        callback(new Error('No matching outbound rules found for reg ex'), undefined);
+                    }
+
+
+
+                }
+                catch(ex)
+                {
+                    callback(ex, undefined);
+                }
+
+
+
+            }).catch(function(err)
+            {
+                logger.error('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get outbound rules query failed', err);
+                callback(err, undefined);
+            })
+    }
+    catch(ex)
+    {
+        callback(ex, undefined);
+    }
+};
+
 var PickCallRuleOutboundWithCategoryComplete = function(reqId, aniNum, dnisNum, category, domain, context, companyId, tenantId, matchContext, data, callback)
 {
     try
@@ -378,7 +475,7 @@ var PickCallRuleOutbound = function(reqId, aniNum, dnisNum, domain, context, com
     try
     {
         dbModel.CallRule
-            .findAll({where :[{CompanyId: companyId},{TenantId: tenantId},{Enable: true}, {Direction: 'OUTBOUND'}], order: ['Priority']})
+            .findAll({where :[{CompanyId: companyId},{TenantId: tenantId},{Enable: true}, {Direction: 'OUTBOUND'}, {ObjCategory: 'CALL'}], order: ['Priority']})
             .then(function (crList)
             {
 
@@ -470,102 +567,7 @@ var PickCallRuleOutbound = function(reqId, aniNum, dnisNum, domain, context, com
     }
 };
 
-var PickCallRuleOutboundByCat = function(reqId, aniNum, dnisNum, category, domain, context, companyId, tenantId, matchContext, data, callback)
-{
-    try
-    {
-        dbModel.CallRule
-            .findAll({where :[{CompanyId: companyId},{TenantId: tenantId},{Enable: true}, {Direction: 'OUTBOUND'}, {ObjCategory: category}], order: ['Priority']})
-            .then(function (crList)
-            {
 
-                logger.info('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get outbound rules query success');
-                var callRulePicked = undefined;
-
-                try
-                {
-                    var crCount = crList.length;
-
-                    for (i = 0; i < crCount; i++)
-                    {
-                        if(crList[i].DNISRegEx && crList[i].ANIRegEx)
-                        {
-                            var dnisRegExPattern = new RegExp(crList[i].DNISRegEx);
-                            var aniRegExPattern = new RegExp(crList[i].ANIRegEx);
-                            var contextRegEx = undefined;
-                            if(matchContext)
-                            {
-                                if(crList[i].ContextRegEx)
-                                {
-                                    contextRegEx = new RegExp(crList[i].ContextRegEx);
-
-                                    if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context))
-                                    {
-                                        //pick call rule and break op
-                                        callRulePicked = crList[i];
-                                        break;
-                                    }
-                                }
-
-                            }
-                            else
-                            {
-                                if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum))
-                                {
-                                    //pick call rule and break op
-                                    callRulePicked = crList[i];
-                                    break;
-                                }
-                            }
-
-
-                        }
-                    }
-
-                    if(callRulePicked)
-                    {
-                        //get application, get schedule, get translations
-                        dbModel.CallRule
-                            .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"},{model: dbModel.Translation, as: "ANITranslation"}, {model: dbModel.TrunkPhoneNumber, as: "TrunkPhoneNumber"}]})
-                            .then(function (crInfo)
-                            {
-                                logger.info('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get schedules translations for outbound rule query success');
-
-                                callback(undefined, crInfo);
-
-                            }).catch(function(err)
-                            {
-                                logger.error('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get schedules translations for outbound rule query failed', err);
-                                callback(err, undefined);
-                            });
-
-                    }
-                    else
-                    {
-                        callback(new Error('No matching outbound rules found for reg ex'), undefined);
-                    }
-
-
-
-                }
-                catch(ex)
-                {
-                    callback(ex, undefined);
-                }
-
-
-
-            }).catch(function(err)
-            {
-                logger.error('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get outbound rules query failed', err);
-                callback(err, undefined);
-            })
-    }
-    catch(ex)
-    {
-        callback(ex, undefined);
-    }
-};
 
 var PickCallRuleInboundByCat = function(reqId, aniNum, dnisNum, extraData, context, category, companyId, tenantId, data, callback)
 {

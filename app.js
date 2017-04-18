@@ -223,7 +223,7 @@ server.get('/DVP/API/:version/CallRuleApi/CallRule/Outbound/ANI/:ani/DNIS/:dnis/
         var dnis = req.params.dnis;
         var category = req.params.category;
 
-        logger.debug('[DVP-RuleService.PickOutboundRuleWithCategory] - [%s] - HTTP Request Received - Req Params : ani : %s, dnis : %s', reqId, ani, dnis);
+        logger.debug('[DVP-RuleService.PickOutboundRuleByCat] - [%s] - HTTP Request Received - Req Params : ani : %s, dnis : %s', reqId, ani, dnis);
 
         var companyId = req.user.company;
         var tenantId = req.user.tenant;
@@ -233,7 +233,7 @@ server.get('/DVP/API/:version/CallRuleApi/CallRule/Outbound/ANI/:ani/DNIS/:dnis/
             throw new Error("Invalid company or tenant");
         }
 
-        ruleBackendHandler.PickCallRuleOutboundWithCategoryComplete(reqId, ani, dnis, category, '', companyId, tenantId, false, null, function (err, result)
+        ruleBackendHandler.PickCallRuleOutboundWithCategoryComplete(reqId, ani, dnis, category, '', '', companyId, tenantId, false, null, function (err, result)
         {
             if (err)
             {
