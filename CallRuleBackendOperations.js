@@ -145,16 +145,6 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
                                 var outLimit = undefined;
                                 var bothLimit = undefined;
 
-                                if(phnNumTrunkInfo.LimitInfoOutbound && phnNumTrunkInfo.LimitInfoOutbound.Enable && phnNumTrunkInfo.LimitInfoOutbound.MaxCount)
-                                {
-                                    outLimit = phnNumTrunkInfo.LimitInfoOutbound.MaxCount;
-                                }
-
-                                if(phnNumTrunkInfo.LimitInfoBoth && phnNumTrunkInfo.LimitInfoBoth.Enable && phnNumTrunkInfo.LimitInfoBoth.MaxCount)
-                                {
-                                    bothLimit = phnNumTrunkInfo.LimitInfoBoth.MaxCount;
-                                }
-
                                 if(phnNumTrunkInfo.Trunk)
                                 {
                                     var tempOrigination = callRule.TrunkNumber;
@@ -183,8 +173,8 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
                                         GatewayCode : phnNumTrunkInfo.Trunk.TrunkCode,
                                         IpUrl : phnNumTrunkInfo.Trunk.IpUrl,
                                         Timeout : callRule.Timeout,
-                                        OutLimit : outLimit,
-                                        BothLimit : bothLimit,
+                                        OutLimit : phnNumTrunkInfo.LimitInfoOutbound,
+                                        BothLimit : phnNumTrunkInfo.LimitInfoBoth,
                                         NumberType : phnNumType,
                                         TrunkNumber : phnNumTrunkInfo.PhoneNumber,
                                         CompanyId : callRule.CompanyId,
