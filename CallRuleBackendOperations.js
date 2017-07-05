@@ -179,7 +179,8 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
                                         TrunkNumber : phnNumTrunkInfo.PhoneNumber,
                                         CompanyId : callRule.CompanyId,
                                         TenantId : callRule.TenantId,
-                                        CheckLimit : true
+                                        CheckLimit : true,
+                                        Codecs: phnNumTrunkInfo.Trunk.Codecs
                                     };
 
                                     if(phnNumTrunkInfo.Trunk.TrunkOperator)
