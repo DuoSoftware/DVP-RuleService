@@ -180,7 +180,8 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
                                         CompanyId : callRule.CompanyId,
                                         TenantId : callRule.TenantId,
                                         CheckLimit : true,
-                                        Codecs: phnNumTrunkInfo.Trunk.Codecs
+                                        Codecs: phnNumTrunkInfo.Trunk.Codecs,
+                                        BusinessUnit: callRule.BusinessUnit
                                     };
 
                                     if(phnNumTrunkInfo.Trunk.TrunkOperator)
@@ -403,7 +404,8 @@ var PickCallRuleOutboundWithCategoryComplete = function(reqId, aniNum, dnisNum, 
                                         TrunkNumber : phnNumTrunkInfo.PhoneNumber,
                                         CompanyId : callRule.CompanyId,
                                         TenantId : callRule.TenantId,
-                                        CheckLimit : true
+                                        CheckLimit : true,
+                                        BusinessUnit: callRule.BusinessUnit
                                     };
 
                                     if(phnNumTrunkInfo.Trunk.TrunkOperator)
@@ -557,8 +559,6 @@ var PickCallRuleOutbound = function(reqId, aniNum, dnisNum, domain, context, com
         callback(ex, undefined);
     }
 };
-
-
 
 var PickCallRuleInboundByCat = function(reqId, aniNum, dnisNum, extraData, context, category, companyId, tenantId, data, callback)
 {
@@ -844,6 +844,11 @@ var UpdateRule = function(reqId, ruleId, ruleInfo, companyId, tenantId, callback
 {
     try
     {
+        if(!ruleInfo.BusinessUnit)
+        {
+            ruleInfo.BusinessUnit = null;
+        }
+
         if(ruleInfo.Direction === 'INBOUND')
         {
             dbModel.CallRule.find({where: [{id: ruleId},{CompanyId: companyId},{TenantId: tenantId},{Direction: 'INBOUND'}]})
@@ -862,6 +867,7 @@ var UpdateRule = function(reqId, ruleId, ruleInfo, companyId, tenantId, callback
                         {
                             ruleInfo.ContextRegExPattern = "EXACTMATCH";
                         }
+
 
                         callRule.updateAttributes({
                             CallRuleDescription: ruleInfo.CallRuleDescription,
@@ -886,8 +892,8 @@ var UpdateRule = function(reqId, ruleId, ruleInfo, companyId, tenantId, callback
                             CustomRegEx: ruleInfo.CustomRegEx,
                             AppId:ruleInfo.AppId,
                             TranslationId:ruleInfo.TranslationId,
-                            ANITranslationId:ruleInfo.ANITranslationId
-
+                            ANITranslationId:ruleInfo.ANITranslationId,
+                            BusinessUnit: ruleInfo.BusinessUnit
 
 
                         }).then(function(updateResult)
@@ -964,7 +970,8 @@ var UpdateRule = function(reqId, ruleId, ruleInfo, companyId, tenantId, callback
                                         CustomRegEx: ruleInfo.CustomRegEx,
                                         TranslationId:ruleInfo.TranslationId,
                                         ANITranslationId:ruleInfo.ANITranslationId,
-                                        ScheduleId: ruleInfo.ScheduleId
+                                        ScheduleId: ruleInfo.ScheduleId,
+                                        BusinessUnit: ruleInfo.BusinessUnit
 
 
                                     }).then(function(updateResult)
@@ -1016,6 +1023,11 @@ var AddOutboundRule = function(reqId, ruleInfo, companyId, tenantId, callback)
     {
         if(ruleInfo.Direction === 'OUTBOUND')
         {
+            if(!ruleInfo.BusinessUnit)
+            {
+                ruleInfo.BusinessUnit = null;
+            }
+
             //allow opereation
             if(!ruleInfo.Context || ruleInfo.Context.toUpperCase() === "ANY")
             {
@@ -1059,7 +1071,8 @@ var AddOutboundRule = function(reqId, ruleInfo, companyId, tenantId, callback)
                             TrunkNumber: ruleInfo.TrunkNumber,
                             PhoneNumId: num.id,
                             Context: ruleInfo.Context,
-                            CustomRegEx: ruleInfo.CustomRegEx
+                            CustomRegEx: ruleInfo.CustomRegEx,
+                            BusinessUnit: ruleInfo.BusinessUnit
                         });
 
                         rule
@@ -1116,6 +1129,11 @@ var AddInboundRule = function(reqId, ruleInfo, companyId, tenantId, callback)
         {
             //allow opereation
 
+            if(!ruleInfo.BusinessUnit)
+            {
+                ruleInfo.BusinessUnit = null;
+            }
+
             if(!ruleInfo.Context || ruleInfo.Context.toUpperCase() === "ANY")
             {
                 ruleInfo.ContextRegExPattern = "ANY";
@@ -1146,7 +1164,8 @@ var AddInboundRule = function(reqId, ruleInfo, companyId, tenantId, callback)
                 ExtraData: ruleInfo.ExtraData,
                 Direction: ruleInfo.Direction,
                 Context: ruleInfo.Context,
-                CustomRegEx: ruleInfo.CustomRegEx
+                CustomRegEx: ruleInfo.CustomRegEx,
+                BusinessUnit: ruleInfo.BusinessUnit
             });
 
             rule
