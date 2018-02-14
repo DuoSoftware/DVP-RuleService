@@ -1,3 +1,4 @@
+'use strict';
 var restify = require('restify');
 var uuid = require('node-uuid');
 var messageFormatter = require('dvp-common/CommonMessageGenerator/ClientMessageJsonFormatter.js');
@@ -840,6 +841,45 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule', authorization({resource:"c
     {
         logger.error('[DVP-RuleService.AddInboundRule] - [%s] - Exception occurred', reqId, ex);
         var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, -1);
+        res.end(jsonString);
+    }
+
+    return next();
+
+});
+
+server.post('/DVP/API/:version/CallRuleApi/DefaultRule', function(req, res, next)
+{
+    var reqId = uuid.v1();
+    try
+    {
+        logger.debug('[DVP-RuleService.DefaultRule] - [%s] - HTTP Request Received', reqId);
+
+        var companyId = req.user.company;
+        var tenantId = req.user.tenant;
+
+        if (!companyId || !tenantId)
+        {
+            throw new Error("Invalid company or tenant");
+        }
+
+        ruleBackendHandler.AddDefaultRule(reqId, companyId, tenantId, function (err, result)
+        {
+            if (err)
+            {
+                let jsonString = messageFormatter.FormatMessage(err, "ERROR", false, result);
+                res.end(jsonString);
+            }
+            else
+            {
+                let jsonString = messageFormatter.FormatMessage(err, "SUCCESS", true, result);
+                res.end(jsonString);
+            }
+        });
+    }
+    catch(ex)
+    {
+        let jsonString = messageFormatter.FormatMessage(err, "SUCCESS", true, result);
         res.end(jsonString);
     }
 
