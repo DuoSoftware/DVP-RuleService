@@ -848,7 +848,7 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule', authorization({resource:"c
 
 });
 
-server.post('/DVP/API/:version/CallRuleApi/DefaultRule', function(req, res, next)
+server.post('/DVP/API/:version/CallRuleApi/DefaultRule', authorization({resource:"callrule", action:"write"}), function(req, res, next)
 {
     var reqId = uuid.v1();
     try
