@@ -47,6 +47,14 @@ module.exports = {
             "name":"SYS_REDIS_SENTINEL_NAME"
         }
 
+    },
+
+    "Services":
+    {
+
+        "httprogrammingapiHost": "SYS_HTTPROGRAMMINGAPI_HOST",
+        "httprogrammingapiPort": "SYS_HTTPROGRAMMINGAPI_PORT"
+
     }
 
 };
