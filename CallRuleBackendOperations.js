@@ -4,6 +4,8 @@ var transHandler = require('./TranslationHandler.js');
 var logger = require('dvp-common/LogHandler/CommonLogHandler.js').logger;
 var scheduleHandler = require('dvp-common/ScheduleValidator/ScheduleHandler.js');
 var redisCacheHandler = require('dvp-common/CSConfigRedisCaching/RedisHandler.js');
+var config = require('config');
+var validator = require('validator');
 
 var GetPhoneNumber = function(reqId, phoneNumber, companyId, tenantId, callback)
 {
@@ -1125,6 +1127,41 @@ var AddDefaultRule = function(reqId, companyId, tenantId, callback)
 {
     try
     {
+        var httApiHost = config.httprogrammingapiHost;
+        var httApiPort = config.httprogrammingapiPort;
+
+        var httpUrl = util.format('http://%s/', httApiHost);
+
+        if(validator.isIP(httApiHost))
+        {
+            httpUrl = util.format('http://%s:%s/', httApiHost, httApiPort);
+        }
+
+        var appHttApi = dbModel.Application
+            .build(
+            {
+                AppName: "HTTP Programming API Engine",
+                Description: "Use this as master app for your IVR rules",
+                Url: httpUrl,
+                ObjClass: "SYSTEM",
+                ObjType: "HTTAPI",
+                ObjCategory: null,
+                CompanyId: companyId,
+                TenantId: tenantId,
+                Availability: true,
+                OtherData: null
+            }
+        );
+        appHttApi.save().then(function (savedMasterApp)
+        {
+            logger.info('[DVP-RuleService.AddDefaultRule] - Added HTTAPI APP successfully')
+
+        }).catch(function(err)
+        {
+            logger.error('[DVP-RuleService.AddDefaultRule] - Error adding HTTAPI app', err);
+        });
+
+
         var app = dbModel.Application
             .build(
             {
