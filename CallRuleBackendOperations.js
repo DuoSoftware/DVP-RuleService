@@ -6,6 +6,7 @@ var scheduleHandler = require('dvp-common/ScheduleValidator/ScheduleHandler.js')
 var redisCacheHandler = require('dvp-common/CSConfigRedisCaching/RedisHandler.js');
 var config = require('config');
 var validator = require('validator');
+var util = require('util');
 
 var GetPhoneNumber = function(reqId, phoneNumber, companyId, tenantId, callback)
 {

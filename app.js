@@ -31,7 +31,6 @@ server.use(restify.bodyParser());
 server.use(jwt({secret: secret.Secret}));
 
 
-
 //server.get('/DVP/API/' + hostVersion + '/CallRule/GetCallRules/:companyId/:tenantId', function(req, res, next)
 server.get('/DVP/API/:version/CallRuleApi/CallRules', authorization({resource:"callrule", action:"read"}), function(req, res, next)
 {
