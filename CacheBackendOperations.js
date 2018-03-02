@@ -423,7 +423,8 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
                                     TrunkNumber : phnNumTrunkInfo.PhoneNumber,
                                     CompanyId : callRule.CompanyId,
                                     TenantId : callRule.TenantId,
-                                    CheckLimit : true
+                                    CheckLimit : true,
+                                    BusinessUnit: callRule.BusinessUnit
                                 };
 
                                 if(phnNumTrunkInfo.Trunk.LoadBalancerId)
