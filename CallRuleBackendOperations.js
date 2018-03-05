@@ -1128,8 +1128,8 @@ var AddDefaultRule = function(reqId, companyId, tenantId, callback)
 {
     try
     {
-        var httApiHost = config.httprogrammingapiHost;
-        var httApiPort = config.httprogrammingapiPort;
+        var httApiHost = config.Services.httprogrammingapiHost;
+        var httApiPort = config.Services.httprogrammingapiPort;
 
         var httpUrl = util.format('http://%s/', httApiHost);
 
