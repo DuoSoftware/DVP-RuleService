@@ -4,6 +4,9 @@ var transHandler = require('./TranslationHandler.js');
 var logger = require('dvp-common/LogHandler/CommonLogHandler.js').logger;
 var scheduleHandler = require('dvp-common/ScheduleValidator/ScheduleHandler.js');
 var redisCacheHandler = require('dvp-common/CSConfigRedisCaching/RedisHandler.js');
+var config = require('config');
+var validator = require('validator');
+var util = require('util');
 
 var GetPhoneNumber = function(reqId, phoneNumber, companyId, tenantId, callback)
 {
@@ -1121,6 +1124,111 @@ var AddOutboundRule = function(reqId, ruleInfo, companyId, tenantId, callback)
     }
 };
 
+var AddDefaultRule = function(reqId, companyId, tenantId, callback)
+{
+    try
+    {
+        var httApiHost = config.Services.httprogrammingapiHost;
+        var httApiPort = config.Services.httprogrammingapiPort;
+
+        var httpUrl = util.format('http://%s/', httApiHost);
+
+        if(validator.isIP(httApiHost))
+        {
+            httpUrl = util.format('http://%s:%s/', httApiHost, httApiPort);
+        }
+
+        var appHttApi = dbModel.Application
+            .build(
+            {
+                AppName: "HTTP Programming API Engine",
+                Description: "Use this as master app for your IVR rules",
+                Url: httpUrl,
+                ObjClass: "SYSTEM",
+                ObjType: "HTTAPI",
+                ObjCategory: null,
+                CompanyId: companyId,
+                TenantId: tenantId,
+                Availability: true,
+                OtherData: null
+            }
+        );
+        appHttApi.save().then(function (savedMasterApp)
+        {
+            logger.info('[DVP-RuleService.AddDefaultRule] - Added HTTAPI APP successfully')
+
+        }).catch(function(err)
+        {
+            logger.error('[DVP-RuleService.AddDefaultRule] - Error adding HTTAPI app', err);
+        });
+
+
+        var app = dbModel.Application
+            .build(
+            {
+                AppName: "Default Extended App",
+                Description: "Default App For Outbound Dialing",
+                Url: null,
+                ObjClass: "SYSTEM",
+                ObjType: "EXTENDED",
+                ObjCategory: null,
+                CompanyId: companyId,
+                TenantId: tenantId,
+                Availability: true,
+                OtherData: null
+            }
+        );
+        app.save().then(function (savedApp)
+        {
+            redisCacheHandler.addApplicationToCompanyObj(savedApp, tenantId, companyId);
+
+            var rule = dbModel.CallRule
+                .build(
+                {
+                    CallRuleDescription: "Default Extended Rule",
+                    ObjClass: 'DVP',
+                    ObjType: 'CALLRULE',
+                    ObjCategory: 'CALL',
+                    Enable: true,
+                    CompanyId: companyId,
+                    TenantId: tenantId,
+                    DNISRegEx: '[^\\s]*',
+                    ANIRegEx: '[^\\s]*',
+                    RegExPattern: 'ANY',
+                    ANIRegExPattern: 'ANY',
+                    Priority: 1,
+                    ContextRegEx: '^' + tenantId + '_' + companyId + '_CONTEXT$',
+                    Context: tenantId + '_' + companyId + '_CONTEXT',
+                    Direction: 'INBOUND',
+                    AppId: savedApp.id
+                }
+            );
+            rule.save().then(function (savedRule)
+            {
+                redisCacheHandler.addCallRuleToCompanyObj(savedRule, tenantId, companyId);
+                logger.info('[DVP-RuleService.AddDefaultRule] - Default rule added successfully');
+                callback(null, savedRule);
+
+            }).catch(function(err)
+            {
+                logger.error('[DVP-RuleService.AddDefaultRule] - Error adding default rule', err);
+                callback(err, null);
+            });
+
+        }).catch(function(err)
+        {
+            logger.error('[DVP-RuleService.AddDefaultRule] - Error adding default app', err);
+            callback(err, null);
+        });
+
+    }
+    catch(exception)
+    {
+        logger.error('[DVP-RuleService.AddDefaultRule] - Error adding default rule', exception);
+        callback(exception, null);
+    }
+};
+
 var AddInboundRule = function(reqId, ruleInfo, companyId, tenantId, callback)
 {
     try
@@ -1632,3 +1740,4 @@ module.exports.GetCallRulesByDirection = GetCallRulesByDirection;
 module.exports.SetCallRuleANITranslation = SetCallRuleANITranslation;
 module.exports.UpdateRule = UpdateRule;
 module.exports.DeleteTranslation = DeleteTranslation;
+module.exports.AddDefaultRule = AddDefaultRule;

@@ -40,6 +40,13 @@ module.exports = {
     }
   },
 
+  "Services":
+  {
+    "httprogrammingapiHost": "httpprogrammingapi.app.veery.cloud",
+    "httprogrammingapiPort": 9999
+
+  },
+
   "Host":{
     "Ip":"0.0.0.0",
     "Port":"8816",
