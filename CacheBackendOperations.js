@@ -5,7 +5,7 @@ var underscore = require('underscore');
 var redisHandler = require('./RedisHandler.js');
 var scheduleHandler = require('dvp-common/ScheduleValidator/ScheduleHandler.js');
 
-var PickCallRuleInbound = function(reqId, aniNum, dnisNum, extraData, domain, context, category, companyId, tenantId, data, callback)
+var PickCallRuleInbound = function(reqId, aniNum, dnisNum, extraData, domain, context, category, companyId, tenantId, data, dodNumber, callback)
 {
     try
     {
