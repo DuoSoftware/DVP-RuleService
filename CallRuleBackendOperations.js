@@ -124,7 +124,7 @@ var GetCallRuleById = function(reqId, ruleId, companyId, tenantId, callback)
     }
 };
 
-var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, data, callback)
+var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, data, dodNumber, callback)
 {
     try
     {
@@ -136,7 +136,14 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
             }
             else if(callRule)
             {
-                dbModel.TrunkPhoneNumber.find({where: [{PhoneNumber: callRule.TrunkNumber}, {TenantId: tenantId}, {CompanyId: companyId}], include: [{model: dbModel.LimitInfo, as: 'LimitInfoOutbound'},{model: dbModel.LimitInfo, as: 'LimitInfoBoth'},{model: dbModel.Trunk, as: 'Trunk', include: [{model: dbModel.Translation, as: "Translation"}, {model: dbModel.TrunkOperator, as: "TrunkOperator"}]}]})
+                var tempTrNumber = callRule.TrunkNumber;
+
+                if(dodNumber)
+                {
+                    tempTrNumber = dodNumber;
+                }
+
+                dbModel.TrunkPhoneNumber.find({where: [{PhoneNumber: tempTrNumber}, {TenantId: tenantId}, {CompanyId: companyId}], include: [{model: dbModel.LimitInfo, as: 'LimitInfoOutbound'},{model: dbModel.LimitInfo, as: 'LimitInfoBoth'},{model: dbModel.Trunk, as: 'Trunk', include: [{model: dbModel.Translation, as: "Translation"}, {model: dbModel.TrunkOperator, as: "TrunkOperator"}]}]})
                     .then(function (phnNumTrunkInfo)
                     {
                         if(phnNumTrunkInfo)
@@ -150,7 +157,7 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
 
                                 if(phnNumTrunkInfo.Trunk)
                                 {
-                                    var tempOrigination = callRule.TrunkNumber;
+                                    var tempOrigination = tempTrNumber;
                                     var tempDestination = dnisNum;
 
                                     if(callRule.Translation)

@@ -313,7 +313,7 @@ var PickCallRuleInboundByCat = function(reqId, aniNum, dnisNum, domain, context,
     }
 };
 
-var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, data, callback)
+var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, data, dodNumber, callback)
 {
     try
     {
