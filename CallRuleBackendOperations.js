@@ -134,10 +134,7 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
             else if(callRule)
             {
                 var tempTrNumber = callRule.TrunkNumber;
-                if(dodNumber)
-                {
-                    tempTrNumber = dodNumber;
-                }
+
                 dbModel.TrunkPhoneNumber.find({where: [{PhoneNumber: tempTrNumber}, {TenantId: tenantId}, {CompanyId: companyId}], include: [{model: dbModel.LimitInfo, as: 'LimitInfoOutbound'},{model: dbModel.LimitInfo, as: 'LimitInfoBoth'},{model: dbModel.Trunk, as: 'Trunk', include: [{model: dbModel.Translation, as: "Translation"}, {model: dbModel.TrunkOperator, as: "TrunkOperator"}]}]})
                     .then(function (phnNumTrunkInfo)
                     {
@@ -152,6 +149,10 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
 
                                 if(phnNumTrunkInfo.Trunk)
                                 {
+                                    if(dodNumber)
+                                    {
+                                        tempTrNumber = dodNumber;
+                                    }
                                     var tempOrigination = tempTrNumber;
                                     var tempDestination = dnisNum;
 
