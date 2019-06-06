@@ -398,7 +398,7 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetAvailability/:enabled
 
         if (id)
         {
-            ruleBackendHandler.SetCallRuleAvailability(reqId, id, enabled, companyId, tenantId, function (err, result)
+            ruleBackendHandler.SetCallRuleAvailability(reqId, id, enabled, companyId, tenantId, req.user.iss,function (err, result)
             {
 
                 if (err)
@@ -454,7 +454,7 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetPriority/:priority', 
         }
         if (id)
         {
-            ruleBackendHandler.SetCallRulePriority(reqId, id, priority, companyId, tenantId, function (err, result)
+            ruleBackendHandler.SetCallRulePriority(reqId, id, priority, companyId, tenantId, req.user.iss,function (err, result)
             {
 
                 if (err)
@@ -565,7 +565,7 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetDNISTranslation/:tran
 
         if (id)
         {
-            ruleBackendHandler.SetCallRuleTranslation(reqId, id, transId, companyId, tenantId, function (err, result)
+            ruleBackendHandler.SetCallRuleTranslation(reqId, id, transId, companyId, tenantId, req.user.iss,function (err, result)
             {
 
                 if (err)
@@ -620,7 +620,7 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule/:id/SetANITranslation/:trans
 
         if (id)
         {
-            ruleBackendHandler.SetCallRuleANITranslation(reqId, id, transId, companyId, tenantId, function (err, result)
+            ruleBackendHandler.SetCallRuleANITranslation(reqId, id, transId, companyId, tenantId, req.user.iss,function (err, result)
             {
 
                 if (err)
@@ -674,7 +674,7 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule/:ruleId/SetApplication/:appI
 
         if(id && appId)
         {
-            ruleBackendHandler.SetCallRuleAppDB(reqId, id, appId, companyId, tenantId, function(err, result){
+            ruleBackendHandler.SetCallRuleAppDB(reqId, id, appId, companyId, tenantId, req.user.iss,function(err, result){
 
                 if(err)
                 {
@@ -730,7 +730,7 @@ server.put('/DVP/API/:version/CallRuleApi/CallRule/:ruleId', authorization({reso
         if(reqBody)
         {
 
-            ruleBackendHandler.UpdateRule(reqId, ruleId, reqBody, companyId, tenantId, function(err, updateResult)
+            ruleBackendHandler.UpdateRule(reqId, ruleId, reqBody, companyId, tenantId, req.user.iss, function(err, updateResult)
             {
                 if(err || !updateResult)
                 {
@@ -794,7 +794,7 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule', authorization({resource:"c
         {
             if(ruleInfo.Direction == 'INBOUND')
             {
-                ruleBackendHandler.AddInboundRule(reqId, ruleInfo, companyId, tenantId, function(err, recordId, result)
+                ruleBackendHandler.AddInboundRule(reqId, ruleInfo, companyId, tenantId, req.user.iss, function(err, recordId, result)
                 {
                     if(err)
                     {
@@ -812,7 +812,7 @@ server.post('/DVP/API/:version/CallRuleApi/CallRule', authorization({resource:"c
             }
             else
             {
-                ruleBackendHandler.AddOutboundRule(reqId, ruleInfo, companyId, tenantId, function(err, recordId, result)
+                ruleBackendHandler.AddOutboundRule(reqId, ruleInfo, companyId, tenantId, req.user.iss, function(err, recordId, result)
                 {
 
                     if(err)
@@ -862,23 +862,23 @@ server.post('/DVP/API/:version/CallRuleApi/DefaultRule', authorization({resource
             throw new Error("Invalid company or tenant");
         }
 
-        ruleBackendHandler.AddDefaultRule(reqId, companyId, tenantId, function (err, result)
+        ruleBackendHandler.AddDefaultRule(reqId, companyId, tenantId, req.user.iss, function (err, result)
         {
             if (err)
             {
-                let jsonString = messageFormatter.FormatMessage(err, "ERROR", false, result);
+                var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, result);
                 res.end(jsonString);
             }
             else
             {
-                let jsonString = messageFormatter.FormatMessage(err, "SUCCESS", true, result);
+                var jsonString = messageFormatter.FormatMessage(err, "SUCCESS", true, result);
                 res.end(jsonString);
             }
         });
     }
     catch(ex)
     {
-        let jsonString = messageFormatter.FormatMessage(err, "SUCCESS", true, result);
+        var jsonString = messageFormatter.FormatMessage(err, "SUCCESS", true, result);
         res.end(jsonString);
     }
 
@@ -907,7 +907,7 @@ server.del('/DVP/API/:version/CallRuleApi/CallRule/:id', authorization({resource
 
         if(intId != NaN)
         {
-            ruleBackendHandler.DeleteCallRule(reqId, id, companyId, tenantId, function(err, result)
+            ruleBackendHandler.DeleteCallRule(reqId, id, companyId, tenantId, req.user.iss, function(err, result)
             {
 
                 if(err)
@@ -960,7 +960,7 @@ server.del('/DVP/API/:version/CallRuleApi/Translation/:id', authorization({resou
 
         if(intId != NaN)
         {
-            ruleBackendHandler.DeleteTranslation(reqId, id, companyId, tenantId, function(err, result){
+            ruleBackendHandler.DeleteTranslation(reqId, id, companyId, tenantId, req.user.iss, function(err, result){
 
                 if(err)
                 {
