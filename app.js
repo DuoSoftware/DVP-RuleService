@@ -167,6 +167,54 @@ server.get('/DVP/API/:version/CallRuleApi/CallRule/:id', authorization({resource
 
 });
 
+server.get('/DVP/API/:version/CallRuleApi/CallRule/Outbound/ANI/:ani/DNIS/:dnis/BusinessUnit/:bUnit', authorization({resource:"callrule", action:"read"}), function(req, res, next)
+{
+    var reqId = uuid.v1();
+    try
+    {
+        var ani = req.params.ani;
+        var dnis = req.params.dnis;
+        var bUnit = req.params.bUnit;
+
+        logger.debug('[DVP-RuleService.PickOutboundRule] - [%s] - HTTP Request Received - Req Params : ani : %s, dnis : %s', reqId, ani, dnis);
+
+        var companyId = req.user.company;
+        var tenantId = req.user.tenant;
+
+        if(!companyId || !tenantId)
+        {
+            throw new Error("Invalid company or tenant");
+        }
+
+        ruleBackendHandler.PickCallRuleOutboundCompleteByBU(reqId, ani, dnis, '', '', companyId, tenantId, false, null, null, bUnit, function (err, result)
+        {
+            if (err)
+            {
+                logger.error('[DVP-RuleService.PickOutboundRule] - [%s] - Exception occurred on method GetCallRuleById', reqId, err);
+                var jsonString = messageFormatter.FormatMessage(err, "ERROR", false, result);
+                res.end(jsonString);
+            }
+            else
+            {
+                logger.debug('[DVP-RuleService.PickOutboundRule] - [%s] - Get call rule by id success - Returned : %j', reqId, result);
+                var jsonString = messageFormatter.FormatMessage(err, "Get call rule success", true, result);
+                res.end(jsonString);
+            }
+        });
+
+
+    }
+    catch(ex)
+    {
+        logger.error(format('[DVP-RuleService.PickOutboundRule] - [%s] - Exception occurred', reqId), ex);
+        var jsonString = messageFormatter.FormatMessage(ex, "ERROR", false, undefined);
+        res.end(jsonString);
+    }
+
+    return next();
+
+});
+
 server.get('/DVP/API/:version/CallRuleApi/CallRule/Outbound/ANI/:ani/DNIS/:dnis', authorization({resource:"callrule", action:"read"}), function(req, res, next)
 {
     var reqId = uuid.v1();
