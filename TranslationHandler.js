@@ -1,12 +1,44 @@
 var DbConn = require('dvp-dbmodels');
 
-function TranslateHandler(obj, Tstring)
+function isObject(obj)
+{
+    return obj != null && obj.constructor.name === "Object"
+}
+
+
+function TranslateHandler(obj, Tstring, original)
 {
     try
     {
         if(Tstring!=null)
         {
             var Rep=Replace(Tstring,obj.Replace);
+
+            if(obj.Replace && isObject(original) && original[obj.Replace]) {
+
+                Rep = original[obj.Replace];
+                // switch(obj.Replace){
+                //
+                //     // case '$ORIGINAL':
+                //     //     if(original.type && original.type === 'ani') {
+                //     //         Rep = original.originalANI;
+                //     //     }
+                //     //     if(original.type && original.type === 'dnis') {
+                //     //         Rep = original.originalDNIS;
+                //     //     }
+                //     //     break;
+                //     // case '$CLIENT':
+                //     //     if(original.type && original.type === 'ani') {
+                //     //         Rep = original.clientANI;
+                //     //     }
+                //     //     if(original.type && original.type === 'dnis') {
+                //     //         Rep = original.clientDNIS;
+                //     //     }
+                //     //     break;
+                //     // default:
+                //     //     break;
+                // }
+            }
 
             var ghostNumArray = [];
 
@@ -21,9 +53,6 @@ function TranslateHandler(obj, Tstring)
             var Rrem=RRemove(Lrem,obj.RRemove);
             var Ladd=LAdd(Rrem,obj.LAdd);
             var Radd=RAdd(Ladd,obj.RAdd);
-
-
-
 
             return Radd;
 

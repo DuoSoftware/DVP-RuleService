@@ -313,7 +313,7 @@ var PickCallRuleInboundByCat = function(reqId, aniNum, dnisNum, domain, context,
     }
 };
 
-var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, data, dodNumber, callback)
+var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, data, dodNumber, callback, original)
 {
     try
     {
@@ -397,17 +397,17 @@ var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, cont
                                 if(callRule.Translation)
                                 {
                                     //Translate ANI And DNIS
-                                    tempDestination = transHandler.TranslateHandler(callRule.Translation, tempDestination);
+                                    tempDestination = transHandler.TranslateHandler(callRule.Translation, tempDestination, original);
                                 }
                                 if(callRule.ANITranslation)
                                 {
                                     //Translate ANI And DNIS
-                                    tempOrigination = transHandler.TranslateHandler(callRule.ANITranslation, tempOrigination);
+                                    tempOrigination = transHandler.TranslateHandler(callRule.ANITranslation, tempOrigination, original);
                                 }
 
                                 if(phnNumTrunkInfo.Trunk && phnNumTrunkInfo.Trunk.Translation)
                                 {
-                                    tempOrigination = transHandler.TranslateHandler(phnNumTrunkInfo.Trunk.Translation, tempOrigination);
+                                    tempOrigination = transHandler.TranslateHandler(phnNumTrunkInfo.Trunk.Translation, tempOrigination, original);
                                 }
 
                                 var outrule =

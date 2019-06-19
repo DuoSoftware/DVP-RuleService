@@ -1,6 +1,6 @@
 {
   "name": "dvp-ruleservice",
-  "version": "2.3.50",
+  "version": "2.4.2",
   "description": "DVP-RuleService\r ===============",
   "main": "app.js",
   "dependencies": {
