@@ -156,7 +156,132 @@ var GetCallRuleById = function(reqId, ruleId, companyId, tenantId, callback)
     }
 };
 
-var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, data, dodNumber, /*originalContacts,*/ callback, original)
+var PickCallRuleOutboundCompleteByBU = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, data, dodNumber, businessUnit, callback)
+{
+    try
+    {
+        PickCallRuleOutboundByBusinessUnit(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, data, businessUnit, function(err, callRule)
+        {
+            if(err)
+            {
+                callback(err, undefined);
+            }
+            else if(callRule)
+            {
+                var tempTrNumber = callRule.TrunkNumber;
+
+                if(dodNumber)
+                {
+                    tempTrNumber = dodNumber;
+                }
+
+                dbModel.TrunkPhoneNumber.find({where: [{PhoneNumber: tempTrNumber}, {TenantId: tenantId}, {CompanyId: companyId}], include: [{model: dbModel.LimitInfo, as: 'LimitInfoOutbound'},{model: dbModel.LimitInfo, as: 'LimitInfoBoth'},{model: dbModel.Trunk, as: 'Trunk', include: [{model: dbModel.Translation, as: "Translation"}, {model: dbModel.TrunkOperator, as: "TrunkOperator"}]}]})
+                    .then(function (phnNumTrunkInfo)
+                    {
+                        if(phnNumTrunkInfo)
+                        {
+                            var phnNumType = phnNumTrunkInfo.ObjCategory;
+
+                            if(phnNumType === 'OUTBOUND' || phnNumType === 'BOTH')
+                            {
+                                var outLimit = undefined;
+                                var bothLimit = undefined;
+
+                                if(phnNumTrunkInfo.Trunk)
+                                {
+                                    var tempOrigination = tempTrNumber;
+                                    var tempDestination = dnisNum;
+
+                                    if(callRule.Translation)
+                                    {
+                                        //Translate ANI And DNIS
+                                        tempDestination = transHandler.TranslateHandler(callRule.Translation, tempDestination);
+                                    }
+                                    if(callRule.ANITranslation)
+                                    {
+                                        //Translate ANI And DNIS
+                                        tempOrigination = transHandler.TranslateHandler(callRule.ANITranslation, tempOrigination);
+                                    }
+
+                                    if(phnNumTrunkInfo.Trunk && phnNumTrunkInfo.Trunk.Translation)
+                                    {
+                                        tempOrigination = transHandler.TranslateHandler(phnNumTrunkInfo.Trunk.Translation, tempOrigination);
+                                    }
+
+                                    var outrule =
+                                        {
+                                            DNIS : tempDestination,
+                                            ANI : tempOrigination,
+                                            GatewayCode : phnNumTrunkInfo.Trunk.TrunkCode,
+                                            IpUrl : phnNumTrunkInfo.Trunk.IpUrl,
+                                            Timeout : callRule.Timeout,
+                                            OutLimit : phnNumTrunkInfo.LimitInfoOutbound,
+                                            BothLimit : phnNumTrunkInfo.LimitInfoBoth,
+                                            NumberType : phnNumType,
+                                            TrunkNumber : phnNumTrunkInfo.PhoneNumber,
+                                            CompanyId : callRule.CompanyId,
+                                            TenantId : callRule.TenantId,
+                                            CheckLimit : true,
+                                            Codecs: phnNumTrunkInfo.Trunk.Codecs,
+                                            BusinessUnit: callRule.BusinessUnit
+                                        };
+
+                                    if(phnNumTrunkInfo.Trunk.TrunkOperator)
+                                    {
+                                        outrule.Operator = phnNumTrunkInfo.Trunk.TrunkOperator.OperatorCode;
+                                    }
+
+                                    if(phnNumTrunkInfo.Trunk.LoadBalancerId)
+                                    {
+                                        outrule.CheckLimit = false;
+                                    }
+
+                                    callback(undefined, outrule);
+
+                                }
+                                else
+                                {
+                                    logger.error('[DVP-RuleService.PickCallRuleOutboundComplete] - No trunk found');
+                                    callback(new Error('No trunk found'), undefined);
+                                }
+                            }
+                            else
+                            {
+                                logger.error('[DVP-RuleService.PickCallRuleOutboundComplete] - phone number is not tagged as an outbound number');
+                                callback(new Error('phone number is not tagged as an outbound number'), undefined);
+                            }
+
+                        }
+                        else
+                        {
+                            logger.error('[DVP-RuleService.PickCallRuleOutboundComplete] - Phone number trunk info not found');
+                            callback(new Error('Phone number trunk info not found'), undefined);
+                        }
+
+                    }).catch(function(err)
+                {
+                    logger.error('[DVP-RuleService.PickCallRuleOutboundComplete] PGSQL Get trunk and phone number query failed', err);
+                    callback(err, undefined);
+                });
+
+            }
+            else
+            {
+                logger.error('[DVP-RuleService.PickCallRuleOutboundComplete] - Call rule not found');
+                callback(new Error('Call rule not found'), undefined);
+            }
+
+        });
+
+    }
+    catch(ex)
+    {
+        logger.error('[DVP-RuleService.PickCallRuleOutboundComplete] Unhandled Error occurred', ex);
+        callback(ex, undefined);
+    }
+};
+
+var PickCallRuleOutboundComplete = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, data, dodNumber, callback)
 {
     try
     {
@@ -595,6 +720,109 @@ var PickCallRuleOutbound = function(reqId, aniNum, dnisNum, domain, context, com
                 logger.error('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get outbound rules query failed', err);
                 callback(err, undefined);
             })
+    }
+    catch(ex)
+    {
+        callback(ex, undefined);
+    }
+};
+
+var PickCallRuleOutboundByBusinessUnit = function(reqId, aniNum, dnisNum, domain, context, companyId, tenantId, matchContext, data, businessUnit, callback)
+{
+    try
+    {
+        var query = [{CompanyId: companyId},{TenantId: tenantId},{Enable: true}, {Direction: 'OUTBOUND'}, {ObjCategory: 'CALL'}];
+
+        if(businessUnit)
+        {
+            query.push({BusinessUnit: businessUnit});
+        }
+        dbModel.CallRule
+            .findAll({where :query, order: ['Priority']})
+            .then(function (crList)
+            {
+
+                logger.info('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get outbound rules query success');
+                var callRulePicked = undefined;
+
+                try
+                {
+                    var crCount = crList.length;
+
+                    for (i = 0; i < crCount; i++)
+                    {
+                        if(crList[i].DNISRegEx && crList[i].ANIRegEx)
+                        {
+                            var dnisRegExPattern = new RegExp(crList[i].DNISRegEx);
+                            var aniRegExPattern = new RegExp(crList[i].ANIRegEx);
+                            var contextRegEx = undefined;
+                            if(matchContext)
+                            {
+                                if(crList[i].ContextRegEx)
+                                {
+                                    contextRegEx = new RegExp(crList[i].ContextRegEx);
+
+                                    if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum) && contextRegEx.test(context))
+                                    {
+                                        //pick call rule and break op
+                                        callRulePicked = crList[i];
+                                        break;
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                if(dnisRegExPattern.test(dnisNum) && aniRegExPattern.test(aniNum))
+                                {
+                                    //pick call rule and break op
+                                    callRulePicked = crList[i];
+                                    break;
+                                }
+                            }
+
+
+                        }
+                    }
+
+                    if(callRulePicked)
+                    {
+                        //get application, get schedule, get translations
+                        dbModel.CallRule
+                            .find({where :[{id: callRulePicked.id}], include: [{model: dbModel.Schedule, as: "Schedule", include: [{ model: dbModel.Appointment, as: "Appointment"}]}, {model: dbModel.Translation, as: "Translation"},{model: dbModel.Translation, as: "ANITranslation"}, {model: dbModel.TrunkPhoneNumber, as: "TrunkPhoneNumber"}]})
+                            .then(function (crInfo)
+                            {
+                                logger.info('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get schedules translations for outbound rule query success');
+
+                                callback(undefined, crInfo);
+
+                            }).catch(function(err)
+                        {
+                            logger.error('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get schedules translations for outbound rule query failed', err);
+                            callback(err, undefined);
+                        });
+
+                    }
+                    else
+                    {
+                        callback(new Error('No matching outbound rules found for reg ex'), undefined);
+                    }
+
+
+
+                }
+                catch(ex)
+                {
+                    callback(ex, undefined);
+                }
+
+
+
+            }).catch(function(err)
+        {
+            logger.error('[DVP-RuleService.PickCallRuleOutbound] PGSQL Get outbound rules query failed', err);
+            callback(err, undefined);
+        })
     }
     catch(ex)
     {
@@ -1919,3 +2147,4 @@ module.exports.SetCallRuleANITranslation = SetCallRuleANITranslation;
 module.exports.UpdateRule = UpdateRule;
 module.exports.DeleteTranslation = DeleteTranslation;
 module.exports.AddDefaultRule = AddDefaultRule;
+module.exports.PickCallRuleOutboundCompleteByBU = PickCallRuleOutboundCompleteByBU;
