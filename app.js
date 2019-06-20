@@ -167,7 +167,7 @@ server.get('/DVP/API/:version/CallRuleApi/CallRule/:id', authorization({resource
 
 });
 
-server.get('/DVP/API/:version/CallRuleApi/CallRule/Outbound/ANI/:ani/DNIS/:dnis/BusinessUnit/:bUnit', authorization({resource:"callrule", action:"read"}), function(req, res, next)
+server.get('/DVP/API/:version/CallRuleApi/CallRule/Outbound/ANI/:ani/DNIS/:dnis/Context/:context/BusinessUnit/:bUnit', authorization({resource:"callrule", action:"read"}), function(req, res, next)
 {
     var reqId = uuid.v1();
     try
@@ -175,6 +175,7 @@ server.get('/DVP/API/:version/CallRuleApi/CallRule/Outbound/ANI/:ani/DNIS/:dnis/
         var ani = req.params.ani;
         var dnis = req.params.dnis;
         var bUnit = req.params.bUnit;
+        var context = req.parms.context;
 
         logger.debug('[DVP-RuleService.PickOutboundRuleByBU] - [%s] - HTTP Request Received - Req Params : ani : %s, dnis : %s bUnit : %s', reqId, ani, dnis, bUnit);
 
@@ -186,7 +187,7 @@ server.get('/DVP/API/:version/CallRuleApi/CallRule/Outbound/ANI/:ani/DNIS/:dnis/
             throw new Error("Invalid company or tenant");
         }
 
-        ruleBackendHandler.PickCallRuleOutboundCompleteByBU(reqId, ani, dnis, '', '', companyId, tenantId, false, null, null, bUnit, function (err, result)
+        ruleBackendHandler.PickCallRuleOutboundCompleteByBU(reqId, ani, dnis, '', context, companyId, tenantId, true, null, null, bUnit, function (err, result)
         {
             if (err)
             {
