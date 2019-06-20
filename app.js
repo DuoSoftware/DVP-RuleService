@@ -167,15 +167,15 @@ server.get('/DVP/API/:version/CallRuleApi/CallRule/:id', authorization({resource
 
 });
 
-server.get('/DVP/API/:version/CallRuleApi/CallRule/Outbound/ANI/:ani/DNIS/:dnis/Context/:context/BusinessUnit/:bUnit', authorization({resource:"callrule", action:"read"}), function(req, res, next)
+server.get('/DVP/API/:version/CallRuleApi/CallRule/Outbound/ANI/:ani/DNIS/:dnis/ByBU', authorization({resource:"callrule", action:"read"}), function(req, res, next)
 {
     var reqId = uuid.v1();
     try
     {
         var ani = req.params.ani;
         var dnis = req.params.dnis;
-        var bUnit = req.params.bUnit;
-        var context = req.parms.context;
+        var bUnit = req.query.BusinessUnit;
+        var context = req.query.Context;
 
         logger.debug('[DVP-RuleService.PickOutboundRuleByBU] - [%s] - HTTP Request Received - Req Params : ani : %s, dnis : %s bUnit : %s', reqId, ani, dnis, bUnit);
 
