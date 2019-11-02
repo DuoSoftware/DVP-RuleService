@@ -10,7 +10,7 @@
     "ioredis": "^3.1.1",
     "node-uuid": "^1.4.3",
     "redis": "^2.6.2",
-    "restify": "^3.0.3",
+    "restify": "^4.3.4",
     "restify-jwt": "^0.4.0",
     "stringformat": "^0.0.5",
     "stringify": "^3.1.0",
