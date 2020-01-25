@@ -9,7 +9,7 @@
 
 
 FROM node:10-alpine
-WORKDIR /usr/src/ruleservice
+WORKDIR /usr/local/src/ruleservice
 COPY package*.json ./
 RUN npm install
 COPY . .
