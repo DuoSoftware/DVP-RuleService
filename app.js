@@ -1,5 +1,6 @@
 'use strict';
 var restify = require('restify');
+var dbModel = require('dvp-dbmodels');
 var uuid = require('node-uuid');
 var messageFormatter = require('dvp-common/CommonMessageGenerator/ClientMessageJsonFormatter.js');
 var logger = require('dvp-common/LogHandler/CommonLogHandler.js').logger;
@@ -15,6 +16,7 @@ var hostVersion = config.Host.Version;
 
 var ruleBackendHandler = require('./CallRuleBackendOperations.js');
 var transBackendHandler = require('./TranslationBackendOperations.js');
+var healthcheck = require('dvp-healthcheck/DBHealthChecker');
 
 process.on("uncaughtException", function(err) {
   console.error(err);
@@ -39,8 +41,10 @@ server.use(restify.fullResponse());
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
-server.use(jwt({secret: secret.Secret}));
+server.use(jwt({secret: secret.Secret}).unless({path: ['/healthcheck']}));
 
+var hc = new healthcheck(server, { pg: dbModel.SequelizeConn});
+hc.Initiate()
 
 //server.get('/DVP/API/' + hostVersion + '/CallRule/GetCallRules/:companyId/:tenantId', function(req, res, next)
 server.get('/DVP/API/:version/CallRuleApi/CallRules', authorization({resource:"callrule", action:"read"}), function(req, res, next)
