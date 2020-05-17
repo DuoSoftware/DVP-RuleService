@@ -1415,7 +1415,7 @@ var AddDefaultRule = function(reqId, companyId, tenantId, iss, callback)
 
         var httpUrl = util.format('http://%s/', httApiHost);
 
-        if(validator.isIP(httApiHost))
+        if(config.Services.dynamicPort || validator.isIP(httApiHost))
         {
             httpUrl = util.format('http://%s:%s/', httApiHost, httApiPort);
         }
