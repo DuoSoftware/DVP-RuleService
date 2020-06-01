@@ -1,5 +1,5 @@
 var DbConn = require('dvp-dbmodels');
-var logger = require('dvp-common/LogHandler/CommonLogHandler.js').logger;
+var logger = require('dvp-common-lite/LogHandler/CommonLogHandler.js').logger;
 var redisCacheHandler = require('dvp-common/CSConfigRedisCaching/RedisHandler.js');
 
 function AddNewTranslation(reqId, transObj, companyId, tenantId, callback)
