@@ -44,7 +44,7 @@ module.exports = {
         {
             "httprogrammingapiHost": "httpprogrammingapi.app.veery.cloud",
             "httprogrammingapiPort": 9999,
-            "dynamicPort" : false
+            "dynamicPort" : true
 
         },
 
