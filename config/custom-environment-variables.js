@@ -4,6 +4,8 @@
 
 module.exports = {
 
+    "EmailSendMethod": "SYS_EMAIL_SEND_METHOD",
+
     "DB": {
         "Type":"SYS_DATABASE_TYPE",
         "User":"SYS_DATABASE_POSTGRES_USER",
@@ -13,9 +15,12 @@ module.exports = {
         "Database":"SYS_DATABASE_NAME"
     },
 
-    "Host":{
+    "Host": {
         "Port":"HOST_RULESERVICE_PORT",
-        "Version":"HOST_VERSION"
+        "Version":"HOST_VERSION",
+        "emailQueueName":"SYS_EMAIL_QUEUE_NAME",
+        "smsQueueName": "SYS_SMS_QUEUE_NAME",
+        "defaultMailHost": "SYS_DEFAULT_MAIL_HOST",
     },
 
     "Redis":
@@ -30,6 +35,43 @@ module.exports = {
             "port":"SYS_REDIS_SENTINEL_PORT",
             "name":"SYS_REDIS_SENTINEL_NAME"
         }
+
+    },
+
+    "LBServer": {
+        "ip": "LB_FRONTEND",
+        "port": "LB_PORT"
+    },
+
+    "SMSServer": {
+        "ip": "SYS_SMSSERVER_HOST",
+        "port": "SYS_SMSSERVER_PORT",
+        "password": "SYS_SMSSERVER_PASSWORD",
+        "user": "SYS_SMSSERVER_USER",
+    },
+
+    "SMTP": {
+        "ip": "SYS_SMTP_HOST",
+        "port": "SYS_SMTP_PORT",
+        "user": "SYS_SMTP_USER",
+        "password": "SYS_SMTP_PASSWORD"
+    },
+
+    "RabbitMQ": {
+        "ip": "SYS_RABBITMQ_HOST",
+        "port": "SYS_RABBITMQ_PORT",
+        "user": "SYS_RABBITMQ_USER",
+        "password": "SYS_RABBITMQ_PASSWORD",
+        "vhost": "SYS_RABBITMQ_VHOST"
+    },
+
+    "Mongo": {
+        "ip": "SYS_MONGO_HOST",
+        "port": "SYS_MONGO_PORT",
+        "dbname": "SYS_MONGO_DB",
+        "password": "SYS_MONGO_PASSWORD",
+        "user": "SYS_MONGO_USER",
+        "type": "SYS_MONGO_TYPE"
 
     },
 
@@ -52,8 +94,34 @@ module.exports = {
     "Services":
     {
 
+        "accessToken": "HOST_TOKEN",
+
+        "resourceServiceHost": "SYS_RESOURCESERVICE_HOST",
+        "resourceServicePort": "SYS_RESOURCESERVICE_PORT",
+        "resourceServiceVersion": "SYS_RESOURCESERVICE_VERSION",
+
+        "uploadurl": "SYS_FILESERVICE_HOST",
+        "uploadport":"SYS_FILESERVICE_PORT",
+        "uploadurlVersion":"SYS_FILESERVICE_VERSION",
+
+        "interactionurl": "SYS_INTERACTIONS_HOST",
+        "interactionport": "SYS_INTERACTIONS_PORT",
+        "interactionversion":"SYS_INTERACTIONS_VERSION",
+
+
+        "cronurl": "SYS_SCHEDULEWORKER_HOST",
+        "cronport": "SYS_SCHEDULEWORKER_PORT",
+        "cronversion":"SYS_SCHEDULEWORKER_VERSION",
+
+
+        "ticketServiceHost": "SYS_LITETICKET_HOST",
+        "ticketServicePort":  "SYS_LITETICKET_PORT",
+        "ticketServiceVersion":  "SYS_LITETICKET_VERSION",
+
         "httprogrammingapiHost": "SYS_HTTPROGRAMMINGAPI_HOST",
         "httprogrammingapiPort": "SYS_HTTPROGRAMMINGAPI_PORT"
+
+
 
     }
 
